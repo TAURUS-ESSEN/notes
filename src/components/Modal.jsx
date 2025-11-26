@@ -1,0 +1,31 @@
+import {useEffect} from 'react';
+import {createPortal} from 'react-dom';
+import styles from './modal.module.css'
+
+
+export default function Modal({title, children, closeModal}) {
+    const modalRoot = document.getElementById('root-modal')
+
+    useEffect(()=>{
+        const prev = document.body.style.overflow;
+        document.body.style.overflow = 'hidden';
+        const onKey = (e) => {if (e.key === 'Escape') closeModal() }
+        document.addEventListener("keydown", onKey)
+        return () => {document.body.style.overflow = prev; document.removeEventListener("keydown", onKey)}
+    },[closeModal])
+
+    return createPortal(
+        <>
+            <div className={styles.modalOverlay} onClick={(e)=> {e.currentTarget === e.target && closeModal()}}>
+                {/* <div className={styles.modalContent}> */}
+                <div className="flex flex-col bg-gray-300 p-4 rounded-xl gap-4">
+                    <div className={styles.modalHeader}>
+                        <h3 className={styles.modalTitle}>{title}</h3>
+                        <button onClick={()=>closeModal()} >&times;</button>
+                    </div>
+                    <span>{children}</span>
+                </div>
+            </div>
+        </>
+    , modalRoot)
+}

@@ -1,35 +1,38 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useState, useMemo, useCallback } from 'react'
+import Sidebar from './components/Sidebar'
+import Header from './components/Header'
+import Main from './components/Main'
+import ModalHost from './components/ModalHost'
+import { AppContext } from './components/AppContext'
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [notes, setNotes] = useState({id: null,  title: '', description: '', labels: []})
+  const [modal, setModal] = useState({isOpen: false, type: null, taskId:null});
+
+  const openModal = useCallback((modalType, id = null) => {
+    setModal({isOpen: true, type: modalType, taskId : id});
+  }, []);
+  const closeModal = useCallback(() => {
+    setModal({isOpen: false, type: null, taskId:null});
+  }, []);
+
+
+  const contextValue = useMemo(() => ({
+    notes, setNotes, modal, openModal, closeModal }), 
+    [notes, modal , openModal, closeModal]);
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <AppContext.Provider value={contextValue}>
+      <div className='wrapper flex m-auto p-2 bg-amber-50 '>
+        <Sidebar/>
+        <div className='flex flex-col h-screen w-full bg-blue-50 border-l'>
+          <Header/>
+          <Main />
+        </div>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+      <ModalHost />
+    </AppContext.Provider>)
 }
 
 export default App
