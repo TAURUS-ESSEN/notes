@@ -1,40 +1,28 @@
-import { useState, useEffect, useMemo, useCallback } from 'react'
+import { useState, useMemo, useCallback } from 'react'
 import Sidebar from './components/Sidebar'
 import Header from './components/Header'
+import Notes from './components/Notes'
 import ModalHost from './components/ModalHost'
 import { AppContext } from './components/AppContext'
-import './App.css';
-import { DEFAULT_NOTES } from './data/default';
+import './App.css'
 import { Outlet } from 'react-router-dom'
 
-function loadInitialData(key, fallback) {
-  try {
-    const data = JSON.parse(localStorage.getItem(key));
-    return Array.isArray(data) ? data : fallback;
-  } catch {
-    return fallback;
-  }
-}
-
 function App() {
-  const [notes, setNotes] = useState(()=>loadInitialData('notes', DEFAULT_NOTES));
+  // const [notes, setNotes] = useState([{id: null,  title: '', text: '', labels: []}])
+  const [notes, setNotes] = useState([])
   const [modal, setModal] = useState({isOpen: false, type: null, taskId:null});
 
   const openModal = useCallback((modalType, id = null) => {
-    setModal({isOpen: true, type: modalType, noteId : id});
+    setModal({isOpen: true, type: modalType, taskId : id});
   }, []);
   const closeModal = useCallback(() => {
-    setModal({isOpen: false, type: null, noteId:null});
+    setModal({isOpen: false, type: null, taskId:null});
   }, []);
 
 
   const contextValue = useMemo(() => ({
     notes, setNotes, modal, openModal, closeModal }), 
     [notes, modal , openModal, closeModal]);
-
-  useEffect(() => {
-    localStorage.setItem('notes', JSON.stringify(notes))
-  }, [notes]);
 
   return (
     <AppContext.Provider value={contextValue}>

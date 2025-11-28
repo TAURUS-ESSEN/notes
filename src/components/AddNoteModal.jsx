@@ -7,22 +7,20 @@ export default function AddCategoryModal() {
     const {notes, setNotes, closeModal} = useAppContext()
     const [noteTitle, setNoteTitle] = useState('');
     const lenghtOK = noteTitle.length > 1;
-    const [noteDescription, setNoteDescription] = useState('');
+    const [noteText, setNoteText] = useState('');
 
 
     function onSubmit(e) {
         e.preventDefault()
-    //     const newCatId = categories[categories.length-1].id + 1;
-    //     setCategories(prev => [...prev, { id:newCatId  , name: categoryName }]);
-    //     const id = Date.now() + Math.random();
-    //     setToasts(prev=>([...prev, { id, message: <> Category {categoryName} was added </> }]))
-    //     setCategoryName('');
-    //     closeModal();
+        setNotes(prev=> [...prev, {...prev, id: Date.now() + Math.random() , title: noteTitle, text: noteText}])
+        setNoteTitle('');
+        setNoteText('');
+        closeModal();
     }
 
     function cancel() {
         setNoteTitle('');
-        setNoteDescription('');
+        setNoteText('');
         closeModal();
     }
     
@@ -37,12 +35,13 @@ export default function AddCategoryModal() {
                         // onBlur = {(e) => setCategoryName(e.target.value.trim())} 
                         maxLength={35}
                         autoFocus
-                        className='p-2' 
+                        className='border p-2' 
                         required
                         placeholder='Note Title, min 2 characters'
                     />
+                    <textarea onChange={(e)=>setNoteText(e.target.value)} value={noteText} className='border'></textarea>
                     <div className='flex justify-between gap-4'>
-                        <button type="button" onClick={cancel} className='border border p-2'>Cancel</button>
+                        <button type="button" onClick={cancel} className='border  p-2'>Cancel</button>
                         <button type='submit' disabled={!lenghtOK} className='border p-2'>
                             +Add New Note
                         </button>      

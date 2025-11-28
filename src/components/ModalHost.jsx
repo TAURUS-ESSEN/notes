@@ -1,4 +1,5 @@
 import AddNoteModal from "./AddNoteModal";
+import DeleteNoteModal from './DeleteNoteModal'
 // import ShowCategoriesModal from "./ShowCategoriesModal"
 // import TaskModal from './TaskModal'
 // import ShowTagsModal from "../Tags/ShowTagsModal"
@@ -9,7 +10,9 @@ export default function ModalHost() {
     
     switch (modal.type) {
             case 'addNote':
-                return <AddNoteModal />    
+                return <AddNoteModal />
+            case 'deleteNote':
+                return <DeleteNoteModal />        
             // case 'addCategory':
             //     return <AddCategoryModal/>
             // case 'showCategories':
