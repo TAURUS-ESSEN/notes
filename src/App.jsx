@@ -19,6 +19,7 @@ function loadInitialData(key, fallback) {
 function App() {
   const [notes, setNotes] = useState(()=>loadInitialData('notes', DEFAULT_NOTES));
   const [modal, setModal] = useState({isOpen: false, type: null, taskId:null});
+  const [sortBy, setSortBy] = useState({active:'new', archived: 'new', deleted: 'new'})
 
   const openModal = useCallback((modalType, id = null) => {
     setModal({isOpen: true, type: modalType, noteId : id});
@@ -27,14 +28,16 @@ function App() {
     setModal({isOpen: false, type: null, noteId:null});
   }, []);
 
-
   const contextValue = useMemo(() => ({
-    notes, setNotes, modal, openModal, closeModal }), 
-    [notes, modal , openModal, closeModal]);
+    notes, setNotes, modal, openModal, closeModal, sortBy, setSortBy }), 
+    [notes, modal , openModal, closeModal, sortBy]);
 
   useEffect(() => {
     localStorage.setItem('notes', JSON.stringify(notes))
   }, [notes]);
+
+
+
 
   return (
     <AppContext.Provider value={contextValue}>

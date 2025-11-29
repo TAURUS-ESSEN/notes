@@ -12,7 +12,7 @@ export default function AddCategoryModal() {
 
     function onSubmit(e) {
         e.preventDefault()
-        setNotes(prev=> [...prev, {...prev, id: Date.now() + Math.random() , title: noteTitle, text: noteText}])
+        setNotes(prev=> [...prev, { id: Date.now() , title: noteTitle, text: noteText, status: 'active', createdAt: Date.now(), updatedAt:'', deletedAt: ''}])
         setNoteTitle('');
         setNoteText('');
         closeModal();

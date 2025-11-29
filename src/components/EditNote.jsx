@@ -16,7 +16,7 @@ export default function EditNote() {
 
     function onSubmit(e) {
         e.preventDefault()
-        setNotes(prev=>prev.map(n => n.id==noteId ? {...n, title: title, text: text}: n));
+        setNotes(prev=>prev.map(n => n.id==noteId ? {...n, title: title, text: text, updatedAt: Date.now()}: n));
         setTitle('');
         setText('');
         navigate(-1);

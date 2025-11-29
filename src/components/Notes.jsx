@@ -1,18 +1,24 @@
 import {Link} from 'react-router-dom'
 import AddNewNote from './AddNewNote'
 import { useAppContext } from "./AppContext";
+import Filter from './Filter';
+import {useSortedNotes} from './useSortedNotes'
 
 export default function Notes() {
-    const {notes, setNotes} = useAppContext()
+    const {notes, setNotes} = useAppContext();
+
+    const sortedNotes = useSortedNotes('active')
+
     return (
         <div className="bg-amber-100 h-screen w-full relative p-4 ">
+            <Filter mode='active'/>
             <div className='flex flex-wrap gap-6  '>
-            {notes.length > 0 && notes.map(note=> ( 
-                note.status === 'active' && (
+            {notes.length > 0 && sortedNotes.map(note=> ( 
+                
                     <div key={note.id} className='bg-white rounded p-4 max-w-100 relative group'>                        
                         <button 
                             className='absolute top-1 right-1 opacity-0  group-hover:opacity-100  text-black border'
-                              onClick={()=>setNotes(prev => prev.map(n => n.id === note.id ? {...n, status: 'deleted'} : n))}  
+                            onClick={()=>setNotes(prev => prev.map(n => n.id === note.id ? {...n, status: 'deleted', deletedAt: Date.now()} : n))}  
                         >
                             X 
                         </button>
@@ -28,7 +34,7 @@ export default function Notes() {
                             <div>{note.text}</div>
                         </div></Link>
                     </div> 
-                ))
+                )
             )}</div>
         <AddNewNote />
             
