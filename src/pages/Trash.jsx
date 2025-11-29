@@ -1,7 +1,7 @@
 import {Link} from 'react-router-dom'
-import { useAppContext } from "./AppContext";
-import Filter from './Filter';
-import {useSortedNotes} from './useSortedNotes'
+import { useAppContext } from "../components/AppContext";
+import Filter from '../components/Filter';
+import {useSortedNotes} from '../hooks/useSortedNotes'
 
 export default function Trash() {
     const {notes, openModal, setNotes} = useAppContext()
@@ -12,7 +12,7 @@ export default function Trash() {
             <Filter mode='deleted'/>
             <div className='flex flex-wrap gap-6  '>
             {notes.length > 0 && sortedNotes.map(note=> ( 
-                note.status === 'deleted' && (
+                // note.status === 'deleted' && (
                     <div key={note.id} className='bg-white rounded p-4 max-w-100 relative group'>                        
                         <button 
                             className='absolute top-1 right-1 opacity-0  group-hover:opacity-100  text-black border'
@@ -33,7 +33,7 @@ export default function Trash() {
                             <div>{note.text}</div>
                         </div></Link>
                     </div> 
-                ))
+                )
             )}</div>
             
         </div>

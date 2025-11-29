@@ -1,4 +1,4 @@
-import {useAppContext} from './AppContext'
+import {useAppContext} from '../AppContext'
 
 export default function AddNewNote() {
     const {notes, setNotes, openModal} = useAppContext();

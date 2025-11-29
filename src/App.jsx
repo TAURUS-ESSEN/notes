@@ -1,7 +1,7 @@
 import { useState, useEffect, useMemo, useCallback } from 'react'
 import Sidebar from './components/Sidebar'
 import Header from './components/Header'
-import ModalHost from './components/ModalHost'
+import ModalHost from './components/modal/ModalHost'
 import { AppContext } from './components/AppContext'
 import './App.css';
 import { DEFAULT_NOTES } from './data/default';
@@ -19,7 +19,8 @@ function loadInitialData(key, fallback) {
 function App() {
   const [notes, setNotes] = useState(()=>loadInitialData('notes', DEFAULT_NOTES));
   const [modal, setModal] = useState({isOpen: false, type: null, taskId:null});
-  const [sortBy, setSortBy] = useState({active:'new', archived: 'new', deleted: 'new'})
+  const [sortBy, setSortBy] = useState({active:'new', archived: 'new', deleted: 'lastDeleted'})
+  const [searchQuery, setSearchQuery] = useState('');
 
   const openModal = useCallback((modalType, id = null) => {
     setModal({isOpen: true, type: modalType, noteId : id});
@@ -29,8 +30,8 @@ function App() {
   }, []);
 
   const contextValue = useMemo(() => ({
-    notes, setNotes, modal, openModal, closeModal, sortBy, setSortBy }), 
-    [notes, modal , openModal, closeModal, sortBy]);
+    notes, setNotes, modal, openModal, closeModal, sortBy, setSortBy, searchQuery, setSearchQuery }), 
+    [notes, modal , openModal, closeModal, sortBy, searchQuery]);
 
   useEffect(() => {
     localStorage.setItem('notes', JSON.stringify(notes))

@@ -1,5 +1,5 @@
 import Modal from './Modal';
-import { useAppContext } from './AppContext';
+import { useAppContext } from '../AppContext';
 
 export default function AddCategoryModal() {
     const {notes, modal, setNotes, closeModal} = useAppContext()

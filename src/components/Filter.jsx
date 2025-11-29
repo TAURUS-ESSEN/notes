@@ -7,6 +7,7 @@ export default function Filter({mode}) {
     return (
         <div className="border p-2 flex">
             <select className="border" onChange={(e)=>setSortBy(prev=>({...prev, [mode]:e.target.value}))}>
+                {mode === 'deleted' && <option value={'lastDeleted'}>Last Deleted</option>}
                 <option value={'new'} default>New first</option>
                 <option value={'old'}>Old first</option>
                 <option value={'az'}>A-z</option>

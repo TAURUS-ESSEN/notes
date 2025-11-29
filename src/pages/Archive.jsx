@@ -1,7 +1,7 @@
 import {Link} from 'react-router-dom'
-import { useAppContext } from "./AppContext";
-import Filter from './Filter';
-import {useSortedNotes} from './useSortedNotes'
+import { useAppContext } from "../components/AppContext";
+import Filter from '../components/Filter';
+import {useSortedNotes} from '../hooks/useSortedNotes'
 
 export default function Archive() {
     const {notes, setNotes} = useAppContext();
@@ -12,7 +12,7 @@ export default function Archive() {
             <Filter mode='archived'/>
             <div className='flex flex-wrap gap-6  '>
             {notes.length > 0 && sortedNotes.map(note=> ( 
-                note.status === 'archived' && (
+                // note.status === 'archived' && (
                     <div key={note.id} className='bg-white rounded p-4 max-w-100 relative group'>                        
                         <button 
                             className='absolute top-1 right-1 opacity-0  group-hover:opacity-100  text-black border'
@@ -32,7 +32,7 @@ export default function Archive() {
                             <div>{note.text}</div>
                         </div></Link>
                     </div> 
-                ))
+                )
             )}</div>
             
         </div>

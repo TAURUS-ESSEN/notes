@@ -4,10 +4,10 @@ import {createBrowserRouter, RouterProvider} from 'react-router-dom'
 import './index.css'
 import App from './App.jsx'
 import ErrorPage from './ErrorPage.jsx'
-import Notes from './components/Notes.jsx'
-import EditNote from './components/EditNote.jsx'
-import Archive from './components/Archive.jsx'
-import Trash from './components/Trash.jsx'
+import Notes from './pages/Notes.jsx'
+import EditNote from './pages/EditNote.jsx'
+import Archive from './pages/Archive.jsx'
+import Trash from './pages/Trash.jsx'
 
 const router = createBrowserRouter([
   {path: '/',

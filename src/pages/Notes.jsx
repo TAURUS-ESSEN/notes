@@ -1,8 +1,8 @@
 import {Link} from 'react-router-dom'
-import AddNewNote from './AddNewNote'
-import { useAppContext } from "./AppContext";
-import Filter from './Filter';
-import {useSortedNotes} from './useSortedNotes'
+import AddNewNote from '../components/modal/AddNewNote'
+import { useAppContext } from "../components/AppContext";
+import Filter from '../components/Filter';
+import {useSortedNotes} from '../hooks/useSortedNotes'
 
 export default function Notes() {
     const {notes, setNotes} = useAppContext();

@@ -1,6 +1,6 @@
 import {useState, useEffect} from 'react'
 import { useParams, useNavigate } from "react-router-dom";
-import { useAppContext } from "./AppContext";
+import { useAppContext } from "../components/AppContext";
 
 export default function EditNote() {
     const { noteId} = useParams();

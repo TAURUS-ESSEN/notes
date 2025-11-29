@@ -1,6 +1,6 @@
 // import styles from './modal.module.css';
 import Modal from './Modal';
-import { useAppContext } from './AppContext';
+import { useAppContext } from '../AppContext';
 import { useState } from 'react';
 
 export default function AddCategoryModal() {

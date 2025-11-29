@@ -3,7 +3,7 @@ import DeleteNoteModal from './DeleteNoteModal'
 // import ShowCategoriesModal from "./ShowCategoriesModal"
 // import TaskModal from './TaskModal'
 // import ShowTagsModal from "../Tags/ShowTagsModal"
-import { useAppContext } from "./AppContext";
+import { useAppContext } from "../AppContext";
 
 export default function ModalHost() {
     const {modal} = useAppContext()
