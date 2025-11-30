@@ -43,7 +43,7 @@ export default function Archive() {
     }
 
     return (
-         <div className="h-screen w-full relative p-4 ">
+        <div className="h-screen w-full relative p-4 ">
             <div className='flex flex-wrap gap-4  '>
             {notes.length > 0 && sortedNotes.map(note=> ( 
                 
