@@ -9,7 +9,7 @@ export default function Trash() {
     
     return (
         <div className="bg-amber-100 h-screen w-full relative p-4 ">
-            <Filter mode='deleted'/>
+            {/* <Filter mode='deleted'/> */}
             <div className='flex flex-wrap gap-6  '>
             {notes.length > 0 && sortedNotes.map(note=> ( 
                 // note.status === 'deleted' && (

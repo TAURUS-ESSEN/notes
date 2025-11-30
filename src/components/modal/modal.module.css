@@ -248,11 +248,11 @@
   list-style: none;
   margin: var(--space-1) 0;
 }
-
+/* 
 li:nth-child(even) {
   background-color: var(--surface-light);
   border-radius: var(--radius-2)
-}
+} */
 
 .currentCategoryBlock {
   min-height: 2.5rem;

@@ -2,10 +2,14 @@
     import { useMemo } from "react";
 
     export function useSortedNotes(status) {
-        const { notes, searchQuery, sortBy } = useAppContext();
+        const { notes, filter, searchQuery, sortBy } = useAppContext();
         
         const sorted = useMemo(() => {
-            const arr = notes.filter(note => (note.status === status) && note.title.toLowerCase().includes(searchQuery.toLowerCase())) ;
+            const arr = notes.filter(note => 
+                note.status === status &&
+                note.title.toLowerCase().includes(searchQuery.toLowerCase()) &&
+                (filter.length === 0 || note.labels?.some(id => filter.includes(id)))  
+            );
             if (sortBy[status] === 'new') 
                 {arr.sort((a,b)=>b.createdAt - a.createdAt)}
             if (sortBy[status] === 'old') 
@@ -17,6 +21,6 @@
             if (sortBy[status] === 'lastDeleted') 
                 {arr.sort((a,b)=>b.deletedAt - a.deletedAt)}
             return arr } 
-        , [notes, sortBy, status, searchQuery]);
+        , [notes, sortBy, status, searchQuery, filter]);
         return sorted
     }

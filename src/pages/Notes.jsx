@@ -10,8 +10,8 @@ export default function Notes() {
     const sortedNotes = useSortedNotes('active')
 
     return (
-        <div className="bg-amber-100 h-screen w-full relative p-4 ">
-            <Filter mode='active'/>
+        <div className="  h-screen w-full relative p-4 ">
+            {/* <Filter mode='active'/> */}
             <div className='flex flex-wrap gap-6  '>
             {notes.length > 0 && sortedNotes.map(note=> ( 
                 

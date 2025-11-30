@@ -9,7 +9,7 @@ export default function Archive() {
     
     return (
         <div className="bg-amber-100 h-screen w-full relative p-4 ">
-            <Filter mode='archived'/>
+            {/* <Filter mode='archived'/> */}
             <div className='flex flex-wrap gap-6  '>
             {notes.length > 0 && sortedNotes.map(note=> ( 
                 // note.status === 'archived' && (

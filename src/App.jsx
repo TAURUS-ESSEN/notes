@@ -4,7 +4,7 @@ import Header from './components/Header'
 import ModalHost from './components/modal/ModalHost'
 import { AppContext } from './components/AppContext'
 import './App.css';
-import { DEFAULT_NOTES } from './data/default';
+import { DEFAULT_LABELS, DEFAULT_NOTES } from './data/default';
 import { Outlet } from 'react-router-dom'
 
 function loadInitialData(key, fallback) {
@@ -18,8 +18,10 @@ function loadInitialData(key, fallback) {
 
 function App() {
   const [notes, setNotes] = useState(()=>loadInitialData('notes', DEFAULT_NOTES));
+  const [labels, setLabels] = useState(()=>loadInitialData('labels', DEFAULT_LABELS));
   const [modal, setModal] = useState({isOpen: false, type: null, taskId:null});
-  const [sortBy, setSortBy] = useState({active:'new', archived: 'new', deleted: 'lastDeleted'})
+  const [filter, setFilter] = useState([])
+  const [sortBy, setSortBy] = useState({active:'new', archived: 'new', deleted: 'lastDeleted'});
   const [searchQuery, setSearchQuery] = useState('');
 
   const openModal = useCallback((modalType, id = null) => {
@@ -30,21 +32,22 @@ function App() {
   }, []);
 
   const contextValue = useMemo(() => ({
-    notes, setNotes, modal, openModal, closeModal, sortBy, setSortBy, searchQuery, setSearchQuery }), 
-    [notes, modal , openModal, closeModal, sortBy, searchQuery]);
+    notes, setNotes, modal, openModal, closeModal, sortBy, setSortBy, searchQuery, setSearchQuery, labels, setLabels, filter, setFilter }), 
+    [notes, modal , openModal, closeModal, sortBy, searchQuery, labels, filter]);
 
   useEffect(() => {
     localStorage.setItem('notes', JSON.stringify(notes))
   }, [notes]);
 
-
-
+  useEffect(() => {
+    localStorage.setItem('labels', JSON.stringify(labels))
+  }, [labels]);
 
   return (
     <AppContext.Provider value={contextValue}>
-      <div className='wrapper flex m-auto p-2 bg-amber-50 '>
+      <div className='wrapper flex m-auto p-2 bg-[#dcdbd7] '>
         <Sidebar/>
-        <main className='flex flex-col h-screen w-full bg-blue-50 border-l'>
+        <main className='flex flex-col h-screen w-full   border-l border-gray-400'>
           <Header/>
           <Outlet />
         </main>

@@ -1,2 +1,51 @@
+
 @import "tailwindcss";
 
+@layer theme {
+     
+}
+
+@font-face {
+  font-family: "Metrophobic";
+  src: url("./fonts/Metrophobic-Regular.woff2") format("woff2");
+  /* font-weight: 400; */
+  font-style: normal;
+}
+
+body, button {
+    font-family: "Metrophobic";
+}
+
+@layer base {
+    button {
+        @apply hover:cursor-pointer
+    }
+
+    input, textarea, select {
+        @apply p-2 rounded-lg border border-gray-400 bg-white
+    }
+}
+
+@layer components {
+    .btn {
+        @apply p-2 border border-gray-200 rounded-lg 
+    }
+}
+
+@layer utility {
+    .cancel {
+        @apply bg-gray-300 ;
+    }
+
+    .apply {
+        @apply bg-green-300;
+    }
+
+    .shadow-soft {
+        box-shadow: 0 0 5px rgb(187, 187, 187);
+    }
+
+    .menuLinks {
+        @apply w-full flex gap-2 items-center px-2 py-1 font-semibold text-lg rounded-2xl text-gray-800  
+    }
+}

@@ -1,5 +1,7 @@
 import AddNoteModal from "./AddNoteModal";
-import DeleteNoteModal from './DeleteNoteModal'
+import AddLabelModal from "./AddLabelModal";
+import DeleteNoteModal from './DeleteNoteModal';
+import ManageLabels from './ManageLabels';
 // import ShowCategoriesModal from "./ShowCategoriesModal"
 // import TaskModal from './TaskModal'
 // import ShowTagsModal from "../Tags/ShowTagsModal"
@@ -12,7 +14,11 @@ export default function ModalHost() {
             case 'addNote':
                 return <AddNoteModal />
             case 'deleteNote':
-                return <DeleteNoteModal />        
+                return <DeleteNoteModal />
+            case 'addLabel':
+                return <AddLabelModal />
+            case 'manageLabels':
+                return <ManageLabels />
             // case 'addCategory':
             //     return <AddCategoryModal/>
             // case 'showCategories':

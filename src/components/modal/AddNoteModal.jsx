@@ -1,18 +1,18 @@
-// import styles from './modal.module.css';
 import Modal from './Modal';
 import { useAppContext } from '../AppContext';
 import { useState } from 'react';
 
-export default function AddCategoryModal() {
-    const {notes, setNotes, closeModal} = useAppContext()
+export default function AddNotesModal() {
+    const {labels, setNotes, closeModal} = useAppContext()
     const [noteTitle, setNoteTitle] = useState('');
+    const [noteLabels, setNoteLabels] = useState([]);
     const lenghtOK = noteTitle.length > 1;
     const [noteText, setNoteText] = useState('');
 
 
     function onSubmit(e) {
         e.preventDefault()
-        setNotes(prev=> [...prev, { id: Date.now() , title: noteTitle, text: noteText, status: 'active', createdAt: Date.now(), updatedAt:'', deletedAt: ''}])
+        setNotes(prev=> [...prev, { id: Date.now() , title: noteTitle, text: noteText, status: 'active', createdAt: Date.now(), updatedAt:'', deletedAt: '', labels: noteLabels}])
         setNoteTitle('');
         setNoteText('');
         closeModal();
@@ -24,10 +24,15 @@ export default function AddCategoryModal() {
         closeModal();
     }
     
+    function toggleLabels(id) {
+        // noteLabels.includes(id) ? setNoteLabels(prev => prev.filter(l=>l!==id)) : setNoteLabels(prev => [...prev, id])
+        setNoteLabels(prev => noteLabels.includes(id) ? prev.filter(l=>l!==id) : [...prev, id] )
+    }
+
     return (
         <>
             <Modal title='Create new note' closeModal={closeModal}>
-                <form onSubmit={onSubmit} className='bg-white flex flex-col gap-4 p-4' >
+                <form onSubmit={onSubmit} className='bg-white flex flex-col gap-4 p-4 md:min-w-100' >
                     {/* <label>Enter category name:</label> */}
                     <input type='text' 
                         onChange={(e) => setNoteTitle(e.target.value.slice(0,35))} 
@@ -39,10 +44,22 @@ export default function AddCategoryModal() {
                         required
                         placeholder='Note Title, min 2 characters'
                     />
-                    <textarea onChange={(e)=>setNoteText(e.target.value)} value={noteText} className='border'></textarea>
+                    <textarea onChange={(e)=>setNoteText(e.target.value)} value={noteText} className='border' rows="10"></textarea>
+                    <div className='flex gap-2'>
+                        {labels.map(label=> { return (
+                            <span className='flex gap-1 items-center'>
+                                <input 
+                                    type='checkbox' 
+                                    checked={noteLabels.includes(label.id)}  
+                                    onChange={()=>toggleLabels(label.id)}
+                                /> 
+                                {label.name}
+                            </span>
+                        )})}
+                    </div>
                     <div className='flex justify-between gap-4'>
-                        <button type="button" onClick={cancel} className='border  p-2'>Cancel</button>
-                        <button type='submit' disabled={!lenghtOK} className='border p-2'>
+                        <button type="button" onClick={cancel} className='btn cancel shadow-soft'>Cancel</button>
+                        <button type='submit' disabled={!lenghtOK} className='btn apply shadow-soft'>
                             +Add New Note
                         </button>      
                     </div>
