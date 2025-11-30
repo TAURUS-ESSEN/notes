@@ -74,7 +74,8 @@ export default function Notes() {
                         </Link>
                     </div> 
                 )
-            )}</div>
+            )}
+            </div>
         <AddNewNote />
         </div>
     )

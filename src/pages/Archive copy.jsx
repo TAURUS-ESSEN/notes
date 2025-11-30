@@ -1,8 +1,7 @@
 import {Link} from 'react-router-dom'
 import { useAppContext } from "../components/AppContext";
-import {useSortedNotes} from '../hooks/useSortedNotes';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faLightbulb, faTrashCan } from '@fortawesome/free-regular-svg-icons';
+import Filter from '../components/Filter';
+import {useSortedNotes} from '../hooks/useSortedNotes'
 
 export default function Archive() {
     const {notes, setNotes, setToasts} = useAppContext();
@@ -43,38 +42,33 @@ export default function Archive() {
     }
 
     return (
-         <div className="h-screen w-full relative p-4 ">
-            <div className='flex flex-wrap gap-4  '>
+        <div className="bg-amber-100 h-screen w-full relative p-4 ">
+            {/* <Filter mode='archived'/> */}
+            <div className='flex flex-wrap gap-6  '>
             {notes.length > 0 && sortedNotes.map(note=> ( 
-                
-                    <div key={note.id} className='notePreviewContainer group'>                        
-                        <button   
-                            className='toTrashBtn'
-                            onClick={()=>{updateNoteStatus(note.id, 'deleted')}}  
-                            title='Move to Trash'
-                            aria-label="Move to Trash"
+                // note.status === 'archived' && (
+                    <div key={note.id} className='bg-white rounded p-4 max-w-100 relative group'>                        
+                        <button 
+                            className='absolute top-1 right-1 opacity-0  group-hover:opacity-100  text-black border'
+                            onClick={()=>{updateNoteStatus(note.id, 'deleted')}}   
                         >
-                            <FontAwesomeIcon icon={faTrashCan} className='hover:scale-125 duration-300 ' />
+                            X 
                         </button>
                         <button 
-                            className='toArchiveBtn'
-                            onClick={()=>{updateNoteStatus(note.id, 'active')}} 
-                            title='Move to Archive'
-                            aria-label="Move to Archive"
+                            className='absolute top-1 left-1 opacity-0  group-hover:opacity-100  text-black border'
+                            onClick={()=>{updateNoteStatus(note.id, 'active')}}   
                         >
-                            <FontAwesomeIcon icon={faLightbulb} className='hover:scale-125 duration-300' /> 
+                            R 
                         </button>
-
-                        <Link to={`/edit/${note.id}`}  title='Click to edit this note'>
-                            <div className='notePreview'>
-                                <div className='font-semibold'>{note.title} </div>
-                                <div> {shorten(note.text, 60)}</div>
-                            </div>
-                        </Link>
+                        <Link to={`/edit/${note.id}`}>
+                        <div className='flex flex-col'>
+                            <div>{note.title} </div>
+                            <div>{note.text}</div>
+                        </div></Link>
                     </div> 
                 )
-            )}
-            </div>
+            )}</div>
+            
         </div>
     )
 }
