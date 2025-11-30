@@ -1,7 +1,7 @@
 import {useAppContext} from '../AppContext'
 
 export default function AddNewNote() {
-    const {notes, setNotes, openModal} = useAppContext();
+    const {openModal} = useAppContext();
     return (
         <div className="absolute bottom-4 left-1/2 -translate-x-1/2">
             <button 

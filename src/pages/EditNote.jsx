@@ -5,7 +5,7 @@ import { useAppContext } from "../components/AppContext";
 export default function EditNote() {
     const { noteId} = useParams();
     const navigate = useNavigate();
-    const {labels, notes, setNotes} = useAppContext();
+    const {labels, notes, setNotes, setToasts} = useAppContext();
     const note = notes.find(n=>n.id === Number(noteId))
     const [title, setTitle] = useState(note.title);
     const [text, setText] = useState(note.text)
@@ -18,8 +18,14 @@ export default function EditNote() {
     function onSubmit(e) {
         e.preventDefault()
         setNotes(prev=>prev.map(n => n.id==noteId ? {...n, title: title, text: text, labels: editLabels, updatedAt: Date.now()}: n));
-        setTitle('');
         setText('');
+        const toastId = Date.now() + Math.random();
+        setToasts(prev=>([...prev, {toastId, message: (
+            <div className='activeToast justify-center text-center'>
+                <span> Note {title} was updated</span>
+            </div>
+        )}])) 
+        setTitle('');
         navigate(-1);
     }
 

@@ -3,7 +3,7 @@ import { useAppContext } from '../AppContext';
 import { useState } from 'react';
 
 export default function AddNotesModal() {
-    const {labels, setNotes, closeModal} = useAppContext()
+    const {labels, setNotes, setToasts, closeModal} = useAppContext()
     const [noteTitle, setNoteTitle] = useState('');
     const [noteLabels, setNoteLabels] = useState([]);
     const lenghtOK = noteTitle.length > 1;
@@ -13,9 +13,20 @@ export default function AddNotesModal() {
     function onSubmit(e) {
         e.preventDefault()
         setNotes(prev=> [...prev, { id: Date.now() , title: noteTitle, text: noteText, status: 'active', createdAt: Date.now(), updatedAt:'', deletedAt: '', labels: noteLabels}])
-        setNoteTitle('');
         setNoteText('');
         closeModal();
+
+        const toastId = Date.now() + Math.random();
+        setToasts(prev=>([...prev, {toastId, message: (
+            <div className='activeToast'>
+                <strong>Created: </strong>{shorten(noteTitle)}
+            </div>
+            )}])) 
+        setNoteTitle('');
+        }
+
+    function shorten(str, n = 25) {
+        return str.length > n ? str.slice(0, n) + '...' : str;
     }
 
     function cancel() {
@@ -27,6 +38,31 @@ export default function AddNotesModal() {
     function toggleLabels(id) {
         // noteLabels.includes(id) ? setNoteLabels(prev => prev.filter(l=>l!==id)) : setNoteLabels(prev => [...prev, id])
         setNoteLabels(prev => noteLabels.includes(id) ? prev.filter(l=>l!==id) : [...prev, id] )
+    }
+
+    function restoreNoteFromTrash(id) {
+        const changedNote = notes.find(n=>n.id === id);
+        if (!changedNote) return;
+        
+        setNotes(prev =>
+            prev.map(n => 
+                n.id === id ? 
+                { ...n, status: 'active', deletedAt: ''}
+                : n )
+        );
+
+        const toastId = Date.now() + Math.random();
+        setToasts(prev=>([...prev, {toastId, message: (
+            <div className='activeToast'>
+                <strong>Recovered: </strong>{shorten(changedNote.title)}
+                <button className='undoBtn' onClick={(e)=>{
+                    e.currentTarget.disabled = true;
+                    undoRestore(changedNote.id, changedNote.deletedAt, toastId)
+                    
+                    }}>Undo ↻</button>
+            </div>
+            ) 
+        }]))
     }
 
     return (

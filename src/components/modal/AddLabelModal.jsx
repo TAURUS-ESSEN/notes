@@ -2,9 +2,11 @@
 import Modal from './Modal';
 import { useAppContext } from '../AppContext';
 import { useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faBookmark} from '@fortawesome/free-regular-svg-icons';
 
 export default function AddLabelsModal() {
-    const {labels, setLabels, closeModal} = useAppContext()
+    const {labels, setLabels, closeModal, setToasts} = useAppContext()
     const [labelName, setLabelName] = useState('');
     const lenghtOK = labelName.length > 1;
     const [labelColor, setLabelColor] = useState('');
@@ -13,6 +15,12 @@ export default function AddLabelsModal() {
     function onSubmit(e) {
         e.preventDefault()
         setLabels(prev=> [...prev, { id: Date.now(), name: labelName, color: 'gray' }])
+        const toastId = Date.now() + Math.random();
+        setToasts(prev=>([...prev, {toastId, message: (
+            <div className='activeToast'>
+                <FontAwesomeIcon icon={faBookmark} className='block' /> <span> Label <strong>"{labelName}"</strong>created</span>
+            </div>
+            )}])) 
         setLabelName('');
         setLabelColor('');
         closeModal();

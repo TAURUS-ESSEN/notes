@@ -2,12 +2,29 @@ import Modal from './Modal';
 import { useAppContext } from '../AppContext';
 
 export default function AddCategoryModal() {
-    const {notes, modal, setNotes, closeModal} = useAppContext()
+    const {notes, modal, setNotes, closeModal, setToasts} = useAppContext()
 
     function onSubmit(e) {
         e.preventDefault()
+        const deletedNote = notes.find(n=>n.id === modal.noteId);
         setNotes(prev => prev.filter(n => n.id !== modal.noteId ))  
+        const toastId = Date.now() + Math.random();
+        setToasts(prev=>([...prev, {toastId, message: (
+            <div className='deletedToast'>
+                Task <strong>{deletedNote.title}</strong> was deleted <button className='btn' onClick={(e)=>{
+                    e.currentTarget.disabled = true;
+                    undo(deletedNote, toastId)
+                    
+                    }}>Undo ↻</button>
+            </div>
+            ) 
+        }]))
         closeModal();
+    }
+
+    function undo(deletedNote, toastId) {
+        setToasts(prev => prev.filter(t => t.toastId !== toastId));  
+        setNotes(prev => [...prev, deletedNote]);
     }
 
     function findNoteName(id) {

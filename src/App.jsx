@@ -3,6 +3,7 @@ import Sidebar from './components/Sidebar'
 import Header from './components/Header'
 import ModalHost from './components/modal/ModalHost'
 import { AppContext } from './components/AppContext'
+import Toasts from './components/Toasts';
 import './App.css';
 import { DEFAULT_LABELS, DEFAULT_NOTES } from './data/default';
 import { Outlet } from 'react-router-dom'
@@ -23,6 +24,7 @@ function App() {
   const [filter, setFilter] = useState([])
   const [sortBy, setSortBy] = useState({active:'new', archived: 'new', deleted: 'lastDeleted'});
   const [searchQuery, setSearchQuery] = useState('');
+  const [toasts, setToasts] = useState([]);
 
   const openModal = useCallback((modalType, id = null) => {
     setModal({isOpen: true, type: modalType, noteId : id});
@@ -32,8 +34,8 @@ function App() {
   }, []);
 
   const contextValue = useMemo(() => ({
-    notes, setNotes, modal, openModal, closeModal, sortBy, setSortBy, searchQuery, setSearchQuery, labels, setLabels, filter, setFilter }), 
-    [notes, modal , openModal, closeModal, sortBy, searchQuery, labels, filter]);
+    notes, setNotes, modal, openModal, closeModal, sortBy, setSortBy, searchQuery, setSearchQuery, labels, setLabels, filter, setFilter, toasts, setToasts }), 
+    [notes, modal , openModal, closeModal, sortBy, searchQuery, labels, filter, toasts]);
 
   useEffect(() => {
     localStorage.setItem('notes', JSON.stringify(notes))
@@ -46,6 +48,7 @@ function App() {
   return (
     <AppContext.Provider value={contextValue}>
       <div className='wrapper flex m-auto p-2 bg-[#dcdbd7] '>
+        <Toasts toasts={toasts} setToasts={setToasts}/>
         <Sidebar/>
         <main className='flex flex-col h-screen w-full   border-l border-gray-400'>
           <Header/>

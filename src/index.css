@@ -27,8 +27,28 @@ body, button {
 }
 
 @layer components {
-    .btn {
+    .btn, .undoBtn {
         @apply p-2 border border-gray-200 rounded-lg 
+    }
+
+    .activeToast, .deletedToast, .archiveToast, .trashToast  {
+        @apply flex flex-col justify-center items-center p-2 rounded-xl text-sm opacity-65 
+    }
+    
+    .activeToast {
+        @apply bg-green-600
+    }
+
+    .archiveToast {
+        @apply bg-yellow-600
+    }
+
+    .trashToast {
+        @apply bg-red-300
+    }
+
+    .deletedToast {
+        @apply bg-red-600
     }
 }
 
