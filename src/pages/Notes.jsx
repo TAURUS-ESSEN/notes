@@ -1,7 +1,9 @@
 import {Link} from 'react-router-dom'
 import AddNewNote from '../components/modal/AddNewNote'
 import { useAppContext } from "../components/AppContext";
-import {useSortedNotes} from '../hooks/useSortedNotes'
+import {useSortedNotes} from '../hooks/useSortedNotes';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faFolderOpen, faTrashCan } from '@fortawesome/free-regular-svg-icons';
 
 export default function Notes() {
     const {notes, setNotes, setToasts} = useAppContext();
@@ -42,28 +44,34 @@ export default function Notes() {
     }
 
     return (
-        <div className="  h-screen w-full relative p-4 ">
-            <div className='flex flex-wrap gap-6  '>
+        <div className="h-screen w-full relative p-4 ">
+            <div className='flex flex-wrap gap-4  '>
             {notes.length > 0 && sortedNotes.map(note=> ( 
                 
-                    <div key={note.id} className='bg-white rounded p-4 max-w-100 relative group'>                        
-                        <button 
-                            className='absolute top-1 right-1 opacity-0  group-hover:opacity-100  text-black border'
+                    <div key={note.id} className='notePreviewContainer group'>                        
+                        <button   
+                            className='toTrashBtn'
                             onClick={()=>{updateNoteStatus(note.id, 'deleted')}}  
+                            title='Move to Trash'
+                            aria-label="Move to Trash"
                         >
-                            X 
+                            <FontAwesomeIcon icon={faTrashCan} className='hover:scale-125 duration-300 ' />
                         </button>
                         <button 
-                            className='absolute top-1 left-1 opacity-0  group-hover:opacity-100  text-black border'
+                            className='toArchiveBtn'
                             onClick={()=>{updateNoteStatus(note.id, 'archived')}}  
+                            title='Move to Archive'
+                            aria-label="Move to Archive"
                         >
-                            A 
+                            <FontAwesomeIcon icon={faFolderOpen} className='hover:scale-125 duration-300' /> 
                         </button>
-                        <Link to={`/edit/${note.id}`}>
-                        <div className='flex flex-col'>
-                            <div>{note.title} </div>
-                            <div>{note.text}</div>
-                        </div></Link>
+
+                        <Link to={`/edit/${note.id}`}  title='Click to edit this note'>
+                            <div className='notePreview'>
+                                <div className='font-semibold'>{note.title} </div>
+                                <div> {shorten(note.text, 60)}</div>
+                            </div>
+                        </Link>
                     </div> 
                 )
             )}</div>

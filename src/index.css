@@ -31,6 +31,22 @@ body, button {
         @apply p-2 border border-gray-200 rounded-lg 
     }
 
+    .toTrashBtn {
+        @apply absolute top-1 right-2 text-gray-400 hover:text-red-500 group-hover:text-red-500 transition
+    }
+
+    .toArchiveBtn {
+        @apply absolute top-1 left-2 text-gray-400 hover:text-yellow-500 group-hover:text-yellow-500 transition
+    }
+
+    .notePreviewContainer {
+        @apply bg-white rounded p-4 min-w-40 max-w-60 relative hover:scale-105 duration-300 shadow
+    }
+
+    .notePreview {
+        @apply flex flex-col justify-start text-left mt-3;
+    }
+
     .activeToast, .deletedToast, .archiveToast, .trashToast  {
         @apply flex flex-col justify-center items-center p-2 rounded-xl text-sm opacity-65 
     }
