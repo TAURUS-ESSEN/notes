@@ -46,7 +46,7 @@ export default function Sidebar() {
                 </div>
             </div>
             <div className="flex min-w-50 menuLinks hover:bg-amber-400">
-                <img src='./addLabel.webp' width={25} className="block"/> 
+                <img src='addLabel.webp' width={25} className="block"/> 
                 <button onClick={()=>openModal('addLabel')} className=" ">New Label</button>
             </div>
         </div>

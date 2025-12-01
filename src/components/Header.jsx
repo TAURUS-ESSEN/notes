@@ -1,10 +1,13 @@
 import { useAppContext } from "./AppContext"
 import { useLocation } from "react-router-dom";
 import Filter from "./Filter";
+import { useState } from "react";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faMagnifyingGlass} from '@fortawesome/free-solid-svg-icons';
 
 export default function Header() {
     const {searchQuery, setSearchQuery} = useAppContext();
-    // const { noteId} = useParams();
+    const [showInput, setShowInput] = useState(false);
     const currentLocation = useLocation()
     const routeToStatus = {
         '/': 'active',
@@ -14,25 +17,51 @@ export default function Header() {
     const routeToTitle = {
         '/': 'Notes',
         '/archive': 'Archive',
-        '/trash': 'Trash'
-        };    
+        '/trash': 'Trash',
+        };
+        
+    function checkBlur(e) {
+        if (!e.target.value.trim()) {
+        setShowInput(false);
+    }
+}
     return (
         <div className="flex justify-between items-center w-full gap-4 p-2 ">
-        <div>
-            {
-            (currentLocation.pathname === '/' || currentLocation.pathname === '/archive' || currentLocation.pathname === '/trash') && (
-                <div className="">
-                <Filter mode={routeToStatus[currentLocation.pathname]}/>
-
-                </div>
-            )
-            
-            }
-        </div> 
-                        <h1 className="text-3xl font-semibold text-gray-700">{routeToTitle[currentLocation.pathname] }</h1>
+            <div>
+                {(currentLocation.pathname === '/' || currentLocation.pathname === '/archive' || currentLocation.pathname === '/trash') && (
+                    <div className="">
+                        <Filter mode={routeToStatus[currentLocation.pathname]}/>
+                    </div>
+                )}
+            </div> 
+        <h1 className="text-3xl font-semibold text-gray-700">
+            {routeToTitle[currentLocation.pathname] } {currentLocation.pathname.includes('/edit/') ? 'Note editing' : ''}
+        </h1>
         <div className="flex gap-4 items-center">
-            <button>:::</button>
-            <input type="text" className="border max-h-10" onChange={(e)=>setSearchQuery(e.target.value)} value={searchQuery} /></div>   
+            {(currentLocation.pathname === '/' || currentLocation.pathname === '/archive' || currentLocation.pathname === '/trash') && (
+                <>
+                {/* <button>:::</button> */}
+                <div>
+                    {showInput && <input 
+                        type="text"
+                        autoFocus 
+                        className="border max-h-10" 
+                        onChange={(e)=>setSearchQuery(e.target.value)} 
+                        onBlur={(e) => checkBlur(e)}
+                        value={searchQuery} />
+                    }
+                    {!showInput && 
+                        <button onClick={() => setShowInput(true)} title="search note">
+                            <FontAwesomeIcon 
+                                icon={faMagnifyingGlass} 
+                                className="hover:scale-115 hover:text-amber-700 duration-300 text-gray-600 text-xl"
+                            />
+                        </button>}
+                </div>
+                </>
+        )}
+
+        </div>
             {/* {searchQuery} */}
         </div>
     )

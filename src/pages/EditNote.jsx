@@ -35,27 +35,27 @@ export default function EditNote() {
 
     return (
         <div className='p-4'>
-            <form onSubmit={onSubmit} className='min-w-100 flex flex-col gap-4 border border-gray-400 rounded-xl p-4 m-auto mt-4 bg-gray-200'>
-                <input type='text' onChange={(e)=>setTitle(e.target.value)} value={title} className='border p-2'/>
-                <textarea name="" id="" onChange={(e)=>setText(e.target.value)} value={text} className='border p-2' rows={15}></textarea>
-                <div className='flex gap-4'>
+            <form onSubmit={onSubmit} className='max-w-3xl mx-auto flex flex-col gap-4  border-gray-400 rounded-lg p-6 m-auto mt-4 bg-white shadow-soft'>
+                <input type='text' onChange={(e)=>setTitle(e.target.value)} value={title} className='border border-gray-300 p-2'/>
+                <textarea name="" id="" onChange={(e)=>setText(e.target.value)} value={text} className='border border-gray-300 p-2 leading-relaxed' rows={12}></textarea>
+                <div className='flex gap-4 text-lg '><span className='mr-1 text-gray-600'>Labels:</span> 
                     {labels.map(label => {
                         return  (
-                            <span className='flex items-center gap-1'>
+                            <span className='flex items-center gap-1 '> 
                                 <input 
                                     type='checkbox'
                                     checked={editLabels.includes(label.id)}
                                     onChange={()=>toggleLabels(label.id)}
-                                    className=''
+                                    className='form-checkbox text-blue-600 rounded-lg'
                                 />{label.name}
 
                             </span> )
                     })}
                 </div>
                 
-                <div className='flex justify-around'>
-                    <button type='button' onClick={()=>navigate(-1)}> Cancel</button>
-                    <button type='submit' className='border'>Update</button>
+                <div className='flex justify-around gap-20 mt-6 mb-4'>
+                    <button type='button' className='btn cancel ' onClick={()=>navigate(-1)}> Cancel</button>
+                    <button type='submit' className='btn apply '>Update</button>
                 </div>
             </form>
         </div>

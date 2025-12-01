@@ -28,7 +28,7 @@ body, button {
 
 @layer components {
     .btn, .undoBtn {
-        @apply p-2 border border-gray-200 rounded-lg 
+        @apply p-2 border border-gray-200 rounded-lg  
     }
 
     .toTrashBtn {
@@ -70,15 +70,15 @@ body, button {
 
 @layer utility {
     .cancel {
-        @apply bg-gray-300 ;
+        @apply bg-white hover:bg-gray-100 hover:scale-105  duration-300 px-4 shadow;
     }
 
     .apply {
-        @apply bg-green-300;
+        @apply bg-blue-500 hover:bg-blue-600 text-white duration-300 px-4 shadow font-medium hover:scale-105;
     }
 
     .shadow-soft {
-        box-shadow: 0 0 5px rgb(187, 187, 187);
+        box-shadow: 0 0 5px rgb(189, 188, 188);
     }
 
     .menuLinks {

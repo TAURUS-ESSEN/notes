@@ -7,7 +7,8 @@
         const sorted = useMemo(() => {
             const arr = notes.filter(note => 
                 note.status === status &&
-                note.title.toLowerCase().includes(searchQuery.toLowerCase()) &&
+                (note.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                note.text.toLowerCase().includes(searchQuery.toLowerCase())) &&
                 (filter.length === 0 || note.labels?.some(id => filter.includes(id)))  
             );
             if (sortBy[status] === 'new') 
