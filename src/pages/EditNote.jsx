@@ -34,10 +34,10 @@ export default function EditNote() {
     }
 
     return (
-        <div>
-            <form onSubmit={onSubmit} className='max-w-100 flex flex-col gap-4 border p-2 m-auto mt-4'>
+        <div className='p-4'>
+            <form onSubmit={onSubmit} className='min-w-100 flex flex-col gap-4 border border-gray-400 rounded-xl p-4 m-auto mt-4 bg-gray-200'>
                 <input type='text' onChange={(e)=>setTitle(e.target.value)} value={title} className='border p-2'/>
-                <textarea name="" id="" onChange={(e)=>setText(e.target.value)} value={text} className='border p-2'></textarea>
+                <textarea name="" id="" onChange={(e)=>setText(e.target.value)} value={text} className='border p-2' rows={15}></textarea>
                 <div className='flex gap-4'>
                     {labels.map(label => {
                         return  (
