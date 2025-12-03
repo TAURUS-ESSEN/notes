@@ -40,35 +40,11 @@ export default function AddNotesModal() {
         setNoteLabels(prev => noteLabels.includes(id) ? prev.filter(l=>l!==id) : [...prev, id] )
     }
 
-    function restoreNoteFromTrash(id) {
-        const changedNote = notes.find(n=>n.id === id);
-        if (!changedNote) return;
-        
-        setNotes(prev =>
-            prev.map(n => 
-                n.id === id ? 
-                { ...n, status: 'active', deletedAt: ''}
-                : n )
-        );
-
-        const toastId = Date.now() + Math.random();
-        setToasts(prev=>([...prev, {toastId, message: (
-            <div className='activeToast'>
-                <strong>Recovered: </strong>{shorten(changedNote.title)}
-                <button className='undoBtn' onClick={(e)=>{
-                    e.currentTarget.disabled = true;
-                    undoRestore(changedNote.id, changedNote.deletedAt, toastId)
-                    
-                    }}>Undo ↻</button>
-            </div>
-            ) 
-        }]))
-    }
 
     return (
         <>
             <Modal title='Create new note' closeModal={closeModal}>
-                <form onSubmit={onSubmit} className='bg-white flex flex-col gap-4 p-4 md:min-w-100' >
+                <form onSubmit={onSubmit} className='bg-white flex flex-col gap-4 p-4 md:min-w-100 max-w-160' >
                     {/* <label>Enter category name:</label> */}
                     <input type='text' 
                         onChange={(e) => setNoteTitle(e.target.value.slice(0,35))} 
@@ -81,9 +57,9 @@ export default function AddNotesModal() {
                         placeholder='Note Title, min 2 characters'
                     />
                     <textarea onChange={(e)=>setNoteText(e.target.value)} value={noteText} className='border' rows="10"></textarea>
-                    <div className='flex gap-2'>
+                    <div className='flex gap-2 flex-wrap'>
                         {labels.map(label=> { return (
-                            <span className='flex gap-1 items-center'>
+                            <span className='flex gap-1 items-center '>
                                 <input 
                                     type='checkbox' 
                                     checked={noteLabels.includes(label.id)}  

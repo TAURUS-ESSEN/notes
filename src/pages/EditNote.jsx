@@ -49,12 +49,13 @@ export default function EditNote() {
     }
 
     return (
-        <div className='p-4'>{note.id}
+        <div className='p-4'> 
             <form onSubmit={onSubmit} className='max-w-3xl mx-auto flex flex-col gap-4  border-gray-400 rounded-lg p-6 m-auto mt-4 bg-white shadow-soft'>
                 <input type='text' onChange={(e)=>setTitle(e.target.value)} value={title} className='border border-gray-300 p-2'
                 disabled={ note.status == 'deleted' ? 'disabled' : ''}/>
                 <textarea name="" id="" onChange={(e)=>setText(e.target.value)} value={text} className='border border-gray-300 p-2 leading-relaxed' rows={12} disabled={ note.status == 'deleted' ? 'disabled' : ''}></textarea>
-                <div className='flex gap-4 text-lg '><span className='mr-1 text-gray-600'>Labels:</span> 
+                <div className='flex gap-4 text-lg flex-wrap'>
+                    <span className='mr-1 text-gray-600'>Labels:</span> 
                     {labels.map(label => {
                         return  (
                             <span className='flex items-center gap-1 '> 

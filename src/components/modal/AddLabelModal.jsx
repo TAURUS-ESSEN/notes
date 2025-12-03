@@ -36,11 +36,9 @@ export default function AddLabelsModal() {
         <>
             <Modal title='Create new label' closeModal={closeModal}>
                 <form onSubmit={onSubmit} className='bg-white flex flex-col gap-4 p-4' >
-                    {/* <label>Enter category name:</label> */}
                     <input type='text' 
                         onChange={(e) => setLabelName(e.target.value.slice(0,35))} 
                         value={labelName}
-                        // onBlur = {(e) => setCategoryName(e.target.value.trim())} 
                         maxLength={35}
                         autoFocus
                         className='border p-2' 
@@ -48,8 +46,8 @@ export default function AddLabelsModal() {
                         placeholder='Label Title, min 2 characters'
                     />
                     <div className='flex justify-between gap-4'>
-                        <button type="button" onClick={cancel} className='border p-2'>Cancel</button>
-                        <button type='submit' disabled={!lenghtOK} className='border p-2'>
+                        <button type="button" onClick={cancel} className='btn border p-2 '>Cancel</button>
+                        <button type='submit' disabled={!lenghtOK} className='btn border p-2'>
                             +Add New Label
                         </button>      
                     </div>

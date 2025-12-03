@@ -47,7 +47,7 @@ export default function ManageLabels() {
     }
 
     function quantity(id) {
-       return notes.filter(note => Array.isArray(note.labels) && note.labels.includes(id)).length
+        return notes.filter(note => Array.isArray(note.labels) && note.labels.includes(id)).length
     }
 
     return (
@@ -59,8 +59,8 @@ export default function ManageLabels() {
                 const isDeleting = deleteId === label.id;
 
                 return (
-                    <li key={label.id} className="min-w-100 flex flex-col ">
-                        <div className="flex gap-2 items-center justify-between p-2 bg-amber-200 mb-2">
+                    <li key={label.id} className="min-w-100  even:bg-gray-50  mb-2 overflow-y-auto">
+                        <div className="flex items-center justify-between p-2 ">
                             <span className="flex items-center px-2 justify-between gap-4">
                                 {isEditing ? (
                                     <input
@@ -74,23 +74,22 @@ export default function ManageLabels() {
                                 )}
 
                                 {!isEditing ? (
-                                    <button onClick={() => startEdit(label)} className="btn">edit</button>
+                                    <button onClick={() => startEdit(label)} className="btn bg-blue-400 text-white hover:bg-blue-600 duration-300">edit</button>
                                 ) : (
                                     <button onClick={() => saveEdit(label)}>save</button>
                                 )}
                                 </span>
-                            <button onClick={() => setDeleteId(label.id)} className="btn">delete</button>
+                            <button onClick={() => setDeleteId(label.id)} className="btn bg-red-400 hover:bg-red-500 duration-300 text-white">delete</button>
                         </div>
-                        <div className="p-2">
+                        <div className="p-4">
                             {isDeleting && (
-                                <div className="flex flex-col justify-center gap-2">
-                                    <span className="text-center">wish you realy delete this label? </span>
-                                    {/* {notes.filter(note=>note.labels.includes(label.id)).length} */}
+                                <div className="flex flex-col justify-center gap-2 border border-orange-700  bg-orange-200 rounded-xl p-2 text-red-950">
+                                    <span className="text-center">Are you sure you really want to delete this label? </span>
                                     <span className="text-center">Deleting this label will affect {quantity(label.id)} notes.</span>
                                     
                                     <span className="flex justify-around">
                                         <button className="btn cancel" onClick={()=>{setDeleteId(null)}}>Cancel</button>
-                                        <button className="btn" onClick={()=>deleteLabel(label)}>Delete</button>
+                                        <button className="btn bg-red-700 text-white px-2" onClick={()=>deleteLabel(label)}>Delete</button>
                                     </span>
                                 </div>
                                 )}

@@ -82,6 +82,6 @@ body, button {
     }
 
     .menuLinks {
-        @apply w-full flex gap-2 items-center px-2 py-1 font-semibold text-lg rounded-2xl text-gray-800  
+        @apply w-full flex gap-2 items-center justify-start px-2 py-1 font-semibold text-lg rounded-2xl text-gray-800  
     }
 }

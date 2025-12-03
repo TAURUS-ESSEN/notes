@@ -38,8 +38,11 @@ export default function Sidebar() {
 
                     <ul className="flex flex-col justify-start items-start w-full gap-1">
                     {labels.map(label => {
-                        return <li className={filter.includes(label.id) ? ' bg-green-100  menuLinks ' : 'menuLinks'}>
-                            <FontAwesomeIcon icon={faBookmark} /> <button onClick={()=>changeFilters(label.id)}>{label.name}</button></li>    
+                        return ( 
+                            <li className={filter.includes(label.id) ? ' bg-green-100  menuLinks ' : 'menuLinks'}>
+                                <FontAwesomeIcon icon={faBookmark} /> 
+                                <button onClick={()=>changeFilters(label.id)} className="text-left">{label.name}</button>
+                            </li> )   
                         })}
                     </ul>
                     {/* {filter.length}  */}
