@@ -1,13 +1,18 @@
 import Modal from './Modal';
 import { useAppContext } from '../AppContext';
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 
-export default function AddCategoryModal() {
+export default function DeleteNoteModal() {
     const {notes, modal, setNotes, closeModal, setToasts} = useAppContext()
+    const currentLocation = useLocation();
+    const navigate = useNavigate();
 
     function onSubmit(e) {
         e.preventDefault()
-        const deletedNote = notes.find(n=>n.id === modal.noteId);
-        setNotes(prev => prev.filter(n => n.id !== modal.noteId ))  
+        console.log(modal.noteId)
+
+        const deletedNote = notes.find(n=>Number(n.id) === Number(modal.noteId));
+        setNotes(prev => prev.filter(n => Number(n.id) !== Number(modal.noteId) ))  
         const toastId = Date.now() + Math.random();
         setToasts(prev=>([...prev, {toastId, message: (
             <div className='deletedToast'>
@@ -20,6 +25,8 @@ export default function AddCategoryModal() {
             ) 
         }]))
         closeModal();
+        if (currentLocation.pathname.includes('edit')) navigate(-1);
+        
     }
 
     function undo(deletedNote, toastId) {

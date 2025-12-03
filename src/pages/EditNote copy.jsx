@@ -5,8 +5,8 @@ import { useAppContext } from "../components/AppContext";
 export default function EditNote() {
     const { noteId} = useParams();
     const navigate = useNavigate();
-    const {labels, notes, setNotes, setToasts, openModal} = useAppContext();
-    const note = notes.find(n=>n.id === Number(noteId)) ?? '';
+    const {labels, notes, setNotes, setToasts} = useAppContext();
+    const note = notes.find(n=>n.id === Number(noteId))
     const [title, setTitle] = useState(note.title);
     const [text, setText] = useState(note.text)
     const [editLabels, setEditLabels] = useState(note.labels);
@@ -30,26 +30,12 @@ export default function EditNote() {
         navigate(-1);
     }
 
-    function restore() {
-        setNotes(prev=>prev.map(n => n.id ==noteId ?  {...n, status: 'active'} : n))
-        setText('');
-        setTitle('');
-        navigate(-1);
-    }
-
-    function deleteNote(id) {
-        openModal('deleteNote', Number(id))
-        // setText('');
-        // setTitle('');
-        // navigate(-1);
-    }
-
     function toggleLabels(id) {
         setEditLabels(prev => editLabels.includes(id) ? prev.filter(l=>l!==id) : [...prev, id] )
     }
 
     return (
-        <div className='p-4'>{note.id}
+        <div className='p-4'>
             <form onSubmit={onSubmit} className='max-w-3xl mx-auto flex flex-col gap-4  border-gray-400 rounded-lg p-6 m-auto mt-4 bg-white shadow-soft'>
                 <input type='text' onChange={(e)=>setTitle(e.target.value)} value={title} className='border border-gray-300 p-2'
                 disabled={ note.status == 'deleted' ? 'disabled' : ''}/>
@@ -63,7 +49,6 @@ export default function EditNote() {
                                     checked={editLabels.includes(label.id)}
                                     onChange={()=>toggleLabels(label.id)}
                                     className='form-checkbox text-blue-600 rounded-lg'
-                                    disabled={ note.status == 'deleted' ? 'disabled' : ''}
                                 />{label.name}
 
                             </span> )
@@ -72,20 +57,8 @@ export default function EditNote() {
                 
                 <div className='flex justify-around gap-20 mt-6 mb-4'>
                     <button type='button' className='btn cancel ' onClick={()=>navigate(-1)}> 
-                        Cancel
-                    </button>
-                    { note.status === 'deleted' &&
-                    <>
-                    <button type='button' className='btn cancel ' onClick={restore}> 
-                        Restore
-                    </button>
-                    <button type='button' className='btn cancel ' onClick={()=>deleteNote(noteId)}> 
-                        Delete
-                    </button>
-                    </>}
-                    { note.status !== 'deleted' &&
-                        <button type='submit' className='btn apply'>Update</button> 
-                    }
+                        {note.status ==='deleted' ? 'restore' : 'cancel'}</button>
+                    <button type='submit' className='btn apply '>{note.status ==='deleted' ? 'restore' : 'Update'}</button>
                 </div>
             </form>
         </div>
