@@ -1,4 +1,3 @@
-// import styles from './modal.module.css';
 import Modal from './Modal';
 import { useAppContext } from '../AppContext';
 import { useState } from 'react';
@@ -8,26 +7,38 @@ import { faBookmark} from '@fortawesome/free-regular-svg-icons';
 export default function AddLabelsModal() {
     const {labels, setLabels, closeModal, setToasts} = useAppContext()
     const [labelName, setLabelName] = useState('');
-    const lenghtOK = labelName.length > 1;
+    const isTitleValid = labelName.length > 1;
     const [labelColor, setLabelColor] = useState('');
+    const [error, setError] = useState('');
+    const isDuplicate = labels.some(
+        label => label.name.trim().toLowerCase() === labelName.trim().toLowerCase()
+    );
 
 
-    function onSubmit(e) {
+    const onSubmit = (e) => {
         e.preventDefault()
-        setLabels(prev=> [...prev, { id: Date.now(), name: labelName, color: 'gray' }])
+
+        if (isDuplicate) {
+            setError('Label with this name already exists');
+            return;
+        }
+
+        setLabels(prev=> [...prev, { id: Date.now(), name: labelName.trim(), color: 'gray' }])
         const toastId = Date.now() + Math.random();
         setToasts(prev=>([...prev, {toastId, message: (
             <div className='activeToast'>
-                <FontAwesomeIcon icon={faBookmark} className='block' /> <span> Label <strong>"{labelName}"</strong>created</span>
+                <FontAwesomeIcon icon={faBookmark} className='block' /> <span> Label <strong>" {labelName}"</strong>created</span>
             </div>
             )}])) 
         setLabelName('');
+        setError('')
         setLabelColor('');
         closeModal();
     }
 
-    function cancel() {
+    const cancel = () => {
         setLabelName('');
+        
         setLabelColor('');
         closeModal();
     }
@@ -37,7 +48,10 @@ export default function AddLabelsModal() {
             <Modal title='Create new label' closeModal={closeModal}>
                 <form onSubmit={onSubmit} className='bg-white flex flex-col gap-4 p-4' >
                     <input type='text' 
-                        onChange={(e) => setLabelName(e.target.value.slice(0,35))} 
+                        onChange={(e) => {
+                            setLabelName(e.target.value.slice(0,35));
+                            if (error) setError('');
+                        }}
                         value={labelName}
                         maxLength={35}
                         autoFocus
@@ -45,9 +59,10 @@ export default function AddLabelsModal() {
                         required
                         placeholder='Label Title, min 2 characters'
                     />
+                    <span>{error}</span>
                     <div className='flex justify-between gap-4'>
                         <button type="button" onClick={cancel} className='btn border p-2 '>Cancel</button>
-                        <button type='submit' disabled={!lenghtOK} className='btn border p-2'>
+                        <button type='submit' disabled={!isTitleValid || isDuplicate} className='btn border p-2'>
                             +Add New Label
                         </button>      
                     </div>

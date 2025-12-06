@@ -1,4 +1,4 @@
-import {useState, useEffect} from 'react'
+import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from "react-router-dom";
 import { useAppContext } from "../components/AppContext";
 
@@ -11,13 +11,24 @@ export default function EditNote() {
     const [text, setText] = useState(note.text)
     const [editLabels, setEditLabels] = useState(note.labels);
 
+    useEffect(()=> {
+        const onKey = (e) => {
+            if (e.altKey && e.key.toLowerCase() === "s") { onSubmit(e) }
+            if ((e.altKey && e.key.toLowerCase() === "a") && (note.status!=='archived'))  { acrhive() }
+            if ((e.altKey && e.key.toLowerCase() === "w") && (note.status!=='active'))  { restore() }
+            if ((e.altKey && e.key.toLowerCase() === "d") && (note.status!=='deleted'))  { toTrash()}
+            if (e.key === "Escape")  { navigate(-1) }
+        }
+        document.addEventListener("keydown", onKey)
+        return () => {document.removeEventListener("keydown", onKey)}
+    },[title, text, editLabels, note.status, navigate])
+
     if (!note) {
         return <div className='p-4'>Note not found</div>;
     }
-
-    function onSubmit(e) {
+    
+    const onSubmit = (e) => {
         e.preventDefault()
-
         setNotes(prev=>prev.map(n => n.id==noteId ? {...n, title: title, text: text, labels: editLabels, updatedAt: Date.now()}: n));
         setText('');
         const toastId = Date.now() + Math.random();
@@ -30,21 +41,41 @@ export default function EditNote() {
         navigate(-1);
     }
 
-    function restore() {
-        setNotes(prev=>prev.map(n => n.id ==noteId ?  {...n, status: 'active'} : n))
-        setText('');
-        setTitle('');
-        navigate(-1);
+    const restore = () => {
+        setNotes(prev=>prev.map(n => n.id ==noteId ?  {...n, status: 'active', deletedAt: ''} : n))
+        const toastId = Date.now() + Math.random();
+        setToasts(prev=>([...prev, {toastId, message: (
+            <div className='activeToast justify-center text-center'>
+                <span> Note {title} was restored</span>
+            </div>
+        )}])) 
     }
 
-    function deleteNote(id) {
+    const acrhive = () => {
+        setNotes(prev=>prev.map(n => n.id ==noteId ?  {...n, status: 'archived'} : n))
+        const toastId = Date.now() + Math.random();
+        setToasts(prev=>([...prev, {toastId, message: (
+            <div className='archiveToast justify-center text-center'>
+                <span> Note {title} was archived</span>
+            </div>
+        )}])) 
+    }
+
+    const toTrash = () => {
+        setNotes(prev=>prev.map(n => n.id ==noteId ?  {...n, status: 'deleted', deletedAt: Date.now()} : n))
+        const toastId = Date.now() + Math.random();
+        setToasts(prev=>([...prev, {toastId, message: (
+            <div className='deletedToast justify-center text-center'>
+                <span> Note {title} was deleted</span>
+            </div>
+        )}])) 
+    }
+
+    const deleteNote = (id) => {
         openModal('deleteNote', Number(id))
-        // setText('');
-        // setTitle('');
-        // navigate(-1);
     }
 
-    function toggleLabels(id) {
+    const toggleLabels = (id) => {
         setEditLabels(prev => editLabels.includes(id) ? prev.filter(l=>l!==id) : [...prev, id] )
     }
 
@@ -75,18 +106,24 @@ export default function EditNote() {
                     <button type='button' className='btn cancel ' onClick={()=>navigate(-1)}> 
                         Cancel
                     </button>
-                    { note.status === 'deleted' &&
-                    <>
+                    {(note.status === 'deleted' || note.status === 'archived') &&
                     <button type='button' className='btn cancel ' onClick={restore}> 
                         Restore
-                    </button>
-                    <button type='button' className='btn cancel ' onClick={()=>deleteNote(noteId)}> 
-                        Delete
-                    </button>
-                    </>}
+                    </button>}
+                    { note.status !== 'archived' && note.status !== 'deleted' &&
+                    <button type='button' className='btn cancel ' onClick={acrhive}>  
+                        Archive
+                    </button>}
                     { note.status !== 'deleted' &&
-                        <button type='submit' className='btn apply'>Update</button> 
-                    }
+                    <button type='button' className='btn cancel ' onClick={toTrash}> 
+                        Delete
+                    </button>}
+                    { note.status === 'deleted' &&
+                    <button type='button' className='btn bg-red-600 text-white' onClick={()=>deleteNote(noteId)}> 
+                        Delete forever
+                    </button>}
+                    { note.status !== 'deleted' &&
+                        <button type='submit' className='btn apply'>Update</button>}
                 </div>
             </form>
         </div>

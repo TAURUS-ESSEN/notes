@@ -6,7 +6,7 @@ import { AppContext } from './components/AppContext'
 import Toasts from './components/Toasts';
 import './App.css';
 import { DEFAULT_LABELS, DEFAULT_NOTES } from './data/default';
-import { Outlet } from 'react-router-dom'
+import { Outlet, useNavigate } from 'react-router-dom'
 
 function loadInitialData(key, fallback) {
   try {
@@ -25,6 +25,7 @@ function App() {
   const [sortBy, setSortBy] = useState({active:'new', archived: 'new', deleted: 'lastDeleted'});
   const [searchQuery, setSearchQuery] = useState('');
   const [toasts, setToasts] = useState([]);
+  const navigate = useNavigate();
 
   const openModal = useCallback((modalType, id = null) => {
     setModal({isOpen: true, type: modalType, noteId : id});
@@ -44,6 +45,34 @@ function App() {
   useEffect(() => {
     localStorage.setItem('labels', JSON.stringify(labels))
   }, [labels]);
+
+  useEffect(()=>{
+    const onKey = (e) => {
+      if (e.altKey && e.key.toLowerCase() === "n")  {
+        e.preventDefault();
+        openModal('addNote');
+      }
+
+      if (e.altKey && e.key === "1")  {
+        navigate('/')
+      }
+
+      if (e.altKey && e.key === "2")  {
+        navigate('archive')
+      }
+
+      if (e.altKey && e.key === "3")  {
+        navigate('trash')
+      }
+
+      if (e.altKey && e.key === "l")  {
+        openModal("addLabel")
+      }
+    }
+
+    document.addEventListener("keydown", onKey)
+    return () => {document.removeEventListener("keydown", onKey)}
+  },[openModal])  
 
   return (
     <AppContext.Provider value={contextValue}>
