@@ -17,11 +17,10 @@ export default function Modal({title, children, closeModal}) {
     return createPortal(
         <>
             <div className={styles.modalOverlay} onClick={(e)=> {e.currentTarget === e.target && closeModal()}}>
-                {/* <div className={styles.modalContent}> */}
-                <div className="flex flex-col bg-gray-300 p-4 rounded-xl gap-4">
-                    <div className={styles.modalHeader}>
+                <div className="flex flex-col bg-white rounded-xl gap-4 ">
+                    <div className='flex justify-between gap-4 items-center p-4 bg-gray-50 rounded-t-xl border-gray-300 text-gray-600 border-b text-lg'>
                         <h3 className={styles.modalTitle}>{title}</h3>
-                        <button onClick={()=>closeModal()} >&times;</button>
+                        <button onClick={()=>closeModal()} className='text-2xl hover:scale-115 duration-300' >&times;</button>
                     </div>
                     <span>{children}</span>
                 </div>

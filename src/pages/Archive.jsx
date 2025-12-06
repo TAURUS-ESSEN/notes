@@ -21,7 +21,8 @@ export default function Archive() {
 
         const toastId = Date.now() + Math.random();
         setToasts(prev=>([...prev, {toastId, message: (
-            <div className={nextStatus === 'active' ? 'activeToast' : 'trashToast'}>
+            <div className={`${nextStatus === 'active' ? 'activeToast' : 'trashToast'} break-all`}>
+                
                 <strong>{nextStatus==='active' ? 'Active' : 'Deleted'}: </strong>{shorten(changedNote.title)}
                 <button className='undoBtn' onClick={(e)=>{
                     e.currentTarget.disabled = true;
@@ -67,8 +68,8 @@ export default function Archive() {
 
                         <Link to={`/edit/${note.id}`}  title='Click to edit this note'>
                             <div className='notePreview'>
-                                <div className='font-semibold'>{note.title} </div>
-                                <div> {shorten(note.text, 60)}</div>
+                                <div className='font-semibold wrap-break-word'>{shorten(note.title, 15)} </div>
+                                <div className='wrap-break-word'> {shorten(note.text, 60)}</div>
                             </div>
                         </Link>
                     </div> 

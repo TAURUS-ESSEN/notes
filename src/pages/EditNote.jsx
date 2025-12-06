@@ -80,50 +80,50 @@ export default function EditNote() {
     }
 
     return (
-        <div className='p-4'> 
-            <form onSubmit={onSubmit} className='max-w-3xl mx-auto flex flex-col gap-4  border-gray-400 rounded-lg p-6 m-auto mt-4 bg-white shadow-soft'>
+        <div className='px-4'> 
+            <form onSubmit={onSubmit} className='max-w-3xl m-auto mt-4 p-6 flex flex-col gap-4 border-gray-400 rounded-lg bg-white shadow-soft'>
                 <input type='text' onChange={(e)=>setTitle(e.target.value)} value={title} className='border border-gray-300 p-2'
                 disabled={ note.status == 'deleted' ? 'disabled' : ''}/>
                 <textarea name="" id="" onChange={(e)=>setText(e.target.value)} value={text} className='border border-gray-300 p-2 leading-relaxed' rows={12} disabled={ note.status == 'deleted' ? 'disabled' : ''}></textarea>
-                <div className='flex gap-4 text-lg flex-wrap'>
+                <div className='flex gap-3 text-lg flex-wrap'>
                     <span className='mr-1 text-gray-600'>Labels:</span> 
                     {labels.map(label => {
                         return  (
-                            <span className='flex items-center gap-1 '> 
+                            <span className='flex items-center gap-1'> 
                                 <input 
                                     type='checkbox'
                                     checked={editLabels.includes(label.id)}
                                     onChange={()=>toggleLabels(label.id)}
                                     className='form-checkbox text-blue-600 rounded-lg'
                                     disabled={ note.status == 'deleted' ? 'disabled' : ''}
-                                />{label.name}
+                                />{ label.name.length > 15 ? label.name.slice(0,15)+'...' : label.name }
 
                             </span> )
                     })}
                 </div>
                 
                 <div className='flex justify-around gap-20 mt-6 mb-4'>
-                    <button type='button' className='btn cancel ' onClick={()=>navigate(-1)}> 
+                    <button type='button' className='btn  hover:bg-gray-200 ' onClick={()=>navigate(-1)} title="Cancel editing"> 
                         Cancel
                     </button>
                     {(note.status === 'deleted' || note.status === 'archived') &&
-                    <button type='button' className='btn cancel ' onClick={restore}> 
+                    <button type='button' className='btn hover:bg-green-600 hover:text-white' onClick={restore} title="Restore note"> 
                         Restore
                     </button>}
                     { note.status !== 'archived' && note.status !== 'deleted' &&
-                    <button type='button' className='btn cancel ' onClick={acrhive}>  
+                    <button type='button' className='btn hover:bg-amber-300' onClick={acrhive} title="Archive note">  
                         Archive
                     </button>}
                     { note.status !== 'deleted' &&
-                    <button type='button' className='btn cancel ' onClick={toTrash}> 
+                    <button type='button' className='btn hover:bg-red-500 hover:text-white' onClick={toTrash} title="Delete note"> 
                         Delete
                     </button>}
                     { note.status === 'deleted' &&
-                    <button type='button' className='btn bg-red-600 text-white' onClick={()=>deleteNote(noteId)}> 
+                    <button type='button' className='btn bg-red-600 text-white' onClick={()=>deleteNote(noteId)} title="Delete forever"> 
                         Delete forever
                     </button>}
                     { note.status !== 'deleted' &&
-                        <button type='submit' className='btn apply'>Update</button>}
+                        <button type='submit' className='btn apply' title="Save changes">Update</button>}
                 </div>
             </form>
         </div>

@@ -35,20 +35,34 @@ export default function DeleteNoteModal() {
     }
 
     function findNoteName(id) {
-        return notes.find(n=>n.id === id)?.title.slice(0,15) ?? '';
+        return notes.find(n => n.id === Number(id))?.title.slice(0, 15) ?? '';
     }
 
     return (
         <>
             <Modal title={`Delete this note: ${findNoteName(modal.noteId)}...`} closeModal={closeModal}>
-                <form onSubmit={onSubmit} className='bg-white flex flex-col gap-4 p-4' >
-                    Do you really want to delete this note?
-                    <div className='flex justify-between gap-4'>
-                        <button type="button" onClick={closeModal} className='border  p-2'>Cancel</button>
-                        <button type='submit' className='border p-2'>
+                <form onSubmit={onSubmit} className='bg-white flex flex-col text-lg rounded-xl' >
+                    <div className='flex justify-center items-center text-xl m-auto max-w-80 text-center'> 
+                        Do you really want to delete this note?
+                    </div>
+                    <div className='flex justify-around gap-4 p-4 mt-1'>
+                        <button 
+                            type="button" 
+                            onClick={closeModal} 
+                            className='btn border p-2 bg-gray-100 hover:bg-gray-200 duration-300 hover:scale-105 rounded-xl'
+                            title="Cancel delete"
+                        >
+                            Cancel
+                        </button>
+                        <button 
+                            type='submit' 
+                            className='btn border p-3 bg-red-400 hover:bg-red-500 duration-300 hover:scale-105 text-white rounded-xl'
+                            title="Delete forever"
+                        >
                             Delete
                         </button>      
                     </div>
+
                 </form>
             </Modal>
         </>

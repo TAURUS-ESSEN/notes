@@ -2,6 +2,7 @@ import { Link, useLocation } from "react-router-dom";
 import { useAppContext } from "./AppContext";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLightbulb, faFolderOpen, faTrashCan, faBookmark} from '@fortawesome/free-regular-svg-icons';
+import { faEllipsisVertical } from '@fortawesome/free-solid-svg-icons';
 
 
 export default function Sidebar() {
@@ -33,7 +34,9 @@ export default function Sidebar() {
                 <div className="mt-8 w-full">
                     <div className="flex gap-2 mb-2 justify-between">
                         <h2 className="text-gray-600 text-left">Labels</h2> 
-                        <button className="font-semibold " onClick={()=>{openModal('manageLabels')}}>::</button>
+                        <button className="font-semibold text-gray-500" onClick={()=>{openModal('manageLabels')}} title="Manage labels">
+                            <FontAwesomeIcon icon={faEllipsisVertical} className="text-lg hover:scale-115 hover:text-gray-700 duration-300" />
+                        </button>
                     </div>
 
                     <ul className="flex flex-col justify-start items-start w-full gap-1">
@@ -41,7 +44,9 @@ export default function Sidebar() {
                         return ( 
                             <li className={filter.includes(label.id) ? ' bg-green-100  menuLinks ' : 'menuLinks'}>
                                 <FontAwesomeIcon icon={faBookmark} /> 
-                                <button onClick={()=>changeFilters(label.id)} className="text-left">{label.name}</button>
+                                <button onClick={()=>changeFilters(label.id)} className="text-left truncate max-w-[180px]">
+                                    {label.name}
+                                </button>
                             </li> )   
                         })}
                     </ul>

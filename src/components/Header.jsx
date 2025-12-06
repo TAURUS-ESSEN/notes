@@ -58,7 +58,7 @@ export default function Header() {
     const showListUI = thisPage === '/' || thisPage === '/archive' || thisPage === '/trash';
 
     return (
-        <div className="flex justify-between items-center w-full gap-4 p-2 ">
+        <div className="flex justify-between items-center w-full gap-4 p-2">
             <div>
                 {showListUI && (
                     <Filter mode={routeToStatus[thisPage]} />

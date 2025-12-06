@@ -28,7 +28,7 @@ body, button {
 
 @layer components {
     .btn, .undoBtn {
-        @apply p-2 border border-gray-200 rounded-lg  
+        @apply p-3 border border-gray-200 rounded-xl shadow hover:scale-105 duration-300
     }
 
     .toTrashBtn {
@@ -40,11 +40,11 @@ body, button {
     }
 
     .notePreviewContainer {
-        @apply bg-white rounded p-4 min-w-40 max-w-60 relative hover:scale-105 duration-300 shadow
+        @apply bg-white rounded-xl p-4 min-w-40 max-w-60 relative hover:scale-105 duration-300 shadow
     }
 
     .notePreview {
-        @apply flex flex-col justify-start text-left mt-3;
+        @apply flex flex-col justify-start text-left mt-5;
     }
 
     .activeToast, .deletedToast, .archiveToast, .trashToast  {
@@ -78,7 +78,7 @@ body, button {
     }
 
     .shadow-soft {
-        box-shadow: 0 0 5px rgb(189, 188, 188);
+        box-shadow: 0 0 5px rgb(210, 210, 210);
     }
 
     .menuLinks {

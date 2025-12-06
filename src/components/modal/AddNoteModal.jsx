@@ -43,7 +43,7 @@ export default function AddNotesModal() {
     return (
         <>
             <Modal title='Create new note' closeModal={closeModal}>
-                <form onSubmit={onSubmit} className='bg-white flex flex-col gap-4 p-4 md:min-w-100 max-w-160' >
+                <form onSubmit={onSubmit} className='bg-white flex flex-col gap-4 px-4 md:min-w-100 max-w-160 mb-4' >
                     <input type='text' 
                         onChange={(e) => setNoteTitle(e.target.value.slice(0,35))} 
                         value={noteTitle}

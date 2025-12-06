@@ -76,7 +76,7 @@ function App() {
 
   return (
     <AppContext.Provider value={contextValue}>
-      <div className='wrapper flex m-auto p-2 bg-[#dcdbd7] '>
+      <div className='wrapper flex m-auto p-2 bg-[#efefee] '>
         <Toasts toasts={toasts} setToasts={setToasts}/>
         <Sidebar/>
         <main className='flex flex-col h-screen w-full   border-l border-gray-400'>
