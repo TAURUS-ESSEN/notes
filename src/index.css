@@ -70,7 +70,7 @@ body, button {
 
     .labelTag {
         @apply rounded-full px-2 py-[3px] text-xs font-medium 
-        w-15 truncate opacity-90
+        w-15 truncate opacity-70
         hover:opacity-100 hover:scale-105 transition;
     }
 

@@ -1,7 +1,7 @@
 import { Link, useLocation } from "react-router-dom";
 import { useAppContext } from "./AppContext";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faLightbulb, faFolderOpen, faTrashCan } from '@fortawesome/free-regular-svg-icons';
+import { faFolderOpen, faTrashCan, faNoteSticky} from '@fortawesome/free-regular-svg-icons';
 import { faEllipsisVertical, faBookmark  } from '@fortawesome/free-solid-svg-icons';
 import { LABEL_COLOR_CLASSES_TEXT } from "../constants/labelColors";
 
@@ -21,7 +21,7 @@ export default function Sidebar() {
                 <div className="">  
                     <ul className="flex flex-col justify-start items-start">
                         <li className={`${currentLocation.pathname === '/' ? 'bg-amber-400 menuLinks ' : 'menuLinks'} min-h-10`}>
-                            <FontAwesomeIcon icon={faLightbulb}  /><Link to='/' className=" ">Notes</Link>
+                            <FontAwesomeIcon icon={faNoteSticky}  /><Link to='/' className=" ">Notes</Link>
                         </li>
                         <li className={currentLocation.pathname === '/archive' ?  'bg-amber-400  menuLinks ' : 'menuLinks'}>
                             <FontAwesomeIcon icon={faFolderOpen} /><Link to='archive' className="menuLinks">Archive</Link>

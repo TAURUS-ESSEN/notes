@@ -2,7 +2,7 @@ import {Link} from 'react-router-dom'
 import { useAppContext } from "../components/AppContext";
 import {useSortedNotes} from '../hooks/useSortedNotes';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faLightbulb, faTrashCan } from '@fortawesome/free-regular-svg-icons';
+import { faNoteSticky, faTrashCan } from '@fortawesome/free-regular-svg-icons';
 import { LABEL_COLOR_CLASSES } from "../constants/labelColors";
 
 export default function Archive() {
@@ -63,7 +63,7 @@ export default function Archive() {
                             title='Move to Archive'
                             aria-label="Move to Archive"
                         >
-                            <FontAwesomeIcon icon={faLightbulb} className='hover:scale-125 duration-300' /> 
+                            <FontAwesomeIcon icon={faNoteSticky} className='hover:scale-125 duration-300' /> 
                         </button><button   
                             className='toTrashBtn'
                             onClick={()=>{updateNoteStatus(note.id, 'deleted')}}  
