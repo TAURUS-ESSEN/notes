@@ -28,7 +28,7 @@ body, button {
 
 @layer components {
     .btn, .undoBtn {
-        @apply p-3 border border-gray-200 rounded-xl shadow hover:scale-105 duration-300
+        @apply min-h-11 p-2 border border-gray-200 rounded-xl shadow hover:scale-105 duration-300 flex justify-center items-center
     }
 
     .toTrashBtn {
@@ -70,7 +70,7 @@ body, button {
 
 @layer utility {
     .cancel {
-        @apply bg-white hover:bg-gray-100 hover:scale-105  duration-300 px-4 shadow;
+        @apply bg-white hover:bg-gray-100 hover:scale-105 duration-300 px-4 shadow;
     }
 
     .apply {
@@ -83,5 +83,13 @@ body, button {
 
     .menuLinks {
         @apply w-full flex gap-2 items-center justify-start px-2 py-1 font-semibold text-lg rounded-2xl text-gray-800  
+    }
+
+    .tooltip {
+        @apply absolute bottom-full mb-2 left-1/2 -translate-x-1/2 text-xs  bg-neutral-800 text-white px-2 py-1 rounded-lg opacity-0 group-hover:opacity-100 pointer-events-none whitespace-nowrap duration-700
+    }
+
+    .hotkey {
+        @apply text-xs text-gray-500 ml-1; 
     }
 }

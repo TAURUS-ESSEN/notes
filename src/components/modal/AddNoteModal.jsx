@@ -6,13 +6,14 @@ export default function AddNotesModal() {
     const {labels, setNotes, setToasts, closeModal} = useAppContext()
     const [noteTitle, setNoteTitle] = useState('');
     const [noteLabels, setNoteLabels] = useState([]);
+    const [pin, setPin] = useState(false);
     const isTitleValid = noteTitle.length > 1;
     const [noteText, setNoteText] = useState('');
 
 
     const onSubmit = (e) => {
         e.preventDefault()
-        setNotes(prev=> [...prev, { id: Date.now() , title: noteTitle, text: noteText, status: 'active', createdAt: Date.now(), updatedAt:'', deletedAt: '', labels: noteLabels}])
+        setNotes(prev=> [...prev, { id: Date.now() , title: noteTitle, text: noteText, status: 'active', createdAt: Date.now(), updatedAt:'', deletedAt: '', pinned: pin, labels: noteLabels}])
         setNoteText('');
         closeModal();
 
@@ -54,6 +55,15 @@ export default function AddNotesModal() {
                         required
                         placeholder='Note Title, min 2 characters'
                     />
+                    <div className='flex gap-1'>
+                        <input 
+                            type='checkbox' 
+                            onChange={(e)=> e.target.checked === true ? setPin(true) : setPin (false)} 
+                        /> 
+                            Pinned 
+                            {/* {pin.toString()} */}
+                    </div>
+                    
                     <textarea onChange={(e)=>setNoteText(e.target.value)} value={noteText} className='border' rows="10"></textarea>
                     <div className='flex gap-2 flex-wrap'>
                         {labels.map(label=> { return (

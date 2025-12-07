@@ -69,19 +69,24 @@ export default function Notes() {
                         >
                             <FontAwesomeIcon icon={faTrashCan} className='hover:scale-125 duration-300 ' />
                         </button>
-
-                        <button   
-                            className='absolute top-0 wrap-break-word'
-                            onClick={()=>{changeNotePinned(note.id)}} 
-                            title={note.pinned ? 'Unpin this Note' : 'Pin this Note'}
-                            aria-label={note.pinned ? 'Unpin this Note' : 'Pin this Note'}
+                        {note.pinned &&  
+                            <button   
+                                className='absolute top-0 wrap-break-word'
+                                onClick={()=>{changeNotePinned(note.id)}} 
+                                title='Unpin this Note'
+                                aria-label="Unpin this Note"
                         >
-                            <FontAwesomeIcon
-                                icon={faThumbTack}
-                                className={ 'hover:scale-125 duration-300 ' + (note.pinned ? '' : 'text-gray-200 hover:text-gray-400') }
-                        />                        
-                        </button>
-
+                            <FontAwesomeIcon icon={faThumbTack} className='hover:scale-125 duration-300 ' />
+                        </button>}
+                        {!note.pinned &&  
+                            <button   
+                                className='absolute top-0 wrap-break-word'
+                                onClick={()=>{changeNotePinned(note.id)}}   
+                                title='Pin this Note'
+                                aria-label="Pin this Note"
+                        >
+                            <FontAwesomeIcon icon={faThumbTack} className='hover:scale-125 duration-300 text-gray-200 hover:text-gray-400' />
+                        </button>}
                         <button 
                             className='toArchiveBtn  wrap-break-word'
                             onClick={()=>{updateNoteStatus(note.id, 'archived')}}  

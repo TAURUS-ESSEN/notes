@@ -7,6 +7,7 @@ export const DEFAULT_NOTES = [
         createdAt: Date.now(),
         updatedAt: '',
         deletedAt: '',
+        pinned: false,
         labels: [1]
     },
 
@@ -18,6 +19,7 @@ export const DEFAULT_NOTES = [
         createdAt: Date.now(),
         updatedAt: '',
         deletedAt: '',
+        pinned: false,
         labels: [2]
     },
 
@@ -37,6 +39,7 @@ I hope it’s nothing too dramatic.`,
         createdAt: Date.now(),
         updatedAt: '',
         deletedAt: '',
+        pinned: false,
         labels: [1,2]
     },
 
@@ -48,6 +51,7 @@ I hope it’s nothing too dramatic.`,
         createdAt: Date.now(),
         updatedAt: '',
         deletedAt: '',
+        pinned: true,
         labels: [3,5]
     },
 
@@ -64,6 +68,7 @@ And maybe take a list of questions — otherwise I’ll forget everything the mo
         createdAt: Date.now(),
         updatedAt: '',
         deletedAt: '',
+        pinned: false,
         labels: [4]
     },
 
@@ -75,6 +80,7 @@ And maybe take a list of questions — otherwise I’ll forget everything the mo
         createdAt: Date.now(),
         updatedAt: '',
         deletedAt: '',
+        pinned: false,
         labels: [2,5]
     },
 
@@ -91,6 +97,7 @@ If possible, run the whole thing through a grammar checker before submitting.`,
         createdAt: Date.now(),
         updatedAt: '',
         deletedAt: '',
+        pinned: false,
         labels: [3]
     },
 
@@ -102,6 +109,7 @@ If possible, run the whole thing through a grammar checker before submitting.`,
         createdAt: Date.now(),
         updatedAt: '',
         deletedAt: '',
+        pinned: false,
         labels: [4,5]
     },
 
@@ -117,6 +125,7 @@ Would be nice to plan something small but meaningful.`,
         createdAt: Date.now(),
         updatedAt: '',
         deletedAt: '',
+        pinned: true,
         labels: [2]
     },
 
@@ -128,6 +137,7 @@ Would be nice to plan something small but meaningful.`,
         createdAt: Date.now(),
         updatedAt: '',
         deletedAt: '',
+        pinned: false,
         labels: [3]
     }
 ];
