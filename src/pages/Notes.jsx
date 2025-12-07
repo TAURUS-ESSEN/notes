@@ -66,7 +66,7 @@ export default function Notes() {
             <div className='flex flex-wrap gap-4  '>
             {notes.length > 0 && sortedNotes.map(note=> ( 
                 
-                    <div key={note.id} className='notePreviewContainer  '>      
+                    <div key={note.id} className='notePreviewContainer  group'>      
                     <span className='flex justify-end gap-1 text-gray-300 hover:text-gray-700 transition'>                 
                         <button   
                             className='break-all'
