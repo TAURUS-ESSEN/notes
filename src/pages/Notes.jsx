@@ -1,8 +1,8 @@
-import {Link} from 'react-router-dom'
-import AddNewNote from '../components/modal/AddNewNote'
+import {Link} from 'react-router-dom';
+import AddNewNote from '../components/modal/AddNewNote';
 import { useAppContext } from "../components/AppContext";
 import {useSortedNotes} from '../hooks/useSortedNotes';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFolderOpen, faTrashCan } from '@fortawesome/free-regular-svg-icons';
 import { faThumbTack } from '@fortawesome/free-solid-svg-icons';
 import { LABEL_COLOR_CLASSES } from "../constants/labelColors";

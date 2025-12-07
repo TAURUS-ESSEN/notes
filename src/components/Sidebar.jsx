@@ -20,7 +20,7 @@ export default function Sidebar() {
             <div className="w-full">
                 <div className="">  
                     <ul className="flex flex-col justify-start items-start">
-                        <li className={currentLocation.pathname === '/' ? 'bg-amber-400  menuLinks ' : 'menuLinks'}>
+                        <li className={`${currentLocation.pathname === '/' ? 'bg-amber-400 menuLinks ' : 'menuLinks'} min-h-10`}>
                             <FontAwesomeIcon icon={faLightbulb}  /><Link to='/' className=" ">Notes</Link>
                         </li>
                         <li className={currentLocation.pathname === '/archive' ?  'bg-amber-400  menuLinks ' : 'menuLinks'}>

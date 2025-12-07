@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from "react-router-dom";
 import { useAppContext } from "../components/AppContext";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faThumbTack } from '@fortawesome/free-solid-svg-icons';
 
 export default function EditNote() {
     const { noteId} = useParams();
@@ -85,7 +87,7 @@ export default function EditNote() {
 
     return (
         <div className='px-4'> 
-            <form onSubmit={onSubmit} className='max-w-3xl m-auto mt-4 p-6 flex flex-col gap-4 border-gray-400 rounded-lg bg-white shadow-soft'>
+            <form onSubmit={onSubmit} className='max-w-3xl m-auto mt-4 p-6 flex flex-col gap-4 border-gray-400 rounded-xl bg-white shadow-soft'>
                 <input 
                     type='text' 
                     onChange={(e)=>setTitle(e.target.value)} 
@@ -94,7 +96,8 @@ export default function EditNote() {
                     disabled={note.status === 'deleted'}
                 />
                 {note.status === 'active' && 
-                <div className='flex gap-1'>
+                <div className='flex items-center gap-1'>
+                    <FontAwesomeIcon icon={faThumbTack} className={`${pin === true ? 'text-gray-800': 'text-gray-400' } text-sm`}/> 
                     <input 
                         type='checkbox' 
                         onChange={(e)=> e.target.checked === true ? setPin(true) : setPin (false)} 
@@ -110,22 +113,25 @@ export default function EditNote() {
                     disabled={note.status === 'deleted'}>
                 </textarea>
 
-                <div className='flex gap-3 text-lg flex-wrap'>
+                <div className='flex gap-1 text-lg flex-wrap'>
                     <span className='mr-1 text-gray-600'>Labels:</span> 
-                    {labels.map(label => {
-                        return  (
-                            <span className='flex items-center gap-1'> 
-                                <input 
-                                    type='checkbox'
-                                    checked={editLabels.includes(label.id)}
-                                    onChange={()=>toggleLabels(label.id)}
-                                    className='form-checkbox text-blue-600 rounded-lg'
-                                    disabled={note.status === 'deleted'}
-                                />
-                                { label.name.length > 15 ? label.name.slice(0,15)+'...' : label.name }
-                            </span> 
-                        )
-                    })}
+                    {labels.map(label => (
+                        <label
+                            key={label.id}
+                            className="inline-flex items-center gap-1  px-1 py-0.5 cursor-pointer text-base"
+                        >
+                            <input
+                            type="checkbox"
+                            checked={editLabels.includes(label.id)}
+                            onChange={() => toggleLabels(label.id)}
+                            className="form-checkbox h-4 w-4 align-middle"
+                            disabled={note.status === 'deleted'}
+                            />
+                            <span className="leading-none">
+                            {label.name.length > 15 ? label.name.slice(0, 15) + '...' : label.name}
+                            </span>
+                        </label>
+                        ))}
                 </div>
                 
                 <div className='flex justify-around gap-20 mt-6 mb-4'>

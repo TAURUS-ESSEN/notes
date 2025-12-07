@@ -1,6 +1,8 @@
 import Modal from './Modal';
 import { useAppContext } from '../AppContext';
 import { useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faThumbTack } from '@fortawesome/free-solid-svg-icons';
 
 export default function AddNotesModal() {
     const {labels, setNotes, setToasts, closeModal} = useAppContext()
@@ -40,11 +42,10 @@ export default function AddNotesModal() {
         setNoteLabels(prev => prev.includes(id) ? prev.filter(l=>l!==id) : [...prev, id] )
     }
 
-
     return (
         <>
             <Modal title='Create new note' closeModal={closeModal}>
-                <form onSubmit={onSubmit} className='bg-white flex flex-col gap-4 px-4 md:min-w-100 max-w-160 mb-4' >
+                <form onSubmit={onSubmit} className='  flex flex-col gap-4 px-4 md:min-w-100 max-w-160 mb-4' >
                     <input type='text' 
                         onChange={(e) => setNoteTitle(e.target.value.slice(0,35))} 
                         value={noteTitle}
@@ -55,7 +56,8 @@ export default function AddNotesModal() {
                         required
                         placeholder='Note Title, min 2 characters'
                     />
-                    <div className='flex gap-1'>
+                    <div className='flex gap-1 items-center'>
+                        <FontAwesomeIcon icon={faThumbTack} className={`${pin === true ? 'text-gray-800': 'text-gray-400' } text-sm`}/> 
                         <input 
                             type='checkbox' 
                             onChange={(e)=> e.target.checked === true ? setPin(true) : setPin (false)} 
@@ -78,7 +80,7 @@ export default function AddNotesModal() {
                         )})}
                     </div>
                     <div className='flex justify-between gap-4'>
-                        <button type="button" onClick={cancel} className='btn cancel shadow-soft'>Cancel</button>
+                        <button type="button" onClick={cancel} className='btn cancel'>Cancel</button>
                         <button type='submit' disabled={!isTitleValid} className='btn apply shadow-soft'>
                             +Add New Note
                         </button>      

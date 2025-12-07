@@ -15,7 +15,6 @@ export default function AddLabelsModal() {
         label => label.name.trim().toLowerCase() === labelName.trim().toLowerCase()
     );
 
-
     const onSubmit = (e) => {
         e.preventDefault()
 
@@ -28,11 +27,12 @@ export default function AddLabelsModal() {
         const toastId = Date.now() + Math.random();
         setToasts(prev=>([...prev, {toastId, message: (
             <div className='activeToast'>
-                <FontAwesomeIcon icon={faBookmark} className='block' /> <span> Label <strong>" {labelName}"</strong>created</span>
+                <FontAwesomeIcon icon={faBookmark} className='block' /> 
+                <span> Label <strong>" {labelName}"</strong>created</span>
             </div>
             )}])) 
         setLabelName('');
-        setError('')
+        setError('');
         setLabelColor('');
         closeModal();
     }
@@ -47,7 +47,7 @@ export default function AddLabelsModal() {
     return (
         <>
             <Modal title='Create new label' closeModal={closeModal}>
-                <form onSubmit={onSubmit} className='bg-white flex flex-col gap-4 p-4 rounded-xl' >
+                <form onSubmit={onSubmit} className='flex flex-col gap-4 p-4 rounded-xl ' >
                     <input type='text' 
                         onChange={(e) => {
                             setLabelName(e.target.value.slice(0,25));

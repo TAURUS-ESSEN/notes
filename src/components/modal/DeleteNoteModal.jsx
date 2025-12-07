@@ -16,7 +16,7 @@ export default function DeleteNoteModal() {
         const toastId = Date.now() + Math.random();
         setToasts(prev=>([...prev, {toastId, message: (
             <div className='deletedToast'>
-                Task <strong>{deletedNote.title}</strong> was deleted <button className='btn' onClick={(e)=>{
+                Note <strong>{deletedNote.title}</strong> was deleted <button className='btn' onClick={(e)=>{
                     e.currentTarget.disabled = true;
                     undo(deletedNote, toastId)
                     
