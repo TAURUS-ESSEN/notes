@@ -66,42 +66,41 @@ export default function Notes() {
             <div className='flex flex-wrap gap-4  '>
             {notes.length > 0 && sortedNotes.map(note=> ( 
                 
-                    <div key={note.id} className='notePreviewContainer group'>      
-                    <span>                 
+                    <div key={note.id} className='notePreviewContainer  '>      
+                    <span className='flex justify-end gap-1 text-gray-300 hover:text-gray-700 transition'>                 
                         <button   
-                            className='toTrashBtn  wrap-break-word'
-                            onClick={()=>{updateNoteStatus(note.id, 'deleted')}}  
-                            title='Move to Trash'
-                            aria-label="Move to Trash"
-                        >
-                            <FontAwesomeIcon icon={faTrashCan} className='hover:scale-125 duration-300 ' />
-                        </button>
-
-                        <button   
-                            className='absolute top-0 wrap-break-word'
+                            className='break-all'
                             onClick={()=>{changeNotePinned(note.id)}} 
                             title={note.pinned ? 'Unpin this Note' : 'Pin this Note'}
                             aria-label={note.pinned ? 'Unpin this Note' : 'Pin this Note'}
                         >
                             <FontAwesomeIcon
                                 icon={faThumbTack}
-                                className={ 'hover:scale-125 duration-300 ' + (note.pinned ? '' : 'text-gray-200 hover:text-gray-400') }
-                        />                        
+                                className={ 'hover:scale-125 duration-300 ' + (note.pinned ? 'text-gray-900' : 'text-gray-300 hover:text-gray-400') }
+                            />                        
                         </button>
 
                         <button 
-                            className='toArchiveBtn  wrap-break-word'
+                            className='toArchiveBtn break-all'
                             onClick={()=>{updateNoteStatus(note.id, 'archived')}}  
                             title='Move to Archive'
                             aria-label="Move to Archive"
                         >
                             <FontAwesomeIcon icon={faFolderOpen} className='hover:scale-125 duration-300' /> 
+                        </button>                       
+                        <button   
+                            className=' toTrashBtn break-all'
+                            onClick={()=>{updateNoteStatus(note.id, 'deleted')}}  
+                            title='Move to Trash'
+                            aria-label="Move to Trash"
+                        >
+                            <FontAwesomeIcon icon={faTrashCan} className='hover:scale-125 duration-300 ' />
                         </button>
                     </span>
-                        <Link to={`/edit/${note.id}`}  title='Click to edit this note'>
-                            <div className='notePreview'>
-                                <div className='font-semibold wrap-break-word'>{shorten(note.title, 15)} </div>
-                                <div className='wrap-break-word'> {shorten(note.text, 60)}</div>
+                        <Link to={`/edit/${note.id}`}  title='Click to edit this note' className='flex flex-1'>
+                            <div className='notePreview '>
+                                <div className='line-clamp-2 font-semibold break-all'>{note.title} </div>
+                                <div className='text-sm line-clamp-3 break-all'> { note.text }</div>
                             </div>
                         </Link>
                         <div className='flex mt-4 flex-wrap gap-2'>

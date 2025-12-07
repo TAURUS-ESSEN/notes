@@ -54,15 +54,8 @@ export default function Trash() {
             <div className='flex flex-wrap gap-4  '>
             {notes.length > 0 && sortedNotes.map(note=> ( 
                 
-                    <div key={note.id} className='notePreviewContainer group'>                        
-                        <button   
-                            className='toTrashBtn'
-                            onClick={()=>openModal('deleteNote', note.id)}
-                            title='Move to Trash'
-                            aria-label="Move to Trash"
-                        >
-                            <FontAwesomeIcon icon={faTrashCan} className='hover:scale-125 duration-300 ' />
-                        </button>
+                    <div key={note.id} className='notePreviewContainer group'>
+                        <span className='flex justify-end gap-1 text-gray-400 hover:text-gray-600 transition'>                      
                         <button 
                             className='toArchiveBtn'
                             onClick={()=>{restoreNoteFromTrash(note.id)}}
@@ -71,11 +64,20 @@ export default function Trash() {
                         >
                             <FontAwesomeIcon icon={faLightbulb} className='hover:scale-125 duration-300' /> 
                         </button>
+                        <button   
+                            className='toTrashBtn'
+                            onClick={()=>openModal('deleteNote', note.id)}
+                            title='Move to Trash'
+                            aria-label="Move to Trash"
+                        >
+                            <FontAwesomeIcon icon={faTrashCan} className='hover:scale-125 duration-300 ' />
+                        </button>
 
-                        <Link to={`/edit/${note.id}`}  title='Click to edit this note'>
+                        </span>
+                        <Link to={`/edit/${note.id}`}  title='Click to edit this note' className='flex flex-1'>
                             <div className='notePreview'>
-                                <div className='font-semibold wrap-break-word'>{shorten(note.title, 15)} </div>
-                                <div className='wrap-break-word'> {shorten(note.text, 60)}</div>
+                                <div className='line-clamp-2 font-semibold break-all'>{note.title} </div>
+                                <div className='text-sm line-clamp-3 break-all'> { note.text }</div>
                             </div>
                         </Link>
                         <div className='flex mt-4 flex-wrap gap-2'>

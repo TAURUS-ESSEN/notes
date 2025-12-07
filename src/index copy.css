@@ -32,15 +32,18 @@ body, button {
     }
 
     .toTrashBtn {
-        @apply  text-gray-400 hover:text-red-500 group-hover:text-red-500 transition
+        @apply absolute top-1 right-2 text-gray-400 hover:text-red-500 group-hover:text-red-500 transition
     }
 
     .toArchiveBtn {
-        @apply  text-gray-400 hover:text-yellow-500 group-hover:text-yellow-500 transition
+        @apply absolute top-1 left-2 text-gray-400 hover:text-yellow-500 group-hover:text-yellow-500 transition
     }
 
-    .notePreviewContainer {
-        @apply bg-white rounded-xl p-5 min-w-40 max-w-60 relative hover:scale-105 duration-300 shadow flex flex-col justify-around
+ .notePreviewContainer {
+    @apply bg-white rounded-xl p-5 min-w-40 max-w-60 relative
+            shadow-sm flex flex-col justify-between
+            transition-transform transition-shadow duration-200
+            hover:-translate-y-1 hover:shadow-lg;
     }
 
     .notePreview {
@@ -68,9 +71,7 @@ body, button {
     }
 
     .labelTag {
-        @apply rounded-full px-2 py-[3px] text-xs font-medium 
-        w-15 truncate opacity-90
-        hover:opacity-100 hover:scale-105 transition;
+        @apply   rounded-lg px-2 py-1 text-sm w-15 truncate;
     }
 }
 

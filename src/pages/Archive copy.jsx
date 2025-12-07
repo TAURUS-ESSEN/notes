@@ -55,16 +55,8 @@ export default function Archive() {
             <div className='flex flex-wrap gap-4  '>
             {notes.length > 0 && sortedNotes.map(note=> ( 
                 
-                    <div key={note.id} className='notePreviewContainer group'>
-                        <span className='flex justify-end gap-1 text-gray-400 hover:text-gray-600 transition'>                         
-                        <button 
-                            className='toArchiveBtn'
-                            onClick={()=>{updateNoteStatus(note.id, 'active')}} 
-                            title='Move to Archive'
-                            aria-label="Move to Archive"
-                        >
-                            <FontAwesomeIcon icon={faLightbulb} className='hover:scale-125 duration-300' /> 
-                        </button><button   
+                    <div key={note.id} className='notePreviewContainer group'>                        
+                        <button   
                             className='toTrashBtn'
                             onClick={()=>{updateNoteStatus(note.id, 'deleted')}}  
                             title='Move to Trash'
@@ -72,12 +64,19 @@ export default function Archive() {
                         >
                             <FontAwesomeIcon icon={faTrashCan} className='hover:scale-125 duration-300 ' />
                         </button>
+                        <button 
+                            className='toArchiveBtn'
+                            onClick={()=>{updateNoteStatus(note.id, 'active')}} 
+                            title='Move to Archive'
+                            aria-label="Move to Archive"
+                        >
+                            <FontAwesomeIcon icon={faLightbulb} className='hover:scale-125 duration-300' /> 
+                        </button>
 
-                        </span>
-                        <Link to={`/edit/${note.id}`}  title='Click to edit this note' className='flex flex-1'>
+                        <Link to={`/edit/${note.id}`}  title='Click to edit this note'>
                             <div className='notePreview'>
-                                <div className='line-clamp-2 font-semibold break-all'>{note.title} </div>
-                                <div className='text-sm line-clamp-3 break-all'> { note.text }</div>
+                                <div className='font-semibold wrap-break-word'>{shorten(note.title, 30)} </div>
+                                <div className='wrap-break-word'> {shorten(note.text, 60)}</div>
                             </div>
                         </Link>
                         <div className='flex mt-4 flex-wrap gap-2'>
