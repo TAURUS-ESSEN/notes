@@ -5,12 +5,19 @@ import {useSortedNotes} from '../hooks/useSortedNotes';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFolderOpen, faTrashCan } from '@fortawesome/free-regular-svg-icons';
 import { faThumbTack } from '@fortawesome/free-solid-svg-icons';
+import { LABEL_COLOR_CLASSES } from "../constants/labelColors";
 
 
 export default function Notes() {
-    const {notes, setNotes, setToasts} = useAppContext();
+    const {labels, filter, setFilter, notes, setNotes, setToasts} = useAppContext();
     const sortedNotes = useSortedNotes('active')
     
+    function changeFilters(id) {
+        const value = filter.includes(id)
+        value ? setFilter(prev=>prev.filter(num => num !== id)) : setFilter(prev=>[...prev, id])
+        console.log(value)
+    }
+
     const updateNoteStatus = (id, nextStatus) => {
         const changedNote = notes.find(n=>n.id === id);
         if (!changedNote) return;
@@ -60,7 +67,7 @@ export default function Notes() {
             {notes.length > 0 && sortedNotes.map(note=> ( 
                 
                     <div key={note.id} className='notePreviewContainer group'>      
-                    <span className='bg-amber-600'>                 
+                    <span>                 
                         <button   
                             className='toTrashBtn  wrap-break-word'
                             onClick={()=>{updateNoteStatus(note.id, 'deleted')}}  
@@ -97,8 +104,23 @@ export default function Notes() {
                                 <div className='wrap-break-word'> {shorten(note.text, 60)}</div>
                             </div>
                         </Link>
- 
-                    </div> 
+                        <div className='flex mt-4 flex-wrap gap-2'>
+                            {labels.map(label=> {
+                                if (note.labels.includes(label.id)) {
+                                    return (
+                                        <button 
+                                            key={label.id} 
+                                            onClick={()=>changeFilters(label.id)} 
+                                            className={`${LABEL_COLOR_CLASSES[label.color]} labelTag`}
+                                            title={`Show all notes with "${label.name}"`}
+                                        >
+                                            {label.name}
+                                        </button>
+                                    )
+                                }
+                            })}
+                        </div>
+                    </div>
                 )
             )}
             </div>

@@ -3,11 +3,18 @@ import { useAppContext } from "../components/AppContext";
 import {useSortedNotes} from '../hooks/useSortedNotes';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLightbulb, faTrashCan } from '@fortawesome/free-regular-svg-icons';
+import { LABEL_COLOR_CLASSES } from "../constants/labelColors";
 
 export default function Archive() {
-    const {notes, setNotes, setToasts} = useAppContext();
+    const {labels, filter, setFilter, notes, setNotes, setToasts} = useAppContext();
     const sortedNotes = useSortedNotes('archived');
     
+    function changeFilters(id) {
+        const value = filter.includes(id)
+        value ? setFilter(prev=>prev.filter(num => num !== id)) : setFilter(prev=>[...prev, id])
+        console.log(value)
+    }
+
     function updateNoteStatus(id, nextStatus) {
         const changedNote = notes.find(n=>n.id === id);
         if (!changedNote) return;
@@ -72,6 +79,22 @@ export default function Archive() {
                                 <div className='wrap-break-word'> {shorten(note.text, 60)}</div>
                             </div>
                         </Link>
+                        <div className='flex mt-4 flex-wrap gap-2'>
+                            {labels.map(label=> {
+                                if (note.labels.includes(label.id)) {
+                                    return (
+                                        <button 
+                                            key={label.id} 
+                                            onClick={()=>changeFilters(label.id)} 
+                                            className={`${LABEL_COLOR_CLASSES[label.color]} labelTag`}
+                                            title={`Show all notes with "${label.name}"`}
+                                        >
+                                            {label.name}
+                                        </button>
+                                    )
+                                }
+                            })}
+                        </div>                        
                     </div> 
                 )
             )}

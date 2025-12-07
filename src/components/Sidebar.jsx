@@ -42,7 +42,7 @@ export default function Sidebar() {
                     <ul className="flex flex-col justify-start items-start w-full gap-1">
                     {labels.map(label => {
                         return ( 
-                            <li className={filter.includes(label.id) ? ' bg-green-100  menuLinks ' : 'menuLinks'}>
+                            <li className={filter.includes(label.id) ? ' bg-green-200  menuLinks ' : 'menuLinks'}>
                                 <FontAwesomeIcon icon={faBookmark} /> 
                                 <button onClick={()=>changeFilters(label.id)} className="text-left truncate max-w-[180px]">
                                     {label.name}

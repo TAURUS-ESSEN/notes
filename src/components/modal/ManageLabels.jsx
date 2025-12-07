@@ -1,17 +1,20 @@
 import { useAppContext } from "../AppContext";
 import { useState } from 'react';
 import Modal from './Modal';
+import ColorPicker from '../ColorPicker.jsx';
 
 export default function ManageLabels() {
     const {closeModal, notes, setNotes, labels, setLabels, setToasts } = useAppContext(); 
-    const [editingId, setEditingId] = useState(null);   // id того, кто сейчас редактируется
+    const [labelColor, setLabelColor] = useState(null);
+    const [editingId, setEditingId] = useState(null); 
     const [deleteId, setDeleteId] = useState(null);
-    const [draft, setDraft] = useState("");             // временный текст для инпута
+    const [draft, setDraft] = useState("");
 
 
     function startEdit(label) {
         setEditingId(label.id);       // запоминаем, какой именно label редактируем
         setDraft(label.name);         // подставляем текущее имя в input
+        setLabelColor(label.color);
     }
 
     function saveEdit(label) {
@@ -22,7 +25,7 @@ export default function ManageLabels() {
             </div>
             )}])) 
         setLabels(prev =>
-            prev.map(l => l.id === label.id ? { ...l, name: draft } : l)
+            prev.map(l => l.id === label.id ? { ...l, color:labelColor, name: draft } : l)
         );
         setEditingId(null);           // выходим из режима редактирования
         setDraft("");
@@ -95,7 +98,9 @@ export default function ManageLabels() {
                                 </button>
                             </span>
                         </div>
-                        
+                            {isEditing && <div className="p-4">
+                                    <ColorPicker setLabelColor={setLabelColor} labelColor={labelColor} /> 
+                                </div>}
                             {isDeleting && (<div className="p-4">
                                 <div className="flex flex-col justify-center gap-2 border border-orange-700  bg-orange-200 rounded-xl p-2 text-red-950">
                                     <span className="text-center">Are you sure you really want to delete this label? </span>
@@ -108,8 +113,6 @@ export default function ManageLabels() {
                                 </div></div>
                                 )}
                     </li>
-                  
-                    
                 );
                 })} </div>     
             </ul>

@@ -3,12 +3,13 @@ import { useAppContext } from '../AppContext';
 import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBookmark} from '@fortawesome/free-regular-svg-icons';
+import ColorPicker from '../ColorPicker.jsx';
 
 export default function AddLabelsModal() {
     const {labels, setLabels, closeModal, setToasts} = useAppContext()
     const [labelName, setLabelName] = useState('');
     const isTitleValid = labelName.length > 1;
-    const [labelColor, setLabelColor] = useState('');
+    const [labelColor, setLabelColor] = useState('amber');
     const [error, setError] = useState('');
     const isDuplicate = labels.some(
         label => label.name.trim().toLowerCase() === labelName.trim().toLowerCase()
@@ -23,7 +24,7 @@ export default function AddLabelsModal() {
             return;
         }
 
-        setLabels(prev=> [...prev, { id: Date.now(), name: labelName.trim(), color: 'gray' }])
+        setLabels(prev=> [...prev, { id: Date.now(), name: labelName.trim(), color: labelColor}])
         const toastId = Date.now() + Math.random();
         setToasts(prev=>([...prev, {toastId, message: (
             <div className='activeToast'>
@@ -59,6 +60,9 @@ export default function AddLabelsModal() {
                         required
                         placeholder='Label Title, min 2 characters'
                     />
+                    <div className='flex justify-center items-center mt-1 '>
+                        <ColorPicker labelColor={labelColor} setLabelColor={setLabelColor}/>
+                    </div>
                     <span>{error}</span>
                     <div className='flex justify-between gap-4'>
                         <button type="button" onClick={cancel} className='btn border p-2 '>Cancel</button>

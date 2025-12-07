@@ -145,9 +145,9 @@ Would be nice to plan something small but meaningful.`,
 
 
 export const DEFAULT_LABELS = [
-    {id: 1, name: 'calls', color: 'red'},
-    {id: 2, name: 'daten', color: 'green'},
+    {id: 1, name: 'calls', color: 'indigo'},
+    {id: 2, name: 'daten', color: 'amber'},
     {id: 3, name: 'work', color: 'blue'},
-    {id: 4, name: 'health', color: 'purple'},
-    {id: 5, name: 'ideas', color: 'orange'}
+    {id: 4, name: 'health', color: 'green'},
+    {id: 5, name: 'ideas', color: 'rose'}
 ]
