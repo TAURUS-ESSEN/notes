@@ -1,9 +1,9 @@
 import { Link, useLocation } from "react-router-dom";
 import { useAppContext } from "./AppContext";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faLightbulb, faFolderOpen, faTrashCan, faBookmark} from '@fortawesome/free-regular-svg-icons';
-import { faEllipsisVertical } from '@fortawesome/free-solid-svg-icons';
-
+import { faLightbulb, faFolderOpen, faTrashCan } from '@fortawesome/free-regular-svg-icons';
+import { faEllipsisVertical, faBookmark  } from '@fortawesome/free-solid-svg-icons';
+import { LABEL_COLOR_CLASSES_TEXT } from "../constants/labelColors";
 
 export default function Sidebar() {
     const {labels, filter, setFilter, openModal} = useAppContext();
@@ -42,9 +42,9 @@ export default function Sidebar() {
                     <ul className="flex flex-col justify-start items-start w-full gap-1">
                     {labels.map(label => {
                         return ( 
-                            <li className={filter.includes(label.id) ? ' bg-green-200  menuLinks ' : 'menuLinks'}>
-                                <FontAwesomeIcon icon={faBookmark} /> 
-                                <button onClick={()=>changeFilters(label.id)} className="text-left truncate max-w-[180px]">
+                            <li className={filter.includes(label.id) ? ' bg-green-100  menuLinks ' : 'menuLinks'}>
+                                <FontAwesomeIcon icon={faBookmark}  className={`${LABEL_COLOR_CLASSES_TEXT[label.color]} text-base opacity-75`}/> 
+                                <button onClick={()=>changeFilters(label.id)} className="text-left truncate max-w-[180px] text-gray-600">
                                     {label.name}
                                 </button>
                             </li> )   

@@ -79,7 +79,7 @@ function App() {
       <div className='wrapper flex m-auto p-2 bg-[#efefee] test '>
         <Toasts toasts={toasts} setToasts={setToasts}/>
         <Sidebar/>
-        <main className='flex flex-col h-screen w-full   border-l border-gray-400'>
+        <main className='flex flex-col h-screen w-full   border-l border-gray-200'>
           <Header/>
           <Outlet />
         </main>
