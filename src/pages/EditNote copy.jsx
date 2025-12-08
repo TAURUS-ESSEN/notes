@@ -87,17 +87,17 @@ export default function EditNote() {
 
     return (
         <div className='px-4'> 
-            <form onSubmit={onSubmit} className='max-w-3xl m-auto mt-4 p-6 flex flex-col gap-4 border-gray-400 rounded-xl bg-(--bg-card) shadow-soft text-(--text-default)'>
+            <form onSubmit={onSubmit} className='max-w-3xl m-auto mt-4 p-6 flex flex-col gap-4 border-gray-400 rounded-xl bg-white shadow-soft'>
                 <input 
                     type='text' 
                     onChange={(e)=>setTitle(e.target.value)} 
                     value={title} 
-                    className='p-2 border border-gray-300 bg-(--bg-edit-input) text-(--text-edit-input)'
+                    className='p-2 border border-gray-300'
                     disabled={note.status === 'deleted'}
                 />
                 {note.status === 'active' && 
                 <div className='flex items-center gap-1'>
-                    <FontAwesomeIcon icon={faThumbTack} className={`${pin === true ? 'text-(--text-pinned)': 'text-(--text-notpinned)' } text-sm`}/> 
+                    <FontAwesomeIcon icon={faThumbTack} className={`${pin === true ? 'text-gray-800': 'text-gray-400' } text-sm`}/> 
                     <input 
                         type='checkbox' 
                         onChange={(e)=> e.target.checked === true ? setPin(true) : setPin (false)} 
@@ -108,7 +108,7 @@ export default function EditNote() {
                 <textarea 
                     onChange={(e)=>setText(e.target.value)} 
                     value={text} 
-                    className='p-2 border border-gray-300  leading-relaxed bg-(--bg-edit-input) text-(--text-edit-input)' 
+                    className='p-2 border border-gray-300  leading-relaxed' 
                     rows={12} 
                     disabled={note.status === 'deleted'}>
                 </textarea>
@@ -118,7 +118,7 @@ export default function EditNote() {
                     {labels.map(label => (
                         <label
                             key={label.id}
-                            className="inline-flex items-center gap-1  px-1 py-0.5 cursor-pointer text-base "
+                            className="inline-flex items-center gap-1  px-1 py-0.5 cursor-pointer text-base"
                         >
                             <input
                             type="checkbox"

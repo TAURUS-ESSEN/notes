@@ -20,7 +20,7 @@ export default function Sidebar() {
             <div className="w-full">
                 <div className="">  
                     <ul className="flex flex-col justify-start items-start">
-                        <li className={`${currentLocation.pathname === '/' ? 'bg-amber-400 menuLinks ' : 'menuLinks'} min-h-10`}>
+                        <li className={`${currentLocation.pathname === '/' ? 'bg-amber-400 menuLinks  ' : 'menuLinks'} min-h-10`}>
                             <FontAwesomeIcon icon={faNoteSticky}  /><Link to='/' className=" ">Notes</Link>
                         </li>
                         <li className={currentLocation.pathname === '/archive' ?  'bg-amber-400  menuLinks ' : 'menuLinks'}>
@@ -44,7 +44,7 @@ export default function Sidebar() {
                         return ( 
                             <li className={filter.includes(label.id) ? ' bg-green-100  menuLinks ' : 'menuLinks'}>
                                 <FontAwesomeIcon icon={faBookmark}  className={`${LABEL_COLOR_CLASSES_TEXT[label.color]} text-base opacity-75`}/> 
-                                <button onClick={()=>changeFilters(label.id)} className="text-left truncate max-w-[180px] text-gray-600">
+                                <button onClick={()=>changeFilters(label.id)} className="text-left truncate max-w-[180px] text-[var(--labelLink)]">
                                     {label.name}
                                 </button>
                             </li> )   

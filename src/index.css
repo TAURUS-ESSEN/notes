@@ -1,9 +1,56 @@
 
 @import "tailwindcss";
- 
 
 @layer theme {
-     
+    :root {
+        --bg-app: linear-gradient(to right, #FFFFFF, #ECE9E6);
+        --border-main: #e5e7eb;
+        --text-default: #000;
+        --shadow:  0 1px 3px #00000020;
+        --shadow-hover: 0 1px 3px #00000020;
+
+        --menu-links: #1e2939;
+        --labelLink: #4a5565; 
+
+        --search: #4a5565;
+        --headerTitle: #364153;
+
+        --bg-card: #ffffff;
+        --title-card: #00000;
+        --text-card: #00000;
+        --text-pinned: #101828;
+        --text-notpinned: #d1d5dc;
+        
+        --bg-select: #ffffff;
+
+        --bg-edit-input:#fff;
+        --text-edit-input:#000;
+    }
+
+    body[data-theme="dark"] {
+        --bg-app: #0B0F19;
+        --border-main: #494949;
+        --text-default: #99a1af;
+        --shadow:  0 0 3px #cacacbc0;
+        --shadow-hover: 0 1px 8px #1dc5f8f3;
+
+        --menu-links: #899AB8;
+        --labelLink: #727d8f;
+
+        --search: #bababa;
+        --headerTitle: #bababa;
+
+        --bg-card: #1A1E27;
+        --title-card: #e5e7eb;
+        --text-card: #99a1af;
+        --text-pinned: white;
+        --text-notpinned: rgb(167, 167, 167); 
+
+        --bg-select: #1A1E27;
+
+        --bg-edit-input:#252a36;
+        --text-edit-input:#e2e2e2;
+    }
 }
 
 @font-face {
@@ -41,7 +88,7 @@ body, button {
     }
 
     .notePreviewContainer {
-        @apply bg-white rounded-xl p-5 min-w-40 max-w-60 relative hover:scale-105 duration-300 shadow flex flex-col justify-around
+        @apply bg-[var(--bg-card)] rounded-xl p-5 min-w-40 max-w-60 relative hover:scale-105 duration-300 shadow-[var(--shadow)] flex flex-col justify-around hover:shadow-[var(--shadow-hover)]
     }
 
     .notePreview {
@@ -69,8 +116,8 @@ body, button {
     }
 
     .labelTag {
-        @apply rounded-full px-2 py-[3px] text-xs font-medium 
-        w-15 truncate opacity-70
+        @apply rounded-full px-2 py-[3px] text-sm font-medium 
+        w-15 truncate opacity-70 
         hover:opacity-100 hover:scale-105 transition;
     }
 
@@ -92,6 +139,12 @@ background: linear-gradient(to right, #FFFFFF, #ECE9E6); /* W3C, IE 10+/ Edge, F
 }
 
 @layer utility {
+
+    .wrapper {
+        @apply flex m-auto p-2;
+        background: var(--bg-app);
+    }
+    
     .cancel {
         @apply bg-white hover:bg-gray-100 hover:scale-105 duration-300 px-4 shadow;
     }
@@ -105,7 +158,7 @@ background: linear-gradient(to right, #FFFFFF, #ECE9E6); /* W3C, IE 10+/ Edge, F
     }
 
     .menuLinks {
-        @apply w-full flex gap-2 items-center justify-start px-2 py-1 font-semibold text-lg rounded-2xl text-gray-800  
+        @apply w-full flex gap-2 items-center justify-start px-2 py-1 font-semibold text-lg rounded-2xl  text-[var(--menu-links)]
     }
 
     .tooltip {

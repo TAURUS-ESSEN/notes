@@ -66,8 +66,8 @@ export default function Notes() {
             <div className='flex flex-wrap gap-4  '>
             {notes.length > 0 && sortedNotes.map(note=> ( 
                 
-                    <div key={note.id} className='notePreviewContainer  group'>      
-                    <span className='flex justify-end gap-1 text-gray-300 hover:text-gray-700 transition'>                 
+                    <div key={note.id} className='notePreviewContainer group'>      
+                    <span className='flex justify-end gap-1'>                 
                         <button   
                             className='break-all'
                             onClick={()=>{changeNotePinned(note.id)}} 
@@ -76,7 +76,7 @@ export default function Notes() {
                         >
                             <FontAwesomeIcon
                                 icon={faThumbTack}
-                                className={ 'hover:scale-125 duration-300 ' + (note.pinned ? 'text-gray-900' : 'text-gray-300 hover:text-gray-400') }
+                                className={ 'hover:scale-125 duration-300 ' + (note.pinned ? 'text-[var(--text-pinned)]' : 'text-[var(--text-notpinned)] hover:text-gray-400') }
                             />                        
                         </button>
 
@@ -99,8 +99,8 @@ export default function Notes() {
                     </span>
                         <Link to={`/edit/${note.id}`}  title='Click to edit this note' className='flex flex-1'>
                             <div className='notePreview '>
-                                <div className='line-clamp-2 font-semibold break-all'>{note.title} </div>
-                                <div className='text-sm line-clamp-3 break-all'> { note.text }</div>
+                                <div className='line-clamp-2 font-semibold break-all text-(--title-card)'>{note.title} </div>
+                                <div className='text-sm line-clamp-3 break-all text-(--text-card)'> { note.text }</div>
                             </div>
                         </Link>
                         <div className='flex mt-4 flex-wrap gap-2'>

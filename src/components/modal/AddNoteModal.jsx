@@ -45,7 +45,7 @@ export default function AddNotesModal() {
     return (
         <>
             <Modal title='Create new note' closeModal={closeModal}>
-                <form onSubmit={onSubmit} className='  flex flex-col gap-4 px-4 md:min-w-100 max-w-160 mb-4' >
+                <form onSubmit={onSubmit} className='  flex flex-col gap-4 px-8 md:min-w-100 max-w-160 mb-4' >
                     <input type='text' 
                         onChange={(e) => setNoteTitle(e.target.value.slice(0,35))} 
                         value={noteTitle}
@@ -66,7 +66,7 @@ export default function AddNotesModal() {
                             {/* {pin.toString()} */}
                     </div>
                     
-                    <textarea onChange={(e)=>setNoteText(e.target.value)} value={noteText} className='border' rows="10"></textarea>
+                    <textarea onChange={(e)=>setNoteText(e.target.value)} value={noteText} className='border' rows="10" ></textarea>
                     <div className='flex gap-2 flex-wrap'>
                         {labels.map(label=> { return (
                             <span key={label.id} className='flex gap-1 items-center '>

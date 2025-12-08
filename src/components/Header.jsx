@@ -1,13 +1,23 @@
 import { useAppContext } from "./AppContext"
 import { useLocation, useParams } from "react-router-dom"; 
 import Filter from "./Filter";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faMagnifyingGlass} from '@fortawesome/free-solid-svg-icons';
+import { faMagnifyingGlass, faMoon, faSun} from '@fortawesome/free-solid-svg-icons';
 
 export default function Header() {
     const { searchQuery, setSearchQuery, notes } = useAppContext();
     const [showInput, setShowInput] = useState(false);
+
+    const [theme, setTheme] = useState('');
+
+    useEffect(() => {
+        document.body.dataset.theme = theme;
+    }, [theme]);
+
+    function toggleTheme() {
+        setTheme(prev => (prev === '' ? 'dark' : ''));
+    }
 
     const location = useLocation();
     const { noteId } = useParams();              
@@ -58,18 +68,18 @@ export default function Header() {
     const showListUI = thisPage === '/' || thisPage === '/archive' || thisPage === '/trash';
 
     return (
-        <div className="flex justify-between items-center w-full gap-4 p-2">
+        <div className="w-full flex justify-between items-center gap-4 p-2">
             <div>
                 {showListUI && (
                     <Filter mode={routeToStatus[thisPage]} />
                 )}
             </div> 
 
-            <h1 className="text-3xl font-semibold text-gray-700 ">
+            <h1 className="text-3xl font-semibold text-[var(--headerTitle)] ">
                 {title}
             </h1>
 
-            <div className="flex gap-4 items-center">
+            <div className="flex gap-4 items-center justify-center">
                 {showListUI && (
                     <div>
                         {showInput && (
@@ -87,12 +97,22 @@ export default function Header() {
                             <button onClick={() => setShowInput(true)} title="Search notes">
                                 <FontAwesomeIcon
                                     icon={faMagnifyingGlass}
-                                    className="hover:scale-115 hover:text-amber-700 duration-300 text-gray-600 text-xl"
+                                    className="hover:scale-115 hover:text-amber-500 duration-300 text-[var(--search)] text-xl"
                                 />
                             </button>
                         )}
+                        
                     </div>
                 )}
+                <div className="flex items-center">
+                        <button
+                            id="theme-toggle"
+                            className="text-xl"
+                            onClick={toggleTheme}
+                        >
+                            {theme === '' ? <FontAwesomeIcon icon={faMoon} className="hover:text-amber-500" />: <FontAwesomeIcon icon={faSun} className="text-[var(--search)] hover:text-amber-500"/>}
+                        </button>
+                </div>
             </div>
         </div>
     );

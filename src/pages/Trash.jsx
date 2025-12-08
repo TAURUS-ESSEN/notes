@@ -76,8 +76,8 @@ export default function Trash() {
                         </span>
                         <Link to={`/edit/${note.id}`}  title='Click to edit this note' className='flex flex-1'>
                             <div className='notePreview'>
-                                <div className='line-clamp-2 font-semibold break-all'>{note.title} </div>
-                                <div className='text-sm line-clamp-3 break-all'> { note.text }</div>
+                                <div className='line-clamp-2 font-semibold break-all text-(--title-card)'>{note.title} </div>
+                                <div className='text-sm line-clamp-3 break-all text-(--text-card)'> { note.text }</div>
                             </div>
                         </Link>
                         <div className='flex mt-4 flex-wrap gap-2'>
