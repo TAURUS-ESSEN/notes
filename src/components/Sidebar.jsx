@@ -1,8 +1,8 @@
 import { Link, useLocation } from "react-router-dom";
 import { useAppContext } from "./AppContext";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faFolderOpen, faTrashCan, faNoteSticky} from '@fortawesome/free-regular-svg-icons';
-import { faEllipsisVertical, faBookmark  } from '@fortawesome/free-solid-svg-icons';
+import { faFolderOpen, faTrashCan, faNoteSticky } from '@fortawesome/free-regular-svg-icons';
+import { faEllipsisVertical, faBookmark, faPlus  } from '@fortawesome/free-solid-svg-icons';
 import { LABEL_COLOR_CLASSES_TEXT } from "../constants/labelColors";
 
 export default function Sidebar() {
@@ -54,7 +54,8 @@ export default function Sidebar() {
                 </div>
             </div>
             <div className="flex min-w-50 menuLinks hover:bg-amber-400">
-                <img src='addLabel.webp' width={25} className="block"/> 
+                <FontAwesomeIcon icon={faBookmark} />
+                <FontAwesomeIcon icon={faPlus} className="text-xs opacity-80" />
                 <button onClick={()=>openModal('addLabel')} className=" ">New Label</button>
             </div>
         </div>
