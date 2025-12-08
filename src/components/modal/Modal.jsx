@@ -18,7 +18,7 @@ export default function Modal({title, children, closeModal}) {
         <>
             <div className={styles.modalOverlay} onClick={(e)=> {e.currentTarget === e.target && closeModal()}}>
                 <div className="flex flex-col rounded-xl gap-4 bg-white test2">
-                    <div className='flex justify-between gap-4 items-center p-4  rounded-t-xl  text-gray-600 text-lg'>
+                    <div className='flex justify-between gap-4 items-center p-4 px-6    text-gray-600 text-lg'>
                         <h3 className=''>{title}</h3>
                         <button onClick={()=>closeModal()} className='text-2xl hover:scale-115 duration-300' >&times;</button>
                     </div>

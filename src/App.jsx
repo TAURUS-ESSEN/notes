@@ -79,7 +79,7 @@ function App() {
       <div className='wrapper '>
         <Toasts toasts={toasts} setToasts={setToasts}/>
         <Sidebar/>
-        <main className='flex flex-col h-screen w-full border-l border-[var(--border-main)] '>
+        <main className='flex flex-col h-screen w-full border-l border-(--border-main) '>
           <Header/>
           <Outlet />
         </main>

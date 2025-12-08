@@ -39,23 +39,27 @@ export default function AddNotesModal() {
     }
     
     const toggleLabels = (id) => {
-        setNoteLabels(prev => prev.includes(id) ? prev.filter(l=>l!==id) : [...prev, id] )
+        setNoteLabels(prev => prev.includes(id) 
+            ? prev.filter(l=>l!==id) 
+            : [...prev, id] )
     }
 
     return (
         <>
             <Modal title='Create new note' closeModal={closeModal}>
-                <form onSubmit={onSubmit} className='  flex flex-col gap-4 px-8 md:min-w-100 max-w-160 mb-4' >
+                <form onSubmit={onSubmit} className='flex flex-col gap-4 px-6 md:min-w-100 max-w-160 mb-6' >
+
                     <input type='text' 
                         onChange={(e) => setNoteTitle(e.target.value.slice(0,35))} 
                         value={noteTitle}
                         // onBlur = {(e) => setCategoryName(e.target.value.trim())} 
                         maxLength={35}
                         autoFocus
-                        className='border p-2' 
+                        className='border p-2 rounded-lg' 
                         required
                         placeholder='Note Title, min 2 characters'
                     />
+                    
                     <div className='flex gap-1 items-center'>
                         <FontAwesomeIcon icon={faThumbTack} className={`${pin === true ? 'text-gray-800': 'text-gray-400' } text-sm`}/> 
                         <input 
@@ -63,10 +67,16 @@ export default function AddNotesModal() {
                             onChange={(e)=> e.target.checked === true ? setPin(true) : setPin (false)} 
                         /> 
                             Pinned 
-                            {/* {pin.toString()} */}
                     </div>
                     
-                    <textarea onChange={(e)=>setNoteText(e.target.value)} value={noteText} className='border' rows="10" ></textarea>
+                    <textarea 
+                        onChange={(e)=>setNoteText(e.target.value)} 
+                        value={noteText} 
+                        className='border rounded-lg' 
+                        rows="10" 
+                    >
+                    </textarea>
+                    
                     <div className='flex gap-2 flex-wrap'>
                         {labels.map(label=> { return (
                             <span key={label.id} className='flex gap-1 items-center '>
@@ -79,8 +89,11 @@ export default function AddNotesModal() {
                             </span>
                         )})}
                     </div>
+
                     <div className='flex justify-between gap-4'>
-                        <button type="button" onClick={cancel} className='btn cancel'>Cancel</button>
+                        <button type="button" onClick={cancel} className='btn cancel'>
+                            Cancel
+                        </button>
                         <button type='submit' disabled={!isTitleValid} className='btn apply shadow-soft'>
                             +Add New Note
                         </button>      

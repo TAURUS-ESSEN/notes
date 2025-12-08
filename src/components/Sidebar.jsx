@@ -19,23 +19,33 @@ export default function Sidebar() {
         <div className="p-4 flex flex-col items-start justify-between gap-10 min-w-60">
             <div className="w-full">
                 <div className="">  
-                    <ul className="flex flex-col justify-start items-start">
-                        <li className={`${currentLocation.pathname === '/' ? 'bg-amber-400 menuLinks  ' : 'menuLinks'} min-h-10`}>
-                            <FontAwesomeIcon icon={faNoteSticky}  /><Link to='/' className=" ">Notes</Link>
+                    <ul className="flex flex-col justify-start items-start gap-1">
+                        <li className={`${currentLocation.pathname === '/' ? 'menuLinks-active' : 'menuLinks'}`}>
+                            <FontAwesomeIcon icon={faNoteSticky}  />
+                            <Link to='/' title="Show active notes">Notes</Link>
                         </li>
-                        <li className={currentLocation.pathname === '/archive' ?  'bg-amber-400  menuLinks ' : 'menuLinks'}>
-                            <FontAwesomeIcon icon={faFolderOpen} /><Link to='archive' className="menuLinks">Archive</Link>
+                        <li className={currentLocation.pathname === '/archive' ?  'menuLinks-active' : 'menuLinks'}>
+                            <FontAwesomeIcon icon={faFolderOpen} />
+                            <Link to='archive' title="Show archived notes">Archive</Link>
                         </li>
-                        <li className={currentLocation.pathname === '/trash' ?  'bg-amber-400  menuLinks ' : 'menuLinks'}>
-                            <FontAwesomeIcon icon={faTrashCan} /><Link to='trash' className="menuLinks">Trash</Link>
+                        <li className={currentLocation.pathname === '/trash' ?  'menuLinks-active' : 'menuLinks'}>
+                            <FontAwesomeIcon icon={faTrashCan} />
+                            <Link to='trash' title="Show deleted notes">Trash</Link>
                         </li>
                     </ul>
                 </div>
                 <div className="mt-8 w-full">
                     <div className="flex gap-2 mb-2 justify-between">
                         <h2 className="text-gray-600 text-left">Labels</h2> 
-                        <button className="font-semibold text-gray-500" onClick={()=>{openModal('manageLabels')}} title="Manage labels">
-                            <FontAwesomeIcon icon={faEllipsisVertical} className="text-lg hover:scale-115 hover:text-gray-700 duration-300" />
+                        <button 
+                            className="font-semibold text-gray-500" 
+                            onClick={()=>{openModal('manageLabels')}} 
+                            title="Manage labels"
+                        >
+                            <FontAwesomeIcon 
+                                icon={faEllipsisVertical} 
+                                className="text-lg hover:scale-115 hover:text-(--manageLabelsBtn) duration-300"
+                            />
                         </button>
                     </div>
 
@@ -43,14 +53,19 @@ export default function Sidebar() {
                     {labels.map(label => {
                         return ( 
                             <li className={filter.includes(label.id) ? ' bg-green-100  menuLinks ' : 'menuLinks'}>
-                                <FontAwesomeIcon icon={faBookmark}  className={`${LABEL_COLOR_CLASSES_TEXT[label.color]} text-base opacity-75`}/> 
-                                <button onClick={()=>changeFilters(label.id)} className="text-left truncate max-w-[180px] text-[var(--labelLink)]">
+                                <FontAwesomeIcon 
+                                    icon={faBookmark}  
+                                    className={`${LABEL_COLOR_CLASSES_TEXT[label.color]} text-base opacity-75`}
+                                /> 
+                                <button 
+                                    onClick={()=>changeFilters(label.id)} 
+                                    className="text-left truncate max-w-[180px] text-(--labelLink)"
+                                >
                                     {label.name}
                                 </button>
                             </li> )   
                         })}
                     </ul>
-                    {/* {filter.length}  */}
                 </div>
             </div>
             <div className="flex min-w-50 menuLinks hover:bg-amber-400">

@@ -1,5 +1,5 @@
 import {Link} from 'react-router-dom';
-import AddNewNote from '../components/modal/AddNewNote';
+import AddNewNote from '../components/AddNewNote';
 import { useAppContext } from "../components/AppContext";
 import {useSortedNotes} from '../hooks/useSortedNotes';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';

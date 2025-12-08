@@ -10,7 +10,9 @@
         --shadow-hover: 0 1px 3px #00000020;
 
         --menu-links: #1e2939;
-        --labelLink: #4a5565; 
+        --menu-links-active: #1e2939;
+        --labelLink: #4a5565;
+        --manageLabels: #364153;
 
         --search: #4a5565;
         --headerTitle: #364153;
@@ -29,13 +31,15 @@
 
     body[data-theme="dark"] {
         --bg-app: #0B0F19;
-        --border-main: #494949;
+        --border-main: #282828;
         --text-default: #99a1af;
         --shadow:  0 0 3px #cacacbc0;
         --shadow-hover: 0 1px 8px #1dc5f8f3;
 
         --menu-links: #899AB8;
+        --menu-links-active: #1e2939;
         --labelLink: #727d8f;
+        --manageLabelsBtn: #ff9900;
 
         --search: #bababa;
         --headerTitle: #bababa;
@@ -157,8 +161,16 @@ background: linear-gradient(to right, #FFFFFF, #ECE9E6); /* W3C, IE 10+/ Edge, F
         box-shadow: 0 0 3px rgba(180, 180, 180, 0.396);
     }
 
-    .menuLinks {
-        @apply w-full flex gap-2 items-center justify-start px-2 py-1 font-semibold text-lg rounded-2xl  text-[var(--menu-links)]
+    .menuLinks, .menuLinks-active {
+        @apply w-full flex gap-2 items-center justify-start px-2 py-1 font-semibold text-lg rounded-2xl
+    }
+
+    .menuLinks{
+        @apply text-(--menu-links);
+    }
+
+    .menuLinks-active {
+        @apply bg-amber-400  text-(--menu-links-active);
     }
 
     .tooltip {
