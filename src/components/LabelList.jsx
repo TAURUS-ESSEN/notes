@@ -2,7 +2,7 @@ import { DndContext, closestCenter, PointerSensor, useSensor, useSensors } from 
 import { SortableContext, useSortable, verticalListSortingStrategy, arrayMove } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBookmark } from "@fortawesome/free-solid-svg-icons";
+import { faBookmark, faGrip } from "@fortawesome/free-solid-svg-icons";
 import { LABEL_COLOR_CLASSES_TEXT } from "../constants/labelColors";
 
 function SortableLabel({ id, name, color, isActive, onToggle }) {
@@ -11,19 +11,26 @@ function SortableLabel({ id, name, color, isActive, onToggle }) {
 
     const style = {
     transform: CSS.Transform.toString(transform),
+    // cursor: "grab",
     transition: isDragging
     ? "transform 40ms linear"
     : "transform 250ms ease",
+    
 };
 
     return (
         <li
             ref={setNodeRef}
             {...attributes}
-            {...listeners}
+            // {...listeners}
             style={style}
-            className={`menuLinks ${isActive ? "bg-green-100" : ""}`}
+            className={`menuLinks ${isActive ? "bg-green-100" : ""}  `}
         >
+            <FontAwesomeIcon             
+                {...listeners} 
+                icon={faGrip} 
+                className={'text-xs text-(--grip-color) mr-2 cursor-grab bg'}
+            />            
             <FontAwesomeIcon
                 icon={faBookmark}
                 className={`${LABEL_COLOR_CLASSES_TEXT[color]} text-base opacity-75`}

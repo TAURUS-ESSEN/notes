@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useAppContext } from "./AppContext";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFolderOpen, faTrashCan, faNoteSticky,  faKeyboard } from '@fortawesome/free-regular-svg-icons';
-import { faEllipsisVertical, faBookmark, faPlus  } from '@fortawesome/free-solid-svg-icons';
+import { faEllipsisVertical, faBookmark, faPlus, faGrip } from '@fortawesome/free-solid-svg-icons';
 import LabelsList from "./LabelList";
 
 export default function Sidebar() {

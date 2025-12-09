@@ -28,12 +28,12 @@ export default function DeleteLabel({setDeleteId, label}) {
     return (
         <>
             <div className="p-4">
-                <div className="flex flex-col justify-center gap-2 border border-orange-700  bg-orange-200 rounded-xl p-2 text-red-950">
+                <div className="flex flex-col justify-center gap-2 border border-orange-200   bg-orange-100 rounded-xl p-2 text-red-950">
                     <span className="text-center">Are you sure you really want to delete this label? </span>
                     <span className="text-center">Deleting this label will affect {quantity(label.id)} notes.</span>
                         <span className="flex justify-around">
                             <button className="btn cancel w-20" onClick={()=>{setDeleteId(null)}}>Cancel</button>
-                            <button className="btn bg-red-700 hover:bg-red-800 text-white px-2 w-20 hover:scale-105 duration-300 rounded-lg" onClick={()=>deleteLabel(label)}>Delete</button>
+                            <button className="btn rounded-xl bg-red-700 hover:bg-red-800 text-white px-2 w-20 hover:scale-105 duration-300 rounded-lg" onClick={()=>deleteLabel(label)}>Delete</button>
                         </span>
                 </div>
             </div>        
