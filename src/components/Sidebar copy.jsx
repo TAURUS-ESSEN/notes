@@ -5,10 +5,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFolderOpen, faTrashCan, faNoteSticky,  faKeyboard } from '@fortawesome/free-regular-svg-icons';
 import { faEllipsisVertical, faBookmark, faPlus  } from '@fortawesome/free-solid-svg-icons';
 import { LABEL_COLOR_CLASSES_TEXT } from "../constants/labelColors";
-import LabelsList from "./LabelList";
 
 export default function Sidebar() {
-    const {labels, setLabels, filter, setFilter, openModal} = useAppContext();
+    const {labels, filter, setFilter, openModal} = useAppContext();
     const currentLocation = useLocation()
 
     function changeFilters(id) {
@@ -63,12 +62,25 @@ export default function Sidebar() {
                             />
                         </button>
                     </div>
-                    <LabelsList
-                        labels={labels}
-                        filter={filter}
-                        onToggle={changeFilters} 
-                        onSort={(newOrder) => setLabels(newOrder)}
-                    />
+
+                    <ul className="flex flex-col justify-start items-start w-full gap-1">
+                    {labels.map(label => {
+                        return ( 
+                            <li className={filter.includes(label.id) ? ' bg-green-100  menuLinks ' : 'menuLinks'}>
+                                <FontAwesomeIcon 
+                                    icon={faBookmark}  
+                                    className={`${LABEL_COLOR_CLASSES_TEXT[label.color]} text-base opacity-75`}
+                                /> 
+                                <button 
+                                    onClick={()=>changeFilters(label.id)} 
+                                    className="text-left truncate max-w-[180px] text-(--labelLink)"
+                                    title={`show notes with label ${label.name}`}
+                                >
+                                    {label.name}
+                                </button>
+                            </li> )   
+                        })}
+                    </ul>
                 </div>
             </div>
             <div className="flex min-w-50 menuLinks hover:bg-amber-400">

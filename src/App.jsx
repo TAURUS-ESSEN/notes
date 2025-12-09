@@ -7,6 +7,7 @@ import Toasts from './components/Toasts';
 import './App.css';
 import { DEFAULT_LABELS, DEFAULT_NOTES } from './data/default';
 import { Outlet, useNavigate } from 'react-router-dom'
+import DnDPlayground from './components/DnDPlayground'
 
 function loadInitialData(key, fallback) {
   try {
@@ -81,6 +82,7 @@ function App() {
         <Sidebar/>
         <main className='flex flex-col h-screen w-full border-l border-(--border-main) '>
           <Header/>
+          {/* <DnDPlayground /> */}
           <Outlet />
         </main>
       </div>
