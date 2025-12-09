@@ -4,7 +4,6 @@ import { useAppContext } from "./AppContext";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFolderOpen, faTrashCan, faNoteSticky,  faKeyboard } from '@fortawesome/free-regular-svg-icons';
 import { faEllipsisVertical, faBookmark, faPlus  } from '@fortawesome/free-solid-svg-icons';
-import { LABEL_COLOR_CLASSES_TEXT } from "../constants/labelColors";
 import LabelsList from "./LabelList";
 
 export default function Sidebar() {

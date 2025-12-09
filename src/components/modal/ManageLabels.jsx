@@ -1,15 +1,17 @@
+import { DndContext, closestCenter, PointerSensor, useSensor, useSensors } from "@dnd-kit/core";
+import { SortableContext, verticalListSortingStrategy, arrayMove } from "@dnd-kit/sortable";
 import { useAppContext } from "../AppContext";
 import { useState } from 'react';
 import Modal from './Modal';
-import ColorPicker from '../ColorPicker.jsx';
+
+import SortedLabelRow from './SortedLabelRow.jsx'
 
 export default function ManageLabels() {
-    const {closeModal, notes, setNotes, labels, setLabels, setToasts } = useAppContext(); 
+    const {closeModal, labels, setLabels, setToasts } = useAppContext(); 
     const [labelColor, setLabelColor] = useState(null);
     const [editingId, setEditingId] = useState(null); 
     const [deleteId, setDeleteId] = useState(null);
     const [draft, setDraft] = useState("");
-
 
     function startEdit(label) {
         setEditingId(label.id);       // запоминаем, какой именно label редактируем
@@ -31,91 +33,64 @@ export default function ManageLabels() {
         setDraft("");
     }
 
-    function deleteLabel(label) {
-        setLabels(prev=>prev.filter(l=>l.id!==label.id));
-        setNotes(prev=>prev.map(note=> {
-        if (note.labels.includes(label.id)) {
-            return {...note, labels: note.labels.filter(l=>l!==label.id)}
-        }
-        else return note
-        }))
+    const sensors = useSensors(
+        useSensor(PointerSensor, {
+            activationConstraint: {
+                distance: 5, // ← пока не двинул — это клик, а не drag
+                //   tolerance: 5,
+            },
+        })
+    );
 
-        const toastId = Date.now() + Math.random();
-        setToasts(prev=>([...prev, {toastId, message: (
-            <div className='deletedToast justify-center text-center'>
-                <span> Label {label.name} deleted. (affects {quantity(label.id)} notes)</span>
-            </div>
-        )}])) 
-        setDeleteId(null);
-    }
+    function handleDragEnd(event) {
+        const { active, over } = event;
+        if (!over || active.id === over.id) return;
 
-    function quantity(id) {
-        return notes.filter(note => Array.isArray(note.labels) && note.labels.includes(id)).length
-    }
+        setLabels((prev) => {
+            const oldIndex = prev.findIndex((l) => l.id === active.id);
+            const newIndex = prev.findIndex((l) => l.id === over.id);
+            if (oldIndex === -1 || newIndex === -1) return prev;
+            return arrayMove(prev, oldIndex, newIndex);
+        });
+}
 
     return (
     <>
         <Modal title="Labels management" closeModal={closeModal}>
-            <ul className=" rounded-xl mb-4 px-4">
-                <div className="border border-gray-200 rounded-xl overflow-hidden ">
-                {labels.map(label => {
-                const isEditing = editingId === label.id;
-                const isDeleting = deleteId === label.id;
+            <DndContext
+                sensors={sensors}
+                collisionDetection={closestCenter}
+                onDragEnd={handleDragEnd}
+            >
+                <SortableContext
+                    items={labels.map((l) => l.id)}
+                    strategy={verticalListSortingStrategy}
+                >
+            <div className=" rounded-xl mb-4 px-4">
+                <ul className="border border-gray-200 rounded-xl overflow-hidden ">
+                    {labels.map(label => {
+                        const isEditing = editingId === label.id;
+                        const isDeleting = deleteId === label.id;
 
-                return (
-                    <li key={label.id} className="min-w-100 odd:bg-gray-100 overflow-y-auto">
-                        <div className="flex items-center justify-between p-2">
-                            <span className="flex items-center justify-between px-2">
-                                {isEditing ? (
-                                    <input
-                                    value={draft}
-                                    onChange={e => setDraft(e.target.value)}
-                                    className="border px-1"
-                                    autoFocus
-                                    />
-                                ) : (
-                                    <span className="truncate max-w-[180px]">{label.name}</span>
-                                )}
-                            </span>
-                            <span className="flex items-center px-2 justify-between gap-4">
-                                {!isEditing ? (
-                                    <button 
-                                        onClick={() => startEdit(label)} 
-                                        className="btn w-15 px-4 bg-blue-300 text-white hover:bg-blue-600 duration-300">
-                                            edit
-                                    </button>
-                                ) : (
-                                    <button 
-                                        onClick={() => saveEdit(label)} 
-                                        className="btn w-15 bg-green-500 hover:bg-green-600 text-white duration-300"
-                                    >
-                                        save
-                                    </button>
-                                )}
-                                
-                                <button onClick={() => setDeleteId(label.id)} className="btn bg-red-300 hover:bg-red-500 duration-300 text-white">
-                                    delete
-                                </button>
-                            </span>
-                        </div>
-                            {isEditing && <div className="p-4">
-                                    <ColorPicker setLabelColor={setLabelColor} labelColor={labelColor} /> 
-                                </div>}
-                            {isDeleting && (<div className="p-4">
-                                <div className="flex flex-col justify-center gap-2 border border-orange-700  bg-orange-200 rounded-xl p-2 text-red-950">
-                                    <span className="text-center">Are you sure you really want to delete this label? </span>
-                                    <span className="text-center">Deleting this label will affect {quantity(label.id)} notes.</span>
-                                    
-                                    <span className="flex justify-around">
-                                        <button className="btn cancel w-20" onClick={()=>{setDeleteId(null)}}>Cancel</button>
-                                        <button className="btn bg-red-700 hover:bg-red-800 text-white px-2 w-20 hover:scale-105 duration-300 rounded-lg" onClick={()=>deleteLabel(label)}>Delete</button>
-                                    </span>
-                                </div></div>
-                                )}
-                    </li>
-                );
-                })} </div>     
-            </ul>
+                    return (
+                        <SortedLabelRow 
+                            key={label.id} 
+                            label={label} 
+                            isEditing={isEditing} 
+                            draft={draft} 
+                            setDraft={setDraft} 
+                            startEdit={startEdit} 
+                            saveEdit={saveEdit} 
+                            setDeleteId={setDeleteId} 
+                            setLabelColor={setLabelColor} 
+                            labelColor={labelColor} 
+                            isDeleting={isDeleting} 
+                        />
+                    );
+                })} </ul>     
+            </div>
+            </SortableContext>
+        </DndContext>
     </Modal>       
     </>
     )

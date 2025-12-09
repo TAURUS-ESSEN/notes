@@ -10,8 +10,8 @@ function SortableLabel({ id, name, color, isActive, onToggle }) {
         useSortable({ id });
 
     const style = {
-  transform: CSS.Transform.toString(transform),
-  transition: isDragging
+    transform: CSS.Transform.toString(transform),
+    transition: isDragging
     ? "transform 40ms linear"
     : "transform 250ms ease",
 };
@@ -42,12 +42,13 @@ function SortableLabel({ id, name, color, isActive, onToggle }) {
 
 export default function LabelsList({ labels, filter, onToggle, onSort }) {
     const sensors = useSensors(
-  useSensor(PointerSensor, {
-    activationConstraint: {
-      distance: 5, // ← пока не двинул — это клик, а не drag
-    },
-  })
-);
+            useSensor(PointerSensor, {
+                activationConstraint: {
+                    distance: 5, // ← пока не двинул — это клик, а не drag
+                    //   tolerance: 5,
+                },
+            })
+    );
 
     function handleDragEnd(event) {
         const { active, over } = event;
