@@ -14,22 +14,11 @@ export default function EditNote() {
     const [pin, setPin] = useState(note.pinned);
     const [editLabels, setEditLabels] = useState(note.labels);
 
-    useEffect(()=> {
-        const onKey = (e) => {
-            if (e.altKey && e.key.toLowerCase() === "s") { onSubmit(e) }
-            if ((e.altKey && e.key.toLowerCase() === "a") && (note.status!=='archived'))  { acrhive() }
-            if ((e.altKey && e.key.toLowerCase() === "w") && (note.status!=='active'))  { restore() }
-            if ((e.altKey && e.key.toLowerCase() === "d") && (note.status!=='deleted'))  { toTrash()}
-            if ((e.altKey && e.shiftKey && e.key.toLowerCase() === "d") && (note.status==='deleted'))  { deleteNote(noteId)}
-            if (e.key === "Escape")  { navigate(-1) }
-        }
-        document.addEventListener("keydown", onKey)
-        return () => {document.removeEventListener("keydown", onKey)}
-    },[note.status, navigate])
-
+    
     if (!note) {
-        return <div className='p-4'>Note not found</div>;
+       // return <div className='p-4'>Note not found</div>;
     }
+    
     
     const onSubmit = (e) => {
         e.preventDefault()
@@ -37,7 +26,7 @@ export default function EditNote() {
         setText('');
         const toastId = Date.now() + Math.random();
         setToasts(prev=>([...prev, {toastId, message: (
-            <div className='activeToast justify-center text-center'>
+            <div className='activeToast'>
                 <span> Note {title} was updated</span>
             </div>
         )}])) 
@@ -49,7 +38,7 @@ export default function EditNote() {
         setNotes(prev=>prev.map(n => n.id ==noteId ?  {...n, status: 'active', deletedAt: ''} : n))
         const toastId = Date.now() + Math.random();
         setToasts(prev=>([...prev, {toastId, message: (
-            <div className='activeToast justify-center text-center'>
+            <div className='activeToast'>
                 <span> Note {title} was restored</span>
             </div>
         )}])) 
@@ -60,7 +49,7 @@ export default function EditNote() {
         setPin(false);
         const toastId = Date.now() + Math.random();
         setToasts(prev=>([...prev, {toastId, message: (
-            <div className='archiveToast justify-center text-center'>
+            <div className='archiveToast'>
                 <span> Note {title} was archived</span>
             </div>
         )}])) 
@@ -71,7 +60,7 @@ export default function EditNote() {
         setPin(false);
         const toastId = Date.now() + Math.random();
         setToasts(prev=>([...prev, {toastId, message: (
-            <div className='deletedToast justify-center text-center'>
+            <div className='deletedToast'>
                 <span> Note {title} was deleted</span>
             </div>
         )}])) 
@@ -85,14 +74,26 @@ export default function EditNote() {
         setEditLabels(prev => editLabels.includes(id) ? prev.filter(l=>l!==id) : [...prev, id] )
     }
 
+    useEffect(()=> {
+        const onKey = (e) => {
+            if (e.altKey && e.key.toLowerCase() === "s") { onSubmit(e) }
+            if ((e.altKey && e.key.toLowerCase() === "a") && (note.status!=='archived'))  { acrhive() }
+            if ((e.altKey && e.key.toLowerCase() === "w") && (note.status!=='active'))  { restore() }
+            if ((e.altKey && e.key.toLowerCase() === "d") && (note.status!=='deleted'))  { toTrash()}
+            if ((e.altKey && e.shiftKey && e.key.toLowerCase() === "d") && (note.status==='deleted'))  { deleteNote(noteId)}
+            if (e.key === "Escape")  { navigate(-1) }
+        }
+        document.addEventListener("keydown", onKey)
+        return () => {document.removeEventListener("keydown", onKey)}
+    },[note.status, navigate])
+    
     return (
         <div className='px-4'> 
-            <form onSubmit={onSubmit} className='max-w-3xl m-auto mt-4 p-6 flex flex-col gap-4 border-gray-400 rounded-xl bg-(--bg-card) shadow-soft text-(--text-default)'>
+            <form onSubmit={onSubmit} className='max-w-3xl m-auto mt-4 p-6 flex flex-col gap-4 border border-(--border-color) rounded-xl bg-(--bg-card) text-(--text-default) shadow-soft '>
                 <input 
                     type='text' 
                     onChange={(e)=>setTitle(e.target.value)} 
                     value={title} 
-                    className='p-2 border border-gray-300 bg-(--bg-edit-input) text-(--text-edit-input)'
                     disabled={note.status === 'deleted'}
                 />
                 {note.status === 'active' && 
@@ -108,7 +109,7 @@ export default function EditNote() {
                 <textarea 
                     onChange={(e)=>setText(e.target.value)} 
                     value={text} 
-                    className='p-2 border border-gray-300  leading-relaxed bg-(--bg-edit-input) text-(--text-edit-input)' 
+                    className='leading-relaxed' 
                     rows={12} 
                     disabled={note.status === 'deleted'}>
                 </textarea>
@@ -118,7 +119,7 @@ export default function EditNote() {
                     {labels.map(label => (
                         <label
                             key={label.id}
-                            className="inline-flex items-center gap-1  px-1 py-0.5 cursor-pointer text-base "
+                            className="inline-flex items-center gap-1 px-1 py-0.5 cursor-pointer text-base "
                         >
                             <input
                             type="checkbox"

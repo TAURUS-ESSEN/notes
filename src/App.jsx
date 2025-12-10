@@ -5,14 +5,14 @@ import ModalHost from './components/modal/ModalHost'
 import { AppContext } from './components/AppContext'
 import Toasts from './components/Toasts';
 import './App.css';
-import { DEFAULT_LABELS, DEFAULT_NOTES } from './data/default';
+import { DEFAULT_LABELS, DEFAULT_NOTES, DEFAULT_THEME } from './data/default';
 import { Outlet, useNavigate } from 'react-router-dom'
 import DnDPlayground from './components/DnDPlayground'
 
 function loadInitialData(key, fallback) {
   try {
     const data = JSON.parse(localStorage.getItem(key));
-    return Array.isArray(data) ? data : fallback;
+    return data !== null ? data : fallback;
   } catch {
     return fallback;
   }
@@ -26,6 +26,8 @@ function App() {
   const [sortBy, setSortBy] = useState({active:'new', archived: 'new', deleted: 'lastDeleted'});
   const [searchQuery, setSearchQuery] = useState('');
   const [toasts, setToasts] = useState([]);
+  const [theme, setTheme] = useState(()=>loadInitialData('theme', DEFAULT_THEME));
+
   const navigate = useNavigate();
 
   const openModal = useCallback((modalType, id = null) => {
@@ -36,8 +38,8 @@ function App() {
   }, []);
 
   const contextValue = useMemo(() => ({
-    notes, setNotes, modal, openModal, closeModal, sortBy, setSortBy, searchQuery, setSearchQuery, labels, setLabels, filter, setFilter, toasts, setToasts }), 
-    [notes, modal , openModal, closeModal, sortBy, searchQuery, labels, filter, toasts]);
+    notes, setNotes, modal, openModal, closeModal, sortBy, setSortBy, searchQuery, setSearchQuery, labels, setLabels, filter, setFilter, toasts, setToasts, theme, setTheme }), 
+    [notes, modal , openModal, closeModal, sortBy, searchQuery, labels, filter, toasts, theme]);
 
   useEffect(() => {
     localStorage.setItem('notes', JSON.stringify(notes))
@@ -46,6 +48,11 @@ function App() {
   useEffect(() => {
     localStorage.setItem('labels', JSON.stringify(labels))
   }, [labels]);
+
+  useEffect(() => {
+    localStorage.setItem('theme', JSON.stringify(theme))
+    document.body.dataset.theme = theme === 'dark' ? 'dark' : 'light';
+  }, [theme]);
 
   useEffect(()=>{
     const onKey = (e) => {

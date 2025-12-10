@@ -7,7 +7,8 @@
         --border-main: #e5e7eb;
         --text-default: #000;
         --shadow:  0 1px 3px #00000020;
-        --shadow-hover: 0 1px 3px #00000020;
+        --shadow-hover: 0 1px 8px #1dc5f8f3;
+        --bg-modal:#e7e7e7; 
 
         --menu-links: #1e2939;
         --menu-links-active: #1e2939;
@@ -27,7 +28,8 @@
         --bg-select: #ffffff;
 
         --bg-edit-input:#fff;
-        --text-edit-input:#000;
+        --text-edit-input:#4a5565;
+        --border-color:#d1d5dc; 
     }
 
     body[data-theme="dark"] {
@@ -36,6 +38,7 @@
         --text-default: #99a1af;
         --shadow:  0 0 3px #cacacbc0;
         --shadow-hover: 0 1px 8px #1dc5f8f3;
+        --bg-modal: #282828;
 
         --menu-links: #899AB8;
         --menu-links-active: #1e2939;
@@ -56,6 +59,7 @@
 
         --bg-edit-input:#252a36;
         --text-edit-input:#e2e2e2;
+        --border-color:#636e7f;
     }
 }
 
@@ -75,8 +79,9 @@ body, button {
         @apply hover:cursor-pointer
     }
 
-    input, textarea, select {
-        @apply p-2 rounded-xl border border-gray-300 bg-white focus:outline-3 focus:outline-amber-400
+    input, textarea, select, input[type="checkbox"]  {
+        @apply p-2 rounded-xl border focus:outline-3 focus:outline-blue-400 
+                bg-(--bg-edit-input) text-(--text-edit-input) border-(--border-color);
     }
 }
 
@@ -98,11 +103,15 @@ body, button {
     }
 
     .toTrashBtn {
-        @apply  text-gray-400 hover:text-red-500 group-hover:text-red-500 transition
+        @apply  text-gray-400 hover:text-red-500 group-hover:text-red-400 transition
     }
 
     .toArchiveBtn {
-        @apply  text-gray-400 hover:text-yellow-500 group-hover:text-yellow-500 transition
+        @apply  text-gray-400 hover:text-yellow-500 group-hover:text-yellow-400 transition
+    }
+
+    .modal {
+        background: var(--bg-modal);
     }
 
     .notePreviewContainer {
@@ -114,7 +123,7 @@ body, button {
     }
 
     .activeToast, .deletedToast, .archiveToast, .trashToast  {
-        @apply flex flex-col justify-center items-center p-2 rounded-xl text-sm opacity-65 
+        @apply flex flex-col justify-center items-center p-2 rounded-xl text-sm text-center opacity-85 
     }
     
     .activeToast {
@@ -130,7 +139,7 @@ body, button {
     }
 
     .deletedToast {
-        @apply bg-red-600
+        @apply bg-red-500
     }
 
     .labelTag {
@@ -172,7 +181,7 @@ background: linear-gradient(to right, #FFFFFF, #ECE9E6); /* W3C, IE 10+/ Edge, F
     }
 
     .shadow-soft {
-        box-shadow: 0 0 3px rgba(180, 180, 180, 0.396);
+        box-shadow: 0 0 5px rgba(180, 180, 180, 0.396);
     }
 
     .menuLinks, .menuLinks-active {

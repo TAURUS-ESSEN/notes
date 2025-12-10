@@ -15,7 +15,7 @@ export default function Notes() {
     function changeFilters(id) {
         const value = filter.includes(id)
         value ? setFilter(prev=>prev.filter(num => num !== id)) : setFilter(prev=>[...prev, id])
-        console.log(value)
+        // console.log(value)
     }
 
     const updateNoteStatus = (id, nextStatus) => {
@@ -76,7 +76,7 @@ export default function Notes() {
                         >
                             <FontAwesomeIcon
                                 icon={faThumbTack}
-                                className={ 'hover:scale-125 duration-300 ' + (note.pinned ? 'text-[var(--text-pinned)]' : 'text-[var(--text-notpinned)] hover:text-gray-400') }
+                                className={ 'hover:scale-125 duration-300 ' + (note.pinned ? 'text-(--text-pinned)' : 'text-(--text-notpinned) hover:text-gray-400') }
                             />                        
                         </button>
 

@@ -142,8 +142,6 @@ Would be nice to plan something small but meaningful.`,
     }
 ];
 
-
-
 export const DEFAULT_LABELS = [
     {id: 1, name: 'calls', color: 'indigo'},
     {id: 2, name: 'daten', color: 'amber'},
@@ -151,3 +149,5 @@ export const DEFAULT_LABELS = [
     {id: 4, name: 'health', color: 'green'},
     {id: 5, name: 'ideas', color: 'rose'}
 ]
+
+export const DEFAULT_THEME = 'light';

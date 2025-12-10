@@ -47,7 +47,7 @@ export default function AddLabelsModal() {
     return (
         <>
             <Modal title='Create new label' closeModal={closeModal}>
-                <form onSubmit={onSubmit} className='flex flex-col gap-4 p-4 rounded-xl ' >
+                <form onSubmit={onSubmit} className='flex flex-col gap-4 p-4 rounded-xl' >
                     <input type='text' 
                         onChange={(e) => {
                             setLabelName(e.target.value.slice(0,25));
@@ -65,7 +65,7 @@ export default function AddLabelsModal() {
                     </div>
                     <span>{error}</span>
                     <div className='flex justify-between gap-4'>
-                        <button type="button" onClick={cancel} className='btn border p-2 '>Cancel</button>
+                        <button type="button" onClick={cancel} className='btn border p-2'>Cancel</button>
                         <button type='submit' disabled={!isTitleValid || isDuplicate} className='btn apply border p-2'>
                             +Add New Label
                         </button>      
