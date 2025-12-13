@@ -29,7 +29,8 @@
 
         --bg-edit-input:#fff;
         --text-edit-input:#4a5565;
-        --border-color:#d1d5dc; 
+        --border-color:#d1d5dc;
+        --hint:#99a1af;
     }
 
     body[data-theme="dark"] {
@@ -60,6 +61,7 @@
         --bg-edit-input:#252a36;
         --text-edit-input:#e2e2e2;
         --border-color:#636e7f;
+        --hint:#d1d5dc;
     }
 }
 

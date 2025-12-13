@@ -37,9 +37,14 @@ function App() {
     setModal({isOpen: false, type: null, noteId:null});
   }, []);
 
+  const changeFilters = useCallback((id = null) => {
+        const value = filter.includes(id)
+        value ? setFilter(prev=>prev.filter(num => num !== id)) : setFilter(prev=>[...prev, id])
+  },[filter])
+
   const contextValue = useMemo(() => ({
-    notes, setNotes, modal, openModal, closeModal, sortBy, setSortBy, searchQuery, setSearchQuery, labels, setLabels, filter, setFilter, toasts, setToasts, theme, setTheme }), 
-    [notes, modal , openModal, closeModal, sortBy, searchQuery, labels, filter, toasts, theme]);
+    notes, setNotes, modal, openModal, closeModal, sortBy, setSortBy, searchQuery, setSearchQuery, labels, setLabels, filter, setFilter, toasts, setToasts, theme, setTheme, changeFilters }), 
+    [notes, modal , openModal, closeModal, sortBy, searchQuery, labels, filter, toasts, theme, changeFilters]);
 
   useEffect(() => {
     localStorage.setItem('notes', JSON.stringify(notes))

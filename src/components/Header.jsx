@@ -1,9 +1,9 @@
 import { useAppContext } from "./AppContext"
 import { useLocation, useParams } from "react-router-dom"; 
 import Filter from "./Filter";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faMagnifyingGlass, faMoon, faSun} from '@fortawesome/free-solid-svg-icons';
+import { faMagnifyingGlass, faMoon, faSun, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 
 export default function Header() {
     const { searchQuery, setSearchQuery, notes, theme, setTheme } = useAppContext();
@@ -72,14 +72,18 @@ export default function Header() {
                 {title}
             </h1>
 
-            <div className="flex items-center justify-center gap-2">
+            <div className="flex items-center justify-end gap-2 w-60">
                 {showListUI && (
                     <div>
                         {showInput && (
                             <input
                                 type="text"
-                                autoFocus
-                                onChange={(e)=>setSearchQuery(e.target.value)}
+                                autoFocus 
+                                maxLength={50}
+                                onChange={e => {
+                                    const value = e.target.value.slice(0, 50);
+                                    setSearchQuery(value);
+                                }}
                                 onBlur={checkBlur}
                                 value={searchQuery}
                                 placeholder="Search notes"
