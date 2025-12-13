@@ -1,18 +1,12 @@
 import {Link} from 'react-router-dom'
 import { useAppContext } from "../components/AppContext";
 import {useSortedNotes} from '../hooks/useSortedNotes'
-import { LABEL_COLOR_CLASSES } from "../constants/labelColors";
-import NoteCardButtons from './NoteCardButtons'
+import NoteCardButtons from './NoteCardButtons';
+import NoteLabelList from '../components/NoteLabelList';
 
 export default function Trash() {
-    const {labels, notes, setNotes, setToasts, changeFilters} = useAppContext()
+    const {labels, notes, setNotes, setToasts} = useAppContext()
     const sortedNotes = useSortedNotes('deleted');
-
-    // function changeFilters(id) {
-    //     const value = filter.includes(id)
-    //     value ? setFilter(prev=>prev.filter(num => num !== id)) : setFilter(prev=>[...prev, id])
-    //     console.log(value)
-    // }
 
     function undoRestore(noteId, deletedAt, toastId) {
         setToasts(prev => prev.filter(t => t.toastId !== toastId));  
@@ -33,22 +27,7 @@ export default function Trash() {
                                 <div className='text-sm line-clamp-3 break-all text-(--text-card)'> { note.text }</div>
                             </div>
                         </Link>
-                        <div className='flex mt-4 flex-wrap gap-2'>
-                            {labels.map(label=> {
-                                if (note.labels.includes(label.id)) {
-                                    return (
-                                        <button 
-                                            key={label.id} 
-                                            onClick={()=>changeFilters(label.id)} 
-                                            className={`${LABEL_COLOR_CLASSES[label.color]} labelTag`}
-                                            title={`Show all notes with "${label.name}"`}
-                                        >
-                                            {label.name}
-                                        </button>
-                                    )
-                                }
-                            })}
-                        </div>            
+                        <NoteLabelList labels={labels} note={note} />    
                     </div> 
                 )
             )}

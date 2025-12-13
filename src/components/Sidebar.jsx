@@ -17,9 +17,9 @@ export default function Sidebar() {
     }
 
     const navLinks = [
-        { path: '/',        to: '/',       label: 'Notes',   icon: faNoteSticky, title: 'Show active notes' },
-        { path: '/archive', to: '/archive', label: 'Archive', icon: faFolderOpen, title: 'Show archived notes' },
-        { path: '/trash',   to: '/trash',   label: 'Trash',   icon: faTrashCan, title: 'Show deleted notes' },
+        { path: '/',        to: '/',       label: 'Notes',   icon: faNoteSticky, title: 'Show active notes [Alt+1]' },
+        { path: '/archive', to: '/archive', label: 'Archive', icon: faFolderOpen, title: 'Show archived notes [Alt+2]' },
+        { path: '/trash',   to: '/trash',   label: 'Trash',   icon: faTrashCan, title: 'Show deleted notes [Alt+3]' },
     ];
 
     useEffect(()=>{
