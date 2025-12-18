@@ -7,7 +7,10 @@ export default function NoteCardButtons({note, undo}) {
     const {notes, setNotes, setToasts, openModal} = useAppContext();
 
         const updateNoteStatus = (id, nextStatus) => {
-        const changedNote = notes.find(n=>n.id === id);
+  
+        const changedNote = notes.find(n=>n.id === id);      
+        const prevStatus = changedNote.status;
+        const prevDeletedAt = changedNote.deletedAt ?? null;
         if (!changedNote) return;
         
         setNotes(prev =>
@@ -34,7 +37,7 @@ export default function NoteCardButtons({note, undo}) {
                 <span>{shorten(changedNote.title)}</span>
                 <button className='undoBtn' onClick={(e)=>{
                     e.currentTarget.disabled = true;
-                    undo(changedNote.id, toastId)
+                    undo(changedNote.id, prevStatus, prevDeletedAt, toastId)
                     
                     }}>Undo ↻</button>
             </div>

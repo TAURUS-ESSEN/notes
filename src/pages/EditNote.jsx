@@ -10,25 +10,26 @@ import EditorToolbar from "../components/EditorToolbar";
 
 export default function EditNote() {
     const { noteId} = useParams();
+    const id = Number(noteId);
     const navigate = useNavigate();
     const {labels, notes, setNotes, setToasts, openModal} = useAppContext();
-    const note = notes.find(n=>n.id === Number(noteId)) ?? '';
+    const note = notes.find(n=>n.id === id) ?? null;;
     const [title, setTitle] = useState(note.title);
     const [text, setText] = useState(note.text);
     const initialContent =
-  note?.content && note.content.type === "doc"
-    ? note.content
-    : {
-        type: "doc",
-        content: [
-          {
-            type: "paragraph",
-            content: note?.text
-              ? [{ type: "text", text: note.text }]
-              : [],
-          },
-        ],
-      };
+    note?.content && note.content.type === "doc"
+        ? note.content
+        : {
+            type: "doc",
+            content: [
+            {
+                type: "paragraph",
+                content: note?.text
+                ? [{ type: "text", text: note.text }]
+                : [],
+            },
+            ],
+        };
 
     const [content, setContent] = useState(initialContent);
     const [pin, setPin] = useState(note.pinned);
@@ -39,8 +40,8 @@ export default function EditNote() {
         content,
         editable: note.status !== "deleted",
         onUpdate: ({ editor }) => {
-            setContent(editor.getJSON()); // <-- обновляем локальный JSON
-            setText(editor.getText());    // <-- опционально: обновляем legacy text (чтобы карточки/поиск не ломать)
+            setContent(editor.getJSON()); 
+            setText(editor.getText());
         },
     });
 
@@ -50,20 +51,18 @@ export default function EditNote() {
         const plain = editor?.getText() ?? text;
         const json = editor?.getJSON() ?? content;
 
-        setNotes(prev=>prev.map(n => n.id==noteId ? {...n, title: title, content: json, previewHtml: html, text: plain, labels: editLabels, pinned:pin, updatedAt: Date.now()}: n));
-        // setText('');
+        setNotes(prev=>prev.map(n => n.id === id ? {...n, title: title, content: json, previewHtml: html, text: plain, labels: editLabels, pinned:pin, updatedAt: Date.now()}: n));
         const toastId = Date.now() + Math.random();
         setToasts(prev=>([...prev, {toastId, message: (
             <div className='activeToast'>
                 <span> Note {title} was updated</span>
             </div>
         )}])) 
-        // setTitle('');
         navigate(-1);
     }
 
     const restore = () => {
-        setNotes(prev=>prev.map(n => n.id ==noteId ?  {...n, status: 'active', deletedAt: null} : n))
+        setNotes(prev=>prev.map(n => n.id === id ?  {...n, status: 'active', deletedAt: null} : n))
         const toastId = Date.now() + Math.random();
         setToasts(prev=>([...prev, {toastId, message: (
             <div className='activeToast'>
@@ -73,7 +72,7 @@ export default function EditNote() {
     }
 
     const acrhive = () => {
-        setNotes(prev=>prev.map(n => n.id ==noteId ?  {...n, status: 'archived', pinned: false} : n))
+        setNotes(prev=>prev.map(n => n.id === id ?  {...n, status: 'archived', pinned: false} : n))
         setPin(false);
         const toastId = Date.now() + Math.random();
         setToasts(prev=>([...prev, {toastId, message: (
@@ -84,7 +83,7 @@ export default function EditNote() {
     }
 
     const toTrash = () => {
-        setNotes(prev=>prev.map(n => n.id ==noteId ?  {...n, status: 'deleted', pinned: false, deletedAt: Date.now()} : n))
+        setNotes(prev=>prev.map(n => n.id === id ?  {...n, status: 'deleted', pinned: false, deletedAt: Date.now()} : n))
         setPin(false);
         const toastId = Date.now() + Math.random();
         setToasts(prev=>([...prev, {toastId, message: (
@@ -99,7 +98,7 @@ export default function EditNote() {
     }
 
     const toggleLabels = (id) => {
-        setEditLabels(prev => editLabels.includes(id) ? prev.filter(l=>l!==id) : [...prev, id] )
+        setEditLabels(prev => prev.includes(id) ? prev.filter(l=>l!==id) : [...prev, id] )
     }
 
     useEffect(()=> {
@@ -108,7 +107,7 @@ export default function EditNote() {
             if ((e.altKey && e.key.toLowerCase() === "a") && (note.status!=='archived'))  { acrhive() }
             if ((e.altKey && e.key.toLowerCase() === "w") && (note.status!=='active'))  { restore() }
             if ((e.altKey && e.key.toLowerCase() === "d") && (note.status!=='deleted'))  { toTrash()}
-            if ((e.altKey && e.shiftKey && e.key.toLowerCase() === "d") && (note.status==='deleted'))  { deleteNote(noteId)}
+            if ((e.altKey && e.shiftKey && e.key.toLowerCase() === "d") && (note.status==='deleted'))  { deleteNote(id)}
             if (e.key === "Escape")  { navigate(-1) }
         }
         document.addEventListener("keydown", onKey)
@@ -116,7 +115,7 @@ export default function EditNote() {
     },[note.status, navigate])
     
     return (
-        <div className='px-4'> 
+        <div key={id} className='px-4'> 
             <form onSubmit={onSubmit} className='max-w-3xl m-auto mt-4 p-6 flex flex-col gap-4 border border-(--border-color) rounded-xl bg-(--bg-card) text-(--text-default) shadow-soft '>
                 <input 
                     type='text' 
@@ -216,7 +215,7 @@ export default function EditNote() {
                     <button 
                         type='button' 
                         className='btn group bg-red-600 text-white' 
-                        onClick={()=>deleteNote(noteId)} 
+                        onClick={()=>deleteNote(id)} 
                         title="Delete forever"
                     > 
                         <div className="flex flex-col items-center leading-tight">

@@ -1,6 +1,6 @@
 import Modal from './Modal';
 import { useAppContext } from '../AppContext';
-import { useParams, useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 export default function DeleteNoteModal() {
     const {notes, modal, setNotes, closeModal, setToasts} = useAppContext()
@@ -9,7 +9,6 @@ export default function DeleteNoteModal() {
 
     function onSubmit(e) {
         e.preventDefault()
-        console.log(modal.noteId)
 
         const deletedNote = notes.find(n=>Number(n.id) === Number(modal.noteId));
         setNotes(prev => prev.filter(n => Number(n.id) !== Number(modal.noteId) ))  

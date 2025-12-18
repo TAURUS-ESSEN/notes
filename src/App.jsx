@@ -11,7 +11,6 @@ import { DEFAULT_LABELS, DEFAULT_NOTES, DEFAULT_THEME } from './data/default';
 import { Outlet, useNavigate } from 'react-router-dom'
 import NoteCardPreview from "./components/note/NoteCardPreview";
 
-
 function loadInitialData(key, fallback) {
   try {
     const data = JSON.parse(localStorage.getItem(key));
@@ -25,7 +24,7 @@ function App() {
   const [notes, setNotes] = useState(()=>loadInitialData('notes', DEFAULT_NOTES));
   const [labels, setLabels] = useState(()=>loadInitialData('labels', DEFAULT_LABELS));
   const [modal, setModal] = useState({isOpen: false, type: null, noteId:null});
-  const [filter, setFilter] = useState([])
+  const [filter, setFilter] = useState([]);
   const [sortBy, setSortBy] = useState({active:'new', archived: 'new', deleted: 'lastDeleted'});
   const [searchQuery, setSearchQuery] = useState('');
   const [toasts, setToasts] = useState([]);

@@ -1,0 +1,43 @@
+import AddNewNote from '../components/AddNewNote';
+import { useAppContext } from "../components/AppContext";
+import { useSortedNotes } from '../hooks/useSortedNotes';
+import NoteCard from '../components/note/NoteCard';
+import { useCallback } from 'react';
+
+export default function NotesListPage({status}) {
+    const {labels, setNotes, setToasts} = useAppContext();
+    const sortedNotes = useSortedNotes(status)
+
+    const undo = useCallback((noteId, prevStatus, prevDeletedAt, toastId) => {
+        setToasts(prev => prev.filter(t => t.toastId !== toastId));  
+        setNotes(prev =>
+            prev.map(n =>
+            n.id === noteId
+                ? { ...n, status: prevStatus, deletedAt: prevDeletedAt }
+                : n
+            )
+        )
+    }, [setNotes, setToasts])
+
+    return (
+        <div className="h-screen w-full relative p-4 ">
+            <div className='flex flex-wrap gap-4  '>
+            {sortedNotes.map(note => (
+                <NoteCard key={note.id} note={note} labels={labels} undo={undo} />
+            ))}
+            {sortedNotes.length === 0 && 
+                <div className='flex  mt-10 justify-center flex-1 text-xl text-(--text-default)'>
+                    {status === 'active' 
+                        ? 'There are no notes here.' 
+                        : status === 'archived' 
+                            ? 'No archived notes' 
+                            : 'Trash is empty'
+                    }
+                    {status === 'active' && <span className='text-(--hint)'>&nbsp;Try adjusting the filter.</span> }
+                </div>
+            }
+            </div>
+        {status === 'active' && <AddNewNote />} 
+        </div>
+    )
+}
