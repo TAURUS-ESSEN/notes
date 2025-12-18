@@ -10,7 +10,7 @@ export default function Toast({toasts, setToasts}) {
             setToasts(prev => prev.slice(1));
         }, 5000);
         return () => clearTimeout(timer)
-    }, [toasts])
+    }, [toasts, setToasts])
     
     return createPortal(
         <>  

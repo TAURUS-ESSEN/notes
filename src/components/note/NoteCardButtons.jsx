@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFolderOpen, faTrashCan, faNoteSticky } from '@fortawesome/free-regular-svg-icons';
 import { faThumbTack } from '@fortawesome/free-solid-svg-icons';
-import { useAppContext } from "../components/AppContext";
+import { useAppContext } from "../AppContext";
 
 export default function NoteCardButtons({note, undo}) {
     const {notes, setNotes, setToasts, openModal} = useAppContext();
@@ -13,14 +13,24 @@ export default function NoteCardButtons({note, undo}) {
         setNotes(prev =>
             prev.map(n => 
                 n.id === id ? 
-                { ...n, status: nextStatus, pinned: false, deletedAt: nextStatus === 'deleted' ? Date.now() : '', }
+                { ...n, status: nextStatus, pinned: false, deletedAt: nextStatus === 'deleted' ? Date.now() : null, }
                 : n )
         );
 
         const toastId = Date.now() + Math.random();
         setToasts(prev=>([...prev, {toastId, message: (
-            <div className={`${nextStatus === 'archived' ? 'archiveToast' : 'trashToast'} break-all`}>
-                <strong>{nextStatus==='archived' ? 'Archived' : 'Deleted'}: </strong>
+            <div className={`${nextStatus === 'archived' 
+                ? 'archiveToast' 
+                : nextStatus === 'active' 
+                    ? 'activeToast' 
+                    : 'trashToast'} break-all`}>
+                <strong>
+                    {nextStatus === 'archived' 
+                    ? 'Archived' 
+                    : nextStatus === 'active' 
+                        ? 'Restored' 
+                        : 'Deleted'}: 
+                </strong>
                 <span>{shorten(changedNote.title)}</span>
                 <button className='undoBtn' onClick={(e)=>{
                     e.currentTarget.disabled = true;

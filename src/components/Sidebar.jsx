@@ -8,14 +8,8 @@ import { faEllipsisVertical, faBookmark, faPlus} from '@fortawesome/free-solid-s
 import LabelsList from "./LabelList";
 
 export default function Sidebar() {
-    const {labels, setLabels, filter, setFilter, openModal} = useAppContext();
+    const {labels, setLabels, filter, openModal, toggleLabelFilter} = useAppContext();
     const currentLocation = useLocation()
-
-    function changeFilters(id) {
-        const value = filter.includes(id)
-        value ? setFilter(prev=>prev.filter(num => num !== id)) : setFilter(prev=>[...prev, id])
-        console.log(value)
-    }
 
     const navLinks = [
         { path: '/',        to: '/',       label: 'Notes',   icon: faNoteSticky, title: 'Show active notes [Alt+1]' },
@@ -24,25 +18,25 @@ export default function Sidebar() {
     ];
 
     const dropActive = useDroppable({
-  id: "drop-active",
-  data: { nextStatus: "active" },
-});
+        id: "drop-active",
+        data: { nextStatus: "active" },
+    });
 
-const dropArchived = useDroppable({
-  id: "drop-archived",
-  data: { nextStatus: "archived" },
-});
+    const dropArchived = useDroppable({
+        id: "drop-archived",
+        data: { nextStatus: "archived" },
+    });
 
-const dropDeleted = useDroppable({
-  id: "drop-deleted",
-  data: { nextStatus: "deleted" },
-});
+    const dropDeleted = useDroppable({
+        id: "drop-deleted",
+        data: { nextStatus: "deleted" },
+    });
 
-const dropByPath = {
-  "/": dropActive,
-  "/archive": dropArchived,
-  "/trash": dropDeleted,
-};
+    const dropByPath = {
+        "/": dropActive,
+        "/archive": dropArchived,
+        "/trash": dropDeleted,
+    };
 
     useEffect(()=>{
         const onKey = (e) => {
@@ -55,28 +49,28 @@ const dropByPath = {
     },[openModal])
 
     return (
-        <div className="p-4 flex flex-col items-start justify-between gap-10 min-w-60">
+        <div className="p-4 flex flex-col items-start justify-between gap-10">
             <div className="w-full">
                 <div className="">  
                     <ul className="flex flex-col justify-start items-start gap-1">
                         {navLinks.map(item => {
-  const isActive = currentLocation.pathname === item.path;
-  const drop = dropByPath[item.path];
+                            const isActive = currentLocation.pathname === item.path;
+                            const drop = dropByPath[item.path];
 
-  return (
-    <li
-      key={item.path}
-      ref={drop?.setNodeRef}
-      className={
-        (isActive ? "menuLinks-active" : "menuLinks") +
-        (drop?.isOver ? " ring-2 ring-amber-400" : "")
-      }
-    >
-      <FontAwesomeIcon icon={item.icon} />
-      <Link to={item.to} title={item.title}>{item.label}</Link>
-    </li>
-  );
-})}
+                            return (
+                                <li
+                                    key={item.path}
+                                    ref={drop?.setNodeRef}
+                                    className={
+                                        (isActive ? "menuLinks-active" : "menuLinks") +
+                                        (drop?.isOver ? " ring-2 ring-amber-400" : "")
+                                    }
+                                >
+                                    <FontAwesomeIcon icon={item.icon} />
+                                    <Link to={item.to} title={item.title}>{item.label}</Link>
+                                </li>
+                            );
+                        })}
                     </ul>
                 </div>
                 <div className="mt-8 w-full">
@@ -96,7 +90,7 @@ const dropByPath = {
                     <LabelsList
                         labels={labels}
                         filter={filter}
-                        onToggle={changeFilters} 
+                        onToggle={toggleLabelFilter} 
                         onSort={(newOrder) => setLabels(newOrder)}
                     />
                 </div>

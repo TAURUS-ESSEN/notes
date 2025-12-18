@@ -1,7 +1,7 @@
 import AddNewNote from '../components/AddNewNote';
 import { useAppContext } from "../components/AppContext";
 import { useSortedNotes } from '../hooks/useSortedNotes';
-import NoteCard from '../components/NoteCard';
+import NoteCard from '../components/note/NoteCard';
 
 export default function Notes() {
     const {labels, notes, setNotes, setToasts} = useAppContext();
@@ -9,7 +9,7 @@ export default function Notes() {
     
     function undo(noteId, toastId) {
         setToasts(prev => prev.filter(t => t.toastId !== toastId));  
-        setNotes(prev => prev.map(n => n.id === noteId ? {...n, status: 'active', deletedAt: ''} : n))
+        setNotes(prev => prev.map(n => n.id === noteId ? {...n, status: 'active', deletedAt: null} : n))
     }
     
     return (

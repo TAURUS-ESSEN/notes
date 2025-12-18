@@ -1,8 +1,12 @@
 import Modal from './Modal';
+import { useEditor, EditorContent } from "@tiptap/react";
+import Image from "@tiptap/extension-image";
+import StarterKit from "@tiptap/starter-kit";
 import { useAppContext } from '../AppContext';
 import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faThumbTack } from '@fortawesome/free-solid-svg-icons';
+import EditorToolbar from "../EditorToolbar";
 
 export default function AddNotesModal() {
     const {labels, setNotes, setToasts, closeModal} = useAppContext()
@@ -11,11 +15,23 @@ export default function AddNotesModal() {
     const [pin, setPin] = useState(false);
     const isTitleValid = noteTitle.length > 1;
     const [noteText, setNoteText] = useState('');
+    const [noteContent, setNoteContent] = useState(null);
 
+    const editor = useEditor({
+        extensions: [StarterKit, Image],
+        content: noteContent,
+        onUpdate: ({ editor }) => {
+            setNoteContent(editor.getJSON()); // <-- обновляем локальный JSON
+            setNoteText(editor.getText());    // <-- опционально: обновляем legacy text (чтобы карточки/поиск не ломать)
+        },
+    });    
 
     const onSubmit = (e) => {
         e.preventDefault()
-        setNotes(prev=> [...prev, { id: Date.now() , title: noteTitle, text: noteText, status: 'active', createdAt: Date.now(), updatedAt:'', deletedAt: '', pinned: pin, labels: noteLabels}])
+        const html = editor?.getHTML() ?? "";
+        const plain = editor?.getText() ?? noteText;
+        const json = editor?.getJSON() ?? noteContent;
+        setNotes(prev=> [...prev, { id: Date.now() , title: noteTitle, text: plain, content: json, previewHtml: html,  status: 'active', createdAt: Date.now(), updatedAt:'', deletedAt: '', pinned: pin, labels: noteLabels}])
         setNoteText('');
         closeModal();
 
@@ -68,13 +84,17 @@ export default function AddNotesModal() {
                         /> 
                             Pinned 
                     </div>
-                    <textarea 
+                    {/* <textarea 
                         onChange={(e)=>setNoteText(e.target.value)} 
                         value={noteText} 
                         className='border rounded-lg text-(--text-edit-input) bg-(--bg-edit-input)' 
                         rows="10"
                     >
-                    </textarea>
+                    </textarea> */}
+                                    <EditorToolbar editor={editor} />
+                                    <div className="border border-(--border-color)   text-left ">
+                                        <EditorContent editor={editor} className='min-h-50 text-(--text-edit-input) bg-(--bg-edit-input)'/>
+                                    </div>
                     
                     <div className='flex gap-2 flex-wrap mt-2'>
                         {labels.map(label=> { return (

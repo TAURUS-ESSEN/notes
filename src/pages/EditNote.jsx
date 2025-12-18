@@ -1,8 +1,12 @@
+import { useEditor, EditorContent } from "@tiptap/react";
+import Image from "@tiptap/extension-image"
+import StarterKit from "@tiptap/starter-kit";
 import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from "react-router-dom";
 import { useAppContext } from "../components/AppContext";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faThumbTack } from '@fortawesome/free-solid-svg-icons';
+import EditorToolbar from "../components/EditorToolbar";
 
 export default function EditNote() {
     const { noteId} = useParams();
@@ -11,31 +15,55 @@ export default function EditNote() {
     const note = notes.find(n=>n.id === Number(noteId)) ?? '';
     const [title, setTitle] = useState(note.title);
     const [text, setText] = useState(note.text);
+    const initialContent =
+  note?.content && note.content.type === "doc"
+    ? note.content
+    : {
+        type: "doc",
+        content: [
+          {
+            type: "paragraph",
+            content: note?.text
+              ? [{ type: "text", text: note.text }]
+              : [],
+          },
+        ],
+      };
+
+    const [content, setContent] = useState(initialContent);
     const [pin, setPin] = useState(note.pinned);
     const [editLabels, setEditLabels] = useState(note.labels);
 
-    
-    if (!note) {
-       // return <div className='p-4'>Note not found</div>;
-    }
-    
-    
+    const editor = useEditor({
+        extensions: [StarterKit, Image],
+        content,
+        editable: note.status !== "deleted",
+        onUpdate: ({ editor }) => {
+            setContent(editor.getJSON()); // <-- обновляем локальный JSON
+            setText(editor.getText());    // <-- опционально: обновляем legacy text (чтобы карточки/поиск не ломать)
+        },
+    });
+
     const onSubmit = (e) => {
         e.preventDefault()
-        setNotes(prev=>prev.map(n => n.id==noteId ? {...n, title: title, text: text, labels: editLabels, pinned:pin, updatedAt: Date.now()}: n));
-        setText('');
+        const html = editor?.getHTML() ?? "";
+        const plain = editor?.getText() ?? text;
+        const json = editor?.getJSON() ?? content;
+
+        setNotes(prev=>prev.map(n => n.id==noteId ? {...n, title: title, content: json, previewHtml: html, text: plain, labels: editLabels, pinned:pin, updatedAt: Date.now()}: n));
+        // setText('');
         const toastId = Date.now() + Math.random();
         setToasts(prev=>([...prev, {toastId, message: (
             <div className='activeToast'>
                 <span> Note {title} was updated</span>
             </div>
         )}])) 
-        setTitle('');
+        // setTitle('');
         navigate(-1);
     }
 
     const restore = () => {
-        setNotes(prev=>prev.map(n => n.id ==noteId ?  {...n, status: 'active', deletedAt: ''} : n))
+        setNotes(prev=>prev.map(n => n.id ==noteId ?  {...n, status: 'active', deletedAt: null} : n))
         const toastId = Date.now() + Math.random();
         setToasts(prev=>([...prev, {toastId, message: (
             <div className='activeToast'>
@@ -106,13 +134,17 @@ export default function EditNote() {
                     /> 
                         Pinned 
                 </div>}
-                <textarea 
+                {/* <textarea 
                     onChange={(e)=>setText(e.target.value)} 
                     value={text} 
                     className='leading-relaxed' 
                     rows={12} 
                     disabled={note.status === 'deleted'}>
-                </textarea>
+                </textarea> */}
+                <EditorToolbar editor={editor} />
+                <div className="border rounded-xl p-3  text-left">
+                    <EditorContent editor={editor} />
+                </div>
 
                 <div className='flex gap-1 text-lg flex-wrap'>
                     <span className='mr-1 text-gray-600'>Labels:</span> 

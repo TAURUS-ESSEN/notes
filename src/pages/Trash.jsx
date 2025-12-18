@@ -1,6 +1,6 @@
 import { useAppContext } from "../components/AppContext";
 import {useSortedNotes} from '../hooks/useSortedNotes'
-import NoteCard from '../components/NoteCard';
+import NoteCard from '../components/note/NoteCard';
 
 export default function Trash() {
     const {labels, notes, setNotes, setToasts} = useAppContext()

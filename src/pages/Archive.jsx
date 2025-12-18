@@ -1,6 +1,6 @@
 import { useAppContext } from "../components/AppContext";
 import {useSortedNotes} from '../hooks/useSortedNotes';
-import NoteCard from '../components/NoteCard';
+import NoteCard from '../components/note/NoteCard';
 
 export default function Archive() {
     const {labels, notes, setNotes, setToasts} = useAppContext();
@@ -8,7 +8,7 @@ export default function Archive() {
     
     function undo(noteId, toastId) {
         setToasts(prev => prev.filter(t => t.toastId !== toastId));  
-        setNotes(prev => prev.map(n => n.id === noteId ? {...n, status: 'archived', deletedAt: ''} : n))
+        setNotes(prev => prev.map(n => n.id === noteId ? {...n, status: 'archived', deletedAt: null} : n))
     }
 
     return (

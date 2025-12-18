@@ -8,7 +8,7 @@
         --text-default: #000;
         --shadow:  0 1px 3px #00000020;
         --shadow-hover: 0 1px 8px #1dc5f8f3;
-        --bg-modal:#e7e7e7; 
+        --bg-modal:#ffffff; 
 
         --menu-links: #1e2939;
         --menu-links-active: #1e2939;
@@ -76,6 +76,22 @@ body, button {
     font-family: "Metrophobic";
 }
 
+html, body, #root { height: 100%; }
+
+body {
+  background: var(--bg-app);
+}
+
+aside {
+  width: auto;
+  flex: 0 0 250px;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: auto;
+}
+
+
 @layer base {
     button {
         @apply hover:cursor-pointer
@@ -117,7 +133,7 @@ body, button {
     }
 
     .notePreviewContainer {
-        @apply bg-[var(--bg-card)] rounded-xl p-5 min-w-40 max-w-60 relative hover:scale-105 duration-300 shadow-[var(--shadow)] flex flex-col justify-around hover:shadow-[var(--shadow-hover)]
+        @apply bg-(--bg-card) rounded-xl p-5 w-65 relative hover:scale-105 duration-300 shadow-(--shadow) flex flex-col justify-around hover:shadow-(--shadow-hover)  
     }
 
     .notePreview {
@@ -150,28 +166,13 @@ body, button {
         hover:opacity-100 hover:scale-105 transition;
     }
 
-    .test {
-        background: #ECE9E6;  /* fallback for old browsers */
-background: -webkit-linear-gradient(to right, #FFFFFF, #ECE9E6);  /* Chrome 10-25, Safari 5.1-6 */
-background: linear-gradient(to right, #FFFFFF, #ECE9E6); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-
-    }
-
-    .test2 {
-        background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
-        /* background-image: linear-gradient(-20deg, #e9defa 0%, #fbfcdb 100%);
-        background-image: linear-gradient(to top, #d5d4d0 0%, #d5d4d0 1%, #eeeeec 31%, #efeeec 75%, #e9e9e7 100%);
-        background-image: linear-gradient(to top, #f3e7e9 0%, #e3eeff 99%, #e3eeff 100%);
-        background-image: linear-gradient(to top, #dfe9f3 0%, white 100%);
-        background-image: linear-gradient(-225deg, #FFFEFF 0%, #D7FFFE 100%); */
-    }
+ 
 }
 
 @layer utility {
 
     .wrapper {
         @apply flex m-auto p-2;
-        background: var(--bg-app);
     }
     
     .cancel {
@@ -205,4 +206,124 @@ background: linear-gradient(to right, #FFFFFF, #ECE9E6); /* W3C, IE 10+/ Edge, F
     .hotkey {
         @apply text-xs text-gray-500 ml-1; 
     }
+
+    .hitbox {
+        @apply p-1;
+    }
+}
+.notePreviewHtml{
+  font-size: .875rem;
+  line-height: 1.35;
+  color: var(--text-card);
+
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;   /* сколько строк в карточке */
+}
+
+.notePreviewHtml p { margin: 0; }
+.notePreviewHtml * {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.notePreviewEmpty {
+  font-size: 0.875rem;
+  line-height: 1.35;
+  color: var(--text-card);
+  opacity: 0.6;
+  max-height: 4.2em;
+  overflow: hidden;
+}
+
+.ProseMirror img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.notePreviewHtml img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 6px;
+}
+
+ .noteCover{
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin: 6px 0 10px;
+  display: block;
+}
+
+.noteTextPreview{
+  font-size: .875rem;
+  line-height: 1.35;
+  color: var(--text-card);
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.noteMedia{
+  width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  margin: 8px 0 10px;
+  background: rgba(0,0,0,0.04);
+  transition: height .2s ease;
+}
+
+/* если есть картинка */
+.noteMedia.hasImage{
+  height: 140px;
+}
+
+/* если картинки нет */
+.noteMedia.noImage{
+  height: 64px;
+  background: linear-gradient(
+    to bottom,
+    rgba(0,0,0,0.04),
+    rgba(0,0,0,0.02)
+  );
+}
+
+/* картинка внутри */
+.noteMedia img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* текст */
+.noteTextPreview{
+  font-size: .875rem;
+  line-height: 1.35;
+  color: var(--text-card);
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.notePreviewContainer{
+  min-height: 260px;
+}
+.appLayout{
+  height: 100vh;
+  display: flex;
+}
+
+.mainScroll{
+  flex: 1;
+  height: 100vh;
+  overflow: auto;
+  border-left: 1px solid var(--border-main);
+}
+
+.ProseMirror {
+  width: 100%;
+  min-height: 200px;
+  outline: none;
 }

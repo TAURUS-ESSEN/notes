@@ -9,8 +9,7 @@ import Toasts from './components/Toasts';
 import './App.css';
 import { DEFAULT_LABELS, DEFAULT_NOTES, DEFAULT_THEME } from './data/default';
 import { Outlet, useNavigate } from 'react-router-dom'
-import DnDPlayground from './components/DnDPlayground'
-import NoteCardPreview from "./components/NoteCardPreview";
+import NoteCardPreview from "./components/note/NoteCardPreview";
 
 
 function loadInitialData(key, fallback) {
@@ -25,7 +24,7 @@ function loadInitialData(key, fallback) {
 function App() {
   const [notes, setNotes] = useState(()=>loadInitialData('notes', DEFAULT_NOTES));
   const [labels, setLabels] = useState(()=>loadInitialData('labels', DEFAULT_LABELS));
-  const [modal, setModal] = useState({isOpen: false, type: null, taskId:null});
+  const [modal, setModal] = useState({isOpen: false, type: null, noteId:null});
   const [filter, setFilter] = useState([])
   const [sortBy, setSortBy] = useState({active:'new', archived: 'new', deleted: 'lastDeleted'});
   const [searchQuery, setSearchQuery] = useState('');
@@ -36,10 +35,9 @@ function App() {
   const navigate = useNavigate();
 
   const activeNote = useMemo(
-  () => notes.find(n => n.id === activeDrag) ?? null,
-  [notes, activeDrag]
-);
-
+    () => notes.find(n => n.id === activeDrag) ?? null,
+    [notes, activeDrag]
+  );
 
   const openModal = useCallback((modalType, id = null) => {
     setModal({isOpen: true, type: modalType, noteId : id});
@@ -48,14 +46,18 @@ function App() {
     setModal({isOpen: false, type: null, noteId:null});
   }, []);
 
-  const changeFilters = useCallback((id = null) => {
-        const value = filter.includes(id)
-        value ? setFilter(prev=>prev.filter(num => num !== id)) : setFilter(prev=>[...prev, id])
-  },[filter])
+  const toggleLabelFilter = useCallback((id = null) => {
+    setFilter(prev => {
+      const hasId = prev.includes(id);
+      return hasId
+        ? prev.filter(num => num !== id)
+        : [...prev, id];
+  });
+  },[])
 
   const contextValue = useMemo(() => ({
-    notes, setNotes, modal, openModal, closeModal, sortBy, setSortBy, searchQuery, setSearchQuery, labels, setLabels, filter, setFilter, toasts, setToasts, theme, setTheme, changeFilters }), 
-    [notes, modal , openModal, closeModal, sortBy, searchQuery, labels, filter, toasts, theme, changeFilters]);
+    notes, setNotes, modal, openModal, closeModal, sortBy, setSortBy, searchQuery, setSearchQuery, labels, setLabels, filter, setFilter, toasts, setToasts, theme, setTheme, toggleLabelFilter }), 
+    [notes, modal , openModal, closeModal, sortBy, searchQuery, labels, filter, toasts, theme, toggleLabelFilter]);
 
   useEffect(() => {
     localStorage.setItem('notes', JSON.stringify(notes))
@@ -96,32 +98,32 @@ function App() {
 
     document.addEventListener("keydown", onKey)
     return () => {document.removeEventListener("keydown", onKey)}
-  },[openModal])  
+  },[openModal, navigate])  
   
   function handleDragEnd({ active, over }) {
-  setActiveDrag(null); // если ты уже используешь DragOverlay state
+    setActiveDrag(null);
 
-  if (!over) return;
+    if (!over) return;
 
-  const activeData = active?.data?.current;
-  const overData = over?.data?.current;
+    const activeData = active?.data?.current;
+    const overData = over?.data?.current;
 
-  if (!activeData || activeData.type !== "note") return;
-  if (!overData || !overData.nextStatus) return;
+    if (!activeData || activeData.type !== "note") return;
+    if (!overData || !overData.nextStatus) return;
 
-  const noteId = activeData.noteId;
-  const nextStatus = overData.nextStatus;
+    const noteId = activeData.noteId;
+    const nextStatus = overData.nextStatus;
 
-  setNotes(prev =>
-    prev.map(n => {
-      if (n.id !== noteId) return n;
-      if (n.status === nextStatus) return n;
+    setNotes(prev =>
+      prev.map(n => {
+        if (n.id !== noteId) return n;
+        if (n.status === nextStatus) return n;
 
       return {
         ...n,
         status: nextStatus,
         pinned: false,
-        deletedAt: nextStatus === "deleted" ? Date.now() : "",
+        deletedAt: nextStatus === "deleted" ? Date.now() : null,
       };
     })
   );
@@ -130,47 +132,49 @@ function App() {
     const sensors = useSensors(
             useSensor(PointerSensor, {
                 activationConstraint: {
-                    distance: 5, // ← пока не двинул — это клик, а не drag
-                    //   tolerance: 5,
+                    distance: 5,  
                 },
             })
     );
 
   return (
-    <AppContext.Provider value={contextValue}>
-      <div className='wrapper '>
-        <Toasts toasts={toasts} setToasts={setToasts}/>
-        <DndContext
-            sensors={sensors}
-            collisionDetection={pointerWithin}
-            onDragStart={({ active }) => {
-  if (active?.data?.current?.type === "note") {
-    setActiveDrag(active.data.current.noteId);
-  }
-}}
-  onDragEnd={handleDragEnd}
-  onDragCancel={() => setActiveDrag(null)}
+  <AppContext.Provider value={contextValue}>
+    <Toasts toasts={toasts} setToasts={setToasts} />
 
-            // onDragEnd={handleDragEnd}
-        >
-        <Sidebar/>
-        <main className='flex flex-col h-screen w-full border-l border-(--border-main) '>
-<DragOverlay>
-  {activeNote ? (
-    <div style={{ width: 320, pointerEvents: "none" }}>
-      <NoteCardPreview note={activeNote} labels={labels} />
-    </div>
-  ) : null}
-</DragOverlay>
+    <DndContext
+      sensors={sensors}
+      collisionDetection={pointerWithin}
+      onDragStart={({ active }) => {
+        if (active?.data?.current?.type === "note") {
+          setActiveDrag(active.data.current.noteId);
+        }
+      }}
+      onDragEnd={handleDragEnd}
+      onDragCancel={() => setActiveDrag(null)}
+    >
+      <div className="appLayout">
+        <aside>
+          <Sidebar />
+        </aside>
 
-          <Header/>
-          {/* <DnDPlayground /> */}
+        <main className="mainScroll">
+          <DragOverlay>
+            {activeNote ? (
+              <div style={{ width: 320, pointerEvents: "none" }}>
+                <NoteCardPreview note={activeNote} labels={labels} />
+              </div>
+            ) : null}
+          </DragOverlay>
+
+          <Header />
           <Outlet />
         </main>
-        </DndContext>
       </div>
-      <ModalHost />
-    </AppContext.Provider>)
+    </DndContext>
+
+    <ModalHost />
+  </AppContext.Provider>
+);
 }
 
 export default App
