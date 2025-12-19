@@ -26,17 +26,17 @@ export default function SortedLabelRow({label, isEditing, draft, setDraft, start
         <li       
             ref={setNodeRef}
             style={style}
-            className="min-w-120 odd:bg-gray-100 even:bg-white overflow-y-auto"
+            className="w-auto md:min-w-120 odd:bg-gray-100 even:bg-white overflow-y-auto"
             {...attributes}
         >
             
             <div className="flex items-center justify-between p-2">
-                <span className="flex items-center justify-between px-2">
+                <span className="flex items-center justify-between px-1 md:px-2">
                     {isEditing ? (
                         <input
                             value={draft}
                             onChange={e => setDraft(e.target.value)}
-                            className="border px-1"
+                            className="border px-1 w-30 md:w-auto"
                             autoFocus
                         />
                         ) : (
