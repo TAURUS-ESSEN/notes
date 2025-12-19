@@ -88,7 +88,7 @@ export default function Header({onBurger}) {
                             />
                             </button>
                         )}
-                <div className="flex items-center hover:text-amber-500 text-(--search)">
+                <div className="hidden md:flex items-center hover:text-amber-500 text-(--search)">
                         <button
                             id="theme-toggle"
                             className="text-xl"

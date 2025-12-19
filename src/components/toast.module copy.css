@@ -1,0 +1,38 @@
+.stack{
+  position: fixed;
+  top: calc(env(safe-area-inset-top) + 12px);
+  left: 50%;
+  transform: translate(-50%, -8px);
+  z-index: 80;          /* достаточно, но ниже модалок если хочешь */
+  width: min(92vw, 420px);
+
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+
+  opacity: 0;
+  transition: opacity .3s ease, transform .3s ease;
+  pointer-events: none;
+}
+
+.stack.show{
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+
+ .toast{
+  width: 100%;
+  max-width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0,0,0,.15);
+  pointer-events: auto;
+  white-space: pre-line;
+
+  opacity: 0;
+  transform: translateY(-6px);
+  animation: toastIn .5s ease forwards;
+}
+@keyframes toastIn {
+  to { opacity: 1; transform: translateY(0); }
+}

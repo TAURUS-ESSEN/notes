@@ -4,12 +4,16 @@ import { useEffect } from "react";
 import { useAppContext } from "./AppContext";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFolderOpen, faTrashCan, faNoteSticky,  faKeyboard } from '@fortawesome/free-regular-svg-icons';
-import { faEllipsisVertical, faBookmark, faPlus} from '@fortawesome/free-solid-svg-icons';
+import { faEllipsisVertical, faBookmark, faPlus, faMoon, faSun,} from '@fortawesome/free-solid-svg-icons';
 import LabelsList from "./LabelList";
 
 export default function Sidebar({ onNavigate }) {
-    const {labels, setLabels, filter, openModal, toggleLabelFilter} = useAppContext();
+    const {labels, setLabels, filter, openModal, toggleLabelFilter, theme, setTheme } = useAppContext();
     const currentLocation = useLocation()
+
+        function toggleTheme() {
+        setTheme(prev => (prev === 'dark' ? 'light' : 'dark'));
+    }
 
     const navLinks = [
         { path: '/',        to: '/',       label: 'Notes',   icon: faNoteSticky, title: 'Show active notes [Alt+1]' },
@@ -106,6 +110,13 @@ export default function Sidebar({ onNavigate }) {
                     </span>
                 </button>
             </div>
+            <div className="mt-6 md:hidden">
+  <button onClick={toggleTheme} className="w-full btn flex justify-between">
+    <span>Theme</span>
+    {theme === 'dark' ? <FontAwesomeIcon icon={faSun}/> : <FontAwesomeIcon icon={faMoon}/>}
+  </button>
+</div>
+
         </div>
     )
 }

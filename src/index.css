@@ -181,7 +181,7 @@ body {
 
   /* Note card */
   .notePreviewContainer {
-    @apply bg-(--bg-card) rounded-xl p-5 w-65 relative
+    @apply bg-(--bg-card) rounded-xl p-5 w-full max-w-[360px] relative
           hover:scale-105 duration-300 shadow-(--shadow)
           flex flex-col justify-around hover:shadow-(--shadow-hover)
           min-h-[260px];
