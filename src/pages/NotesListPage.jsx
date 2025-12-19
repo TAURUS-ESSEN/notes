@@ -21,7 +21,9 @@ export default function NotesListPage({status}) {
 
     return (
         <div className="h-screen w-full relative p-4 ">
-            <div className='flex flex-wrap gap-4  '>
+            {/* <div className='flex flex-wrap gap-4 justify-center '> */}
+            <div className="grid gap-4 justify-items-center sm:justify-items-start sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4">
+
             {sortedNotes.map(note => (
                 <NoteCard key={note.id} note={note} labels={labels} undo={undo} />
             ))}

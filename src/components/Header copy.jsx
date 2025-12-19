@@ -4,12 +4,10 @@ import Filter from "./Filter";
 import { useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMagnifyingGlass, faMoon, faSun, faTrashCan } from '@fortawesome/free-solid-svg-icons';
-import SearchOverlay from "./SearchOverlay";
 
 export default function Header({onBurger}) {
     const { searchQuery, setSearchQuery, notes, theme, setTheme } = useAppContext();
     const [showInput, setShowInput] = useState(false);
-    const [searchOpen, setSearchOpen] = useState(false);
     
     function toggleTheme() {
         setTheme(prev => (prev === 'dark' ? 'light' : 'dark'));
@@ -84,17 +82,31 @@ export default function Header({onBurger}) {
 
             <div className="flex items-center justify-end gap-2 w-60">
                 {showListUI && (
-                            <button
-                            type="button"
-                            onClick={() => setSearchOpen(true)}
-                            title="Search notes"
-                            >
-                            <FontAwesomeIcon
-                                icon={faMagnifyingGlass}
-                                className="hover:scale-115 hover:text-amber-500 duration-300 text-(--search) text-xl mt-1"
+                    <div>
+                        {showInput && (
+                            <input
+                                type="text"
+                                autoFocus 
+                                maxLength={50}
+                                onChange={e => {
+                                    const value = e.target.value.slice(0, 50);
+                                    setSearchQuery(value);
+                                }}
+                                onBlur={checkBlur}
+                                value={searchQuery}
+                                placeholder="Search notes"
                             />
+                        )}
+                        {!showInput && (
+                            <button onClick={() => setShowInput(true)} title="Search notes">
+                                <FontAwesomeIcon
+                                    icon={faMagnifyingGlass}
+                                    className="hover:scale-115 hover:text-amber-500 duration-300 text-(--search) text-xl mt-1"
+                                />
                             </button>
                         )}
+                    </div>
+                )}
                 <div className="flex items-center hover:text-amber-500 text-(--search)">
                         <button
                             id="theme-toggle"
@@ -108,12 +120,6 @@ export default function Header({onBurger}) {
                         </button>
                 </div>
             </div>
-            <SearchOverlay
-        open={searchOpen}
-        value={searchQuery}
-        onChange={(v) => setSearchQuery(v.slice(0, 50))}
-        onClose={() => setSearchOpen(false)}
-      />
         </header>
     );
 }

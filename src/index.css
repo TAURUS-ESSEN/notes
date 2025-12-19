@@ -102,6 +102,10 @@ body {
   height: 100vh;
   overflow: auto;
 } */
+  header {
+   @apply sticky top-0 z-40 md:static md:z-auto;
+    background: var(--bg-app);
+  }
 
 @layer base {
   button {
@@ -253,6 +257,8 @@ body {
   .notePreviewHtml img {
     @apply max-w-full h-auto rounded-md;
   }
+
+
 }
 
 @layer utilities {
