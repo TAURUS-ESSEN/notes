@@ -170,7 +170,7 @@ function App() {
     >
       <div className="appLayout">
   {/* DESKTOP SIDEBAR */}
-  <aside className="hidden md:block w-[250px] shrink-0 h-screen sticky top-0 overflow-auto border-r border-(--border-main)">
+  <aside className="hidden lg:block w-[250px] shrink-0 h-screen sticky top-0 overflow-auto border-r border-(--border-main)">
     <Sidebar />
   </aside>
 
@@ -192,7 +192,7 @@ function App() {
   {sidebarOpen && (
 <div
   className={[
-    "fixed inset-0 z-40 md:hidden",
+    "fixed inset-0 z-40 lg:hidden",
     "bg-black/40 backdrop-blur-xs",
     "transition-opacity duration-300",
     sidebarOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none",
@@ -206,7 +206,7 @@ function App() {
     className={[
       "fixed top-0 left-0 z-50 h-screen w-[260px] max-w-[85vw]",
       "bg-(--bg-modal) border-r border-(--border-main)",
-      "transform transition-transform duration-300 md:hidden",
+      "transform transition-transform duration-300 lg:hidden",
       sidebarOpen ? "translate-x-0" : "-translate-x-full",
     ].join(" ")}
   >

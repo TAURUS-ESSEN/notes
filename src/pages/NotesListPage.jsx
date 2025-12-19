@@ -27,7 +27,8 @@ export default function NotesListPage({status}) {
             {sortedNotes.map(note => (
                 <NoteCard key={note.id} note={note} labels={labels} undo={undo} />
             ))}
-            {sortedNotes.length === 0 && 
+            
+            </div>{sortedNotes.length === 0 && 
                 <div className='flex  mt-10 justify-center flex-1 text-xl text-(--text-default)'>
                     {status === 'active' 
                         ? 'There are no notes here.' 
@@ -38,7 +39,6 @@ export default function NotesListPage({status}) {
                     {(filter.length > 0 || (searchQuery?.trim())) && <span className='text-(--hint)'>&nbsp;Try adjusting the filter.</span> }
                 </div>
             }
-            </div>
         {status === 'active' && <AddNewNote />} 
         </div>
     )

@@ -41,7 +41,7 @@ export default function NoteCard({ note, labels, undo }) {
 
   return (
     <div ref={setNodeRef} style={style} className="notePreviewContainer group">
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between items-center group">
         <button
           type="button"
           {...listeners}
@@ -53,7 +53,9 @@ export default function NoteCard({ note, labels, undo }) {
           <FontAwesomeIcon icon={faGrip} className="text-xs text-gray-300 mr-4" />
         </button>
 
-        <NoteCardButtons note={note} undo={undo} />
+        <span className="">
+          <NoteCardButtons note={note} undo={undo} />
+        </span>
       </div>
 
       <Link

@@ -80,7 +80,7 @@ export default function NoteCardButtons({note, undo}) {
                     >
                         <FontAwesomeIcon
                             icon={faThumbTack}
-                            className={ 'hover:scale-125 duration-300 ' + (note.pinned ? 'text-(--text-pinned)' : 'text-(--text-notpinned) hover:text-gray-400') }
+                            className={ 'hover:scale-125 duration-300 ' + (note.pinned ? 'text-(--text-pinned) ' : 'text-(--text-notpinned) hover:text-gray-400 opacity-0 group-hover:opacity-100 duration-300') }
                         />                        
                     </button>
                         
