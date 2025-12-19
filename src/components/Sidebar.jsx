@@ -6,11 +6,20 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFolderOpen, faTrashCan, faNoteSticky,  faKeyboard } from '@fortawesome/free-regular-svg-icons';
 import { faEllipsisVertical, faBookmark, faPlus, faMoon, faSun,} from '@fortawesome/free-solid-svg-icons';
 import LabelsList from "./LabelList";
+import Filter from "./Filter";
 
 export default function Sidebar({ onNavigate }) {
     const {labels, setLabels, filter, openModal, toggleLabelFilter, theme, setTheme } = useAppContext();
     const currentLocation = useLocation()
+    const location = useLocation();
+    const thisPage = location.pathname;
 
+        const routeToStatus = {
+        '/': 'active',
+        '/archive': 'archived',
+        '/trash': 'deleted'
+    };
+    const showListUI = thisPage === '/' || thisPage === '/archive' || thisPage === '/trash';
         function toggleTheme() {
         setTheme(prev => (prev === 'dark' ? 'light' : 'dark'));
     }
@@ -78,6 +87,11 @@ export default function Sidebar({ onNavigate }) {
                         })}
                     </ul>
                 </div>
+                <div className="block md:hidden ">
+                    {showListUI && (
+                        <Filter mode={routeToStatus[thisPage]} />
+                    )}
+                </div> 
                 <div className="mt-8 w-full">
                     <div className="flex gap-2 mb-2 justify-between">
                         <h2 className="text-gray-600 text-left">Labels</h2> 

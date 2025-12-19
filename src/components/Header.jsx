@@ -65,15 +65,16 @@ export default function Header({onBurger}) {
                 ☰
             </button>
         
-            <div>
+            <div className="hidden md:block ">
                 {showListUI && (
                     <Filter mode={routeToStatus[thisPage]} />
                 )}
             </div> 
-            <div className="w-full">
-            <h1 className="text-base md:text-2xl text-(--headerTitle) font-semibold ">
-                {title}
-            </h1></div>
+            <div className="w-full  ">
+                <h1 className="text-base md:text-2xl text-(--headerTitle) font-semibold ">
+                    {title}
+                </h1>
+            </div>
 
             <div className="flex items-center justify-end gap-2 w-60">
                 {showListUI && (
