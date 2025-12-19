@@ -71,7 +71,7 @@ export default function Header({onBurger}) {
                 )}
             </div> 
             <div className="w-full  ">
-                <h1 className="text-base md:text-2xl text-(--headerTitle) font-semibold ">
+                <h1 className="text-lg md:text-2xl text-(--headerTitle) font-semibold ">
                     {title}
                 </h1>
             </div>
