@@ -54,7 +54,7 @@ export default function SearchOverlay({
             <button
               type="button"
               onClick={onClose}
-              className="px-2 py-1 rounded-xl hover:bg-black/5"
+              className="px-2 py-1 rounded-xl hover:bg-black/5 text-(--text-default)" 
               aria-label="Close search"
               title="Close (Esc)"
             >

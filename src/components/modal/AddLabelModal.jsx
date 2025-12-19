@@ -66,7 +66,7 @@ export default function AddLabelsModal() {
                     <span>{error}</span>
                     <div className='flex justify-between gap-4'>
                         <button type="button" onClick={cancel} className='btn border p-2'>Cancel</button>
-                        <button type='submit' disabled={!isTitleValid || isDuplicate} className='btn apply border p-2'>
+                        <button type='submit' disabled={!isTitleValid || isDuplicate} className='btn w-auto apply border p-2'>
                             +Add New Label
                         </button>      
                     </div>

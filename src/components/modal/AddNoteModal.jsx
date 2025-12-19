@@ -84,18 +84,10 @@ export default function AddNotesModal() {
                         /> 
                             Pinned 
                     </div>
-                    {/* <textarea 
-                        onChange={(e)=>setNoteText(e.target.value)} 
-                        value={noteText} 
-                        className='border rounded-lg text-(--text-edit-input) bg-(--bg-edit-input)' 
-                        rows="10"
-                    >
-                    </textarea> */}
-                                    <EditorToolbar editor={editor} />
-                                    <div className="border border-(--border-color)   text-left ">
-                                        <EditorContent editor={editor} className='min-h-50 text-(--text-edit-input) bg-(--bg-edit-input)'/>
-                                    </div>
-                    
+                    <EditorToolbar editor={editor} />
+                        <div className="border border-(--border-color)   text-left ">
+                            <EditorContent editor={editor} className='min-h-50 text-(--text-edit-input) bg-(--bg-edit-input)'/>
+                        </div>
                     <div className='flex gap-2 flex-wrap mt-2'>
                         {labels.map(label=> { return (
                             <span key={label.id} className='flex gap-1 items-center'>
@@ -113,7 +105,7 @@ export default function AddNotesModal() {
                         <button type="button" onClick={cancel} className='btn '>
                             Cancel
                         </button>
-                        <button type='submit' disabled={!isTitleValid} className='btn apply shadow-soft'>
+                        <button type='submit' disabled={!isTitleValid} className='btn w-auto apply shadow-soft'>
                             +Add New Note
                         </button>      
                     </div>

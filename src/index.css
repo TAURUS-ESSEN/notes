@@ -35,6 +35,9 @@
     --text-edit-input: #4a5565;
     --border-color: #d1d5dc;
     --hint: #99a1af;
+
+    --oddRow: #f3f4f6;
+    --evenRow: #fff;
   }
 
   body[data-theme="dark"] {
@@ -70,6 +73,8 @@
     --text-edit-input: #e2e2e2;
     --border-color: #636e7f;
     --hint: #d1d5dc;
+    --oddRow: #252a36;
+    --evenRow: #727d8f;
   }
 }
 

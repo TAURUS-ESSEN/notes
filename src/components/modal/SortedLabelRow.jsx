@@ -26,7 +26,7 @@ export default function SortedLabelRow({label, isEditing, draft, setDraft, start
         <li       
             ref={setNodeRef}
             style={style}
-            className="w-auto md:min-w-120 odd:bg-gray-100 even:bg-white overflow-y-auto"
+            className="w-auto md:min-w-120 odd:bg-(--oddRow) even:bg-(--evenRow)overflow-y-auto"
             {...attributes}
         >
             

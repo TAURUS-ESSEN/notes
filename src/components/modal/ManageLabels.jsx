@@ -66,7 +66,7 @@ export default function ManageLabels() {
                     strategy={verticalListSortingStrategy}
                 >
             <div className=" rounded-xl mb-4 px-4">
-                <ul className="border border-gray-200 rounded-xl overflow-hidden ">
+                <ul className="border border-(--border-color) rounded-xl overflow-hidden ">
                     {labels.map(label => {
                         const isEditing = editingId === label.id;
                         const isDeleting = deleteId === label.id;
