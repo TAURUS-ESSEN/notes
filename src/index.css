@@ -94,14 +94,14 @@ body {
   background: var(--bg-app);
 }
 
-aside {
+/* aside {
   width: auto;
   flex: 0 0 250px;
   position: sticky;
   top: 0;
   height: 100vh;
   overflow: auto;
-}
+} */
 
 @layer base {
   button {

@@ -34,10 +34,21 @@ function App() {
   const navigate = useNavigate();
 
   useEffect(() => {
-  const onKey = (e) => e.key === "Escape" && setSidebarOpen(false);
-  document.addEventListener("keydown", onKey);
-  return () => document.removeEventListener("keydown", onKey);
-}, []);
+    const onKey = (e) => e.key === "Escape" && setSidebarOpen(false);
+      document.addEventListener("keydown", onKey);
+      return () => document.removeEventListener("keydown", onKey);
+} , []);
+
+  useEffect(() => {
+  if (!sidebarOpen) return;
+
+  const prevOverflow = document.body.style.overflow;
+  document.body.style.overflow = "hidden";
+
+  return () => {
+    document.body.style.overflow = prevOverflow;
+  };
+}, [sidebarOpen]);
 
   const activeNote = useMemo(
     () => notes.find(n => n.id === activeDrag) ?? null,
@@ -179,10 +190,15 @@ function App() {
 
   {/* MOBILE OVERLAY */}
   {sidebarOpen && (
-    <div
-      className="fixed inset-0 z-40 bg-black/40 md:hidden"
-      onClick={() => setSidebarOpen(false)}
-    />
+<div
+  className={[
+    "fixed inset-0 z-40 md:hidden",
+    "bg-black/40 backdrop-blur-xs",
+    "transition-opacity duration-300",
+    sidebarOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none",
+  ].join(" ")}
+  onClick={() => setSidebarOpen(false)}
+/>
   )}
 
   {/* MOBILE DRAWER */}
