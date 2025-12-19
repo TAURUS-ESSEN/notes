@@ -35,7 +35,7 @@ export default function SearchOverlay({
     <div className="fixed inset-0 z-[100]">
       {/* backdrop */}
       <div
-        className="absolute inset-0 bg-black/40 backdrop-blur-[2px]"
+        className="absolute inset-0 bg-black/40 backdrop-blur-[1px]"
         onClick={onClose}
       />
 
