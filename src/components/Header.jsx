@@ -8,7 +8,6 @@ import SearchOverlay from "./SearchOverlay";
 
 export default function Header({onBurger}) {
     const { searchQuery, setSearchQuery, notes, theme, setTheme } = useAppContext();
-    const [showInput, setShowInput] = useState(false);
     const [searchOpen, setSearchOpen] = useState(false);
     
     function toggleTheme() {
@@ -35,12 +34,6 @@ export default function Header({onBurger}) {
         '/archive': 'Archive',
         '/trash': 'Trash',
     };
-
-    function checkBlur(e) {
-        if (!e.target.value.trim()) {
-            setShowInput(false);
-        }
-    }
 
     const isEditPage = thisPage.startsWith('/edit/');
 
@@ -77,10 +70,10 @@ export default function Header({onBurger}) {
                     <Filter mode={routeToStatus[thisPage]} />
                 )}
             </div> 
-
-            <h1 className="text-2xl text-(--headerTitle) font-semibold ">
+            <div className="w-full">
+            <h1 className="text-base md:text-2xl text-(--headerTitle) font-semibold ">
                 {title}
-            </h1>
+            </h1></div>
 
             <div className="flex items-center justify-end gap-2 w-60">
                 {showListUI && (
