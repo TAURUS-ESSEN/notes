@@ -26,7 +26,7 @@ const TOOLS = [
 
 function ToolBtn({ editor, tool }) {
   const base =
-    "btn !min-h-10 px-3 py-2 rounded-xl border shadow hover:scale-105 duration-200 disabled:opacity-40 disabled:hover:scale-100";
+    "editorBtn !min-h-10 px-3 py-2 rounded-xl border shadow hover:scale-105 duration-200 disabled:opacity-40 disabled:hover:scale-100";
   const active = tool.isActive(editor) ? "bg-amber-400 text-white" : "";
 
   return (

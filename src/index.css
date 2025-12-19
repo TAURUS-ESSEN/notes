@@ -125,10 +125,14 @@ body {
 @layer components {
   .btn,
   .undoBtn {
-    @apply min-h-11 p-2 border border-gray-200 rounded-xl shadow
-          hover:scale-105 duration-300
+    @apply min-h-11 md:p-2 border border-gray-200 rounded-xl shadow
+          hover:scale-105 duration-300 w-28
           flex justify-center items-center;
   }
+
+   .editorBtn {
+    @apply border-(--border-main) w-10 rounded;
+   }
 
   .editBtn {
     @apply w-15 px-4 text-white bg-blue-300 hover:bg-blue-600 duration-300;
