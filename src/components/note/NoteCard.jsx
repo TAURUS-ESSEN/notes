@@ -52,10 +52,7 @@ export default function NoteCard({ note, labels, undo }) {
         >
           <FontAwesomeIcon icon={faGrip} className="text-xs text-gray-300 mr-4" />
         </button>
-
-        <span className="">
           <NoteCardButtons note={note} undo={undo} />
-        </span>
       </div>
 
       <Link
