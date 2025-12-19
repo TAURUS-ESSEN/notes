@@ -5,7 +5,7 @@ import { faKeyboard} from '@fortawesome/free-regular-svg-icons';
 export default function AddNewNote() {
     const {openModal} = useAppContext();
     return (
-        <div className="fixed bottom-6 left-1/2 -translate-x-1/2">
+        <div className="fixed bottom-6 right-2 md:left-1/2 -translate-x-1/2">
             <button 
                 onClick={()=>openModal('addNote')}
                 className="relative group min-w-15 min-h-15 flex justify-center items-center
