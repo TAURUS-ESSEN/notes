@@ -164,7 +164,7 @@ export default function EditNote() {
                         ))}
                 </div>
                 
-                <div className='flex justify-around gap-20 mt-6 mb-4'>
+                <div className='flex justify-around gap-4 lg:gap-10 mt-6 mb-4 flex-wrap '>
                     <button 
                         type='button' 
                         className='btn relative group hover:bg-gray-200 ' 
@@ -225,7 +225,7 @@ export default function EditNote() {
                     { note.status !== 'deleted' &&
                         <button 
                             type='submit' 
-                            className='btn apply' 
+                            className='btn apply order-first md:order-4' 
                             title="Save changes (Alt+S)"
                         >
                             Update <span className=" text-xs ml-1 text-white">(Alt+S)</span>
