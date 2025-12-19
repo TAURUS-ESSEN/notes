@@ -6,12 +6,11 @@ import { faBookmark, faGrip } from "@fortawesome/free-solid-svg-icons";
 import { LABEL_COLOR_CLASSES_TEXT } from "../constants/labelColors";
 
 function SortableLabel({ id, name, color, isActive, onToggle }) {
-    const { attributes, listeners, setNodeRef, transform, transition, isDragging } =
+    const { attributes, listeners, setNodeRef, transform, isDragging } =
         useSortable({ id });
 
     const style = {
     transform: CSS.Transform.toString(transform),
-    // cursor: "grab",
     transition: isDragging
     ? "transform 40ms linear"
     : "transform 250ms ease",
@@ -22,7 +21,6 @@ function SortableLabel({ id, name, color, isActive, onToggle }) {
         <li
             ref={setNodeRef}
             {...attributes}
-            // {...listeners}
             style={style}
             className={`menuLinks ${isActive ? "bg-green-100" : ""}  `}
         >
@@ -51,8 +49,7 @@ export default function LabelsList({ labels, filter, onToggle, onSort }) {
     const sensors = useSensors(
             useSensor(PointerSensor, {
                 activationConstraint: {
-                    distance: 5, // ← пока не двинул — это клик, а не drag
-                    //   tolerance: 5,
+                    distance: 5, 
                 },
             })
     );
@@ -65,7 +62,7 @@ export default function LabelsList({ labels, filter, onToggle, onSort }) {
         const newIndex = labels.findIndex((l) => l.id === over.id);
 
         const sorted = arrayMove(labels, oldIndex, newIndex);
-        onSort(sorted); // << передаём наружу новый порядок
+        onSort(sorted);
     }
 
     return (

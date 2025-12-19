@@ -1,82 +1,94 @@
-
 @import "tailwindcss";
 
 @layer theme {
-    :root {
-        --bg-app: linear-gradient(to right, #FFFFFF, #ECE9E6);
-        --border-main: #e5e7eb;
-        --text-default: #000;
-        --shadow:  0 1px 3px #00000020;
-        --shadow-hover: 0 1px 8px #1dc5f8f3;
-        --bg-modal:#ffffff; 
+  :root {
+    --bg-app: linear-gradient(to right, #ffffff, #ece9e6);
+    --border-main: #e5e7eb;
+    --text-default: #000;
 
-        --menu-links: #1e2939;
-        --menu-links-active: #1e2939;
-        --labelLink: #4a5565;
-        --grip-color: #d1d5dc; 
-        --manageLabels: #364153;
+    --shadow: 0 1px 3px #00000020;
+    --shadow-hover: 0 1px 8px #1dc5f8f3;
 
-        --search: #4a5565;
-        --headerTitle: #364153;
+    --bg-modal: #ffffff;
 
-        --bg-card: #ffffff;
-        --title-card: #00000;
-        --text-card: #00000;
-        --text-pinned: #101828;
-        --text-notpinned: #d1d5dc;
-        
-        --bg-select: #ffffff;
+    --menu-links: #1e2939;
+    --menu-links-active: #1e2939;
 
-        --bg-edit-input:#fff;
-        --text-edit-input:#4a5565;
-        --border-color:#d1d5dc;
-        --hint:#99a1af;
-    }
+    --labelLink: #4a5565;
+    --grip-color: #d1d5dc;
+    --manageLabels: #364153;
+    --manageLabelsBtn: #364153;
 
-    body[data-theme="dark"] {
-        --bg-app: #0B0F19;
-        --border-main: #282828;
-        --text-default: #99a1af;
-        --shadow:  0 0 3px #cacacbc0;
-        --shadow-hover: 0 1px 8px #1dc5f8f3;
-        --bg-modal: #282828;
+    --search: #4a5565;
+    --headerTitle: #364153;
 
-        --menu-links: #899AB8;
-        --menu-links-active: #1e2939;
-        --labelLink: #727d8f;
-        --manageLabelsBtn: #ff9900;
-        --grip-color: #727d8f;
+    --bg-card: #ffffff;
+    --title-card: #000;
+    --text-card: #000;
 
-        --search: #bababa;
-        --headerTitle: #bababa;
+    --text-pinned: #101828;
+    --text-notpinned: #d1d5dc;
 
-        --bg-card: #1A1E27;
-        --title-card: #e5e7eb;
-        --text-card: #99a1af;
-        --text-pinned: white;
-        --text-notpinned: rgb(167, 167, 167); 
+    --bg-select: #ffffff;
 
-        --bg-select: #1A1E27;
+    --bg-edit-input: #fff;
+    --text-edit-input: #4a5565;
+    --border-color: #d1d5dc;
+    --hint: #99a1af;
+  }
 
-        --bg-edit-input:#252a36;
-        --text-edit-input:#e2e2e2;
-        --border-color:#636e7f;
-        --hint:#d1d5dc;
-    }
+  body[data-theme="dark"] {
+    --bg-app: #0b0f19;
+    --border-main: #282828;
+    --text-default: #99a1af;
+
+    --shadow: 0 0 3px #cacacbc0;
+    --shadow-hover: 0 1px 8px #1dc5f8f3;
+
+    --bg-modal: #282828;
+
+    --menu-links: #899ab8;
+    --menu-links-active: #1e2939;
+
+    --labelLink: #727d8f;
+    --grip-color: #727d8f;
+    --manageLabelsBtn: #ff9900;
+
+    --search: #bababa;
+    --headerTitle: #bababa;
+
+    --bg-card: #1a1e27;
+    --title-card: #e5e7eb;
+    --text-card: #99a1af;
+
+    --text-pinned: #fff;
+    --text-notpinned: rgb(167, 167, 167);
+
+    --bg-select: #1a1e27;
+
+    --bg-edit-input: #252a36;
+    --text-edit-input: #e2e2e2;
+    --border-color: #636e7f;
+    --hint: #d1d5dc;
+  }
 }
 
 @font-face {
   font-family: "Metrophobic";
   src: url("/fonts/Metrophobic-Regular.woff2") format("woff2");
-  /* font-weight: 400; */
   font-style: normal;
 }
 
-body, button {
-    font-family: "Metrophobic";
+html,
+body,
+#root {
+  height: 100%;
 }
 
-html, body, #root { height: 100%; }
+body,
+button {
+  font-family: "Metrophobic";
+}
 
 body {
   background: var(--bg-app);
@@ -91,239 +103,208 @@ aside {
   overflow: auto;
 }
 
-
 @layer base {
-    button {
-        @apply hover:cursor-pointer
-    }
+  button {
+    @apply hover:cursor-pointer;
+  }
 
-    input, textarea, select, input[type="checkbox"]  {
-        @apply p-2 rounded-xl border focus:outline-3 focus:outline-blue-400 
-                bg-(--bg-edit-input) text-(--text-edit-input) border-(--border-color);
-    }
+  input,
+  textarea,
+  select,
+  input[type="checkbox"] {
+    @apply p-2 rounded-xl border
+          focus:outline-3 focus:outline-blue-400
+          bg-(--bg-edit-input) text-(--text-edit-input) border-(--border-color);
+  }
 }
 
 @layer components {
-    .btn, .undoBtn {
-        @apply min-h-11 p-2 border border-gray-200 rounded-xl shadow hover:scale-105 duration-300 flex justify-center items-center
-    }
+  .btn,
+  .undoBtn {
+    @apply min-h-11 p-2 border border-gray-200 rounded-xl shadow
+          hover:scale-105 duration-300
+          flex justify-center items-center;
+  }
 
-    .editBtn {
-        @apply w-15 px-4  text-white bg-blue-300 hover:bg-blue-600 duration-300;
-    }
+  .editBtn {
+    @apply w-15 px-4 text-white bg-blue-300 hover:bg-blue-600 duration-300;
+  }
 
-    .saveBtn {
-        @apply w-15 px-4 bg-green-500 hover:bg-green-600 text-white duration-300;
-    }
+  .saveBtn {
+    @apply w-15 px-4 bg-green-500 hover:bg-green-600 text-white duration-300;
+  }
 
-    .deleteBtn {
-        @apply w-15 px-4 bg-red-300 hover:bg-red-500 duration-300 text-white;
-    }
+  .deleteBtn {
+    @apply w-15 px-4 bg-red-300 hover:bg-red-500 duration-300 text-white;
+  }
 
-    .toTrashBtn {
-        @apply  text-gray-400 hover:text-red-500 group-hover:text-red-400 transition
-    }
+  .toTrashBtn {
+    @apply text-gray-400 hover:text-red-500 group-hover:text-red-400 transition;
+  }
 
-    .toArchiveBtn {
-        @apply  text-gray-400 hover:text-yellow-500 group-hover:text-yellow-400 transition
-    }
+  .toArchiveBtn {
+    @apply text-gray-400 hover:text-yellow-500 group-hover:text-yellow-400 transition;
+  }
 
-    .modal {
-        background: var(--bg-modal);
-    }
+  .modal {
+    background: var(--bg-modal);
+  }
 
-    .notePreviewContainer {
-        @apply bg-(--bg-card) rounded-xl p-5 w-65 relative hover:scale-105 duration-300 shadow-(--shadow) flex flex-col justify-around hover:shadow-(--shadow-hover)  
-    }
+  .activeToast,
+  .deletedToast,
+  .archiveToast,
+  .trashToast {
+    @apply flex flex-col justify-center items-center p-2 rounded-xl text-sm text-center opacity-85;
+  }
 
-    .notePreview {
-        @apply mt-5 flex flex-col justify-start text-left gap-1  ;
-    }
+  .activeToast {
+    @apply bg-green-600;
+  }
+  .archiveToast {
+    @apply bg-yellow-600;
+  }
+  .trashToast {
+    @apply bg-red-300;
+  }
+  .deletedToast {
+    @apply bg-red-500;
+  }
 
-    .activeToast, .deletedToast, .archiveToast, .trashToast  {
-        @apply flex flex-col justify-center items-center p-2 rounded-xl text-sm text-center opacity-85 
-    }
-    
-    .activeToast {
-        @apply bg-green-600
-    }
+  .labelTag {
+    @apply rounded-full px-2 py-[3px] text-sm font-medium w-15 truncate opacity-70
+          hover:opacity-100 hover:scale-105 transition;
+  }
 
-    .archiveToast {
-        @apply bg-yellow-600
-    }
+  /* Note card */
+  .notePreviewContainer {
+    @apply bg-(--bg-card) rounded-xl p-5 w-65 relative
+          hover:scale-105 duration-300 shadow-(--shadow)
+          flex flex-col justify-around hover:shadow-(--shadow-hover)
+          min-h-[260px];
+  }
 
-    .trashToast {
-        @apply bg-red-300
-    }
+  .notePreview {
+    @apply mt-5 flex flex-col justify-start text-left gap-1;
+  }
 
-    .deletedToast {
-        @apply bg-red-500
-    }
+  .notePreviewHtml {
+    @apply text-sm leading-[1.35] text-(--text-card)
+          overflow-hidden line-clamp-3 wrap-break-word;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
 
-    .labelTag {
-        @apply rounded-full px-2 py-[3px] text-sm font-medium 
-        w-15 truncate opacity-70 
-        hover:opacity-100 hover:scale-105 transition;
-    }
+  .notePreviewHtml p {
+    @apply m-0;
+  }
 
- 
+  .notePreviewHtml * {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+
+  .notePreviewEmpty {
+    @apply text-sm leading-[1.35] text-(--text-card) opacity-60 overflow-hidden;
+    max-height: 4.2em;
+  }
+
+  .noteCover {
+    @apply w-full h-[140px] object-cover rounded-[10px] my-[6px] block;
+  }
+
+  .noteMedia {
+    @apply w-full rounded-xl overflow-hidden my-2
+          transition-[height] duration-200 ease-in-out;
+    background: rgba(0, 0, 0, 0.04);
+  }
+
+  .noteMedia.hasImage {
+    @apply h-[140px];
+  }
+
+  .noteMedia.noImage {
+    @apply h-[64px];
+    background: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.04),
+      rgba(0, 0, 0, 0.02)
+    );
+  }
+
+  .noteMedia img {
+    @apply w-full h-full object-cover block;
+  }
+
+  .noteTextPreview {
+    @apply text-sm leading-[1.35] text-(--text-card) break-words;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+
+  /* TipTap */
+  .ProseMirror {
+    @apply w-full min-h-[200px] outline-none;
+  }
+
+  .ProseMirror img {
+    @apply max-w-full h-auto rounded-lg;
+  }
+
+  .notePreviewHtml img {
+    @apply max-w-full h-auto rounded-md;
+  }
 }
 
-@layer utility {
+@layer utilities {
+  .wrapper {
+    @apply flex m-auto p-2;
+  }
 
-    .wrapper {
-        @apply flex m-auto p-2;
-    }
-    
-    .cancel {
-        @apply bg-white hover:bg-gray-100 hover:scale-105 duration-300 px-4 shadow;
-    }
+  .cancel {
+    @apply bg-white hover:bg-gray-100 hover:scale-105 duration-300 px-4 shadow;
+  }
 
-    .apply {
-        @apply bg-blue-500 hover:bg-blue-600 text-white duration-300 px-4 shadow font-medium hover:scale-105 disabled:bg-blue-300;
-    }
+  .apply {
+    @apply bg-blue-500 hover:bg-blue-600 text-white duration-300 px-4 shadow
+          font-medium hover:scale-105 disabled:bg-blue-300;
+  }
 
-    .shadow-soft {
-        box-shadow: 0 0 5px rgba(180, 180, 180, 0.396);
-    }
+  .shadow-soft {
+    box-shadow: 0 0 5px rgba(180, 180, 180, 0.396);
+  }
 
-    .menuLinks, .menuLinks-active {
-        @apply w-full flex gap-2 items-center justify-start px-2 py-1 font-semibold text-lg rounded-2xl
-    }
+  .menuLinks,
+  .menuLinks-active {
+    @apply w-full flex gap-2 items-center justify-start px-2 py-1 font-semibold text-lg rounded-2xl;
+  }
 
-    .menuLinks{
-        @apply text-(--menu-links);
-    }
+  .menuLinks {
+    @apply text-(--menu-links);
+  }
 
-    .menuLinks-active {
-        @apply bg-amber-400  text-(--menu-links-active);
-    }
+  .menuLinks-active {
+    @apply bg-amber-400 text-(--menu-links-active);
+  }
 
-    .tooltip {
-        @apply absolute bottom-full mb-2 left-1/2 -translate-x-1/2 text-xs  bg-neutral-800 text-white px-2 py-1 rounded-lg opacity-0 group-hover:opacity-100 pointer-events-none whitespace-nowrap duration-700
-    }
+  .tooltip {
+    @apply absolute bottom-full mb-2 left-1/2 -translate-x-1/2 text-xs bg-neutral-800 text-white
+          px-2 py-1 rounded-lg opacity-0 group-hover:opacity-100 pointer-events-none
+          whitespace-nowrap duration-700;
+  }
 
-    .hotkey {
-        @apply text-xs text-gray-500 ml-1; 
-    }
+  .hotkey {
+    @apply text-xs text-gray-500 ml-1;
+  }
 
-    .hitbox {
-        @apply p-1;
-    }
-}
-.notePreviewHtml{
-  font-size: .875rem;
-  line-height: 1.35;
-  color: var(--text-card);
+  .hitbox {
+    @apply p-1;
+  }
 
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;   /* сколько строк в карточке */
-}
+  .appLayout {
+    @apply h-screen flex;
+  }
 
-.notePreviewHtml p { margin: 0; }
-.notePreviewHtml * {
-  overflow-wrap: anywhere;
-  word-break: break-word;
-}
-
-.notePreviewEmpty {
-  font-size: 0.875rem;
-  line-height: 1.35;
-  color: var(--text-card);
-  opacity: 0.6;
-  max-height: 4.2em;
-  overflow: hidden;
-}
-
-.ProseMirror img {
-  max-width: 100%;
-  height: auto;
-  border-radius: 8px;
-}
-
-.notePreviewHtml img {
-  max-width: 100%;
-  height: auto;
-  border-radius: 6px;
-}
-
- .noteCover{
-  width: 100%;
-  height: 140px;
-  object-fit: cover;
-  border-radius: 10px;
-  margin: 6px 0 10px;
-  display: block;
-}
-
-.noteTextPreview{
-  font-size: .875rem;
-  line-height: 1.35;
-  color: var(--text-card);
-  overflow-wrap: anywhere;
-  word-break: break-word;
-}
-
-.noteMedia{
-  width: 100%;
-  border-radius: 12px;
-  overflow: hidden;
-  margin: 8px 0 10px;
-  background: rgba(0,0,0,0.04);
-  transition: height .2s ease;
-}
-
-/* если есть картинка */
-.noteMedia.hasImage{
-  height: 140px;
-}
-
-/* если картинки нет */
-.noteMedia.noImage{
-  height: 64px;
-  background: linear-gradient(
-    to bottom,
-    rgba(0,0,0,0.04),
-    rgba(0,0,0,0.02)
-  );
-}
-
-/* картинка внутри */
-.noteMedia img{
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-/* текст */
-.noteTextPreview{
-  font-size: .875rem;
-  line-height: 1.35;
-  color: var(--text-card);
-  overflow-wrap: anywhere;
-  word-break: break-word;
-}
-
-.notePreviewContainer{
-  min-height: 260px;
-}
-.appLayout{
-  height: 100vh;
-  display: flex;
-}
-
-.mainScroll{
-  flex: 1;
-  height: 100vh;
-  overflow: auto;
-  border-left: 1px solid var(--border-main);
-}
-
-.ProseMirror {
-  width: 100%;
-  min-height: 200px;
-  outline: none;
+  .mainScroll {
+    @apply flex-1 h-screen overflow-auto border-l border-(--border-main);
+  }
 }

@@ -5,7 +5,7 @@ import { useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMagnifyingGlass, faMoon, faSun, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 
-export default function Header() {
+export default function Header({onBurger}) {
     const { searchQuery, setSearchQuery, notes, theme, setTheme } = useAppContext();
     const [showInput, setShowInput] = useState(false);
     
@@ -61,14 +61,22 @@ export default function Header() {
     const showListUI = thisPage === '/' || thisPage === '/archive' || thisPage === '/trash';
 
     return (
-        <div className="w-full p-2 flex justify-between items-center gap-4">
+        <div className="w-full px-2 py-1 flex justify-between items-center gap-4">
+            <button
+                onClick={onBurger}
+                className="md:hidden p-2 rounded-xl border border-(--border-color)"
+                aria-label="Open menu"
+            >
+                ☰
+            </button>
+        
             <div>
                 {showListUI && (
                     <Filter mode={routeToStatus[thisPage]} />
                 )}
             </div> 
 
-            <h1 className="text-3xl text-(--headerTitle) font-semibold">
+            <h1 className="text-2xl text-(--headerTitle) font-semibold ">
                 {title}
             </h1>
 

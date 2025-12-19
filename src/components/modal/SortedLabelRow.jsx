@@ -28,7 +28,6 @@ export default function SortedLabelRow({label, isEditing, draft, setDraft, start
             style={style}
             className="min-w-120 odd:bg-gray-100 even:bg-white overflow-y-auto"
             {...attributes}
-            // {...listeners} 
         >
             
             <div className="flex items-center justify-between p-2">
@@ -41,8 +40,9 @@ export default function SortedLabelRow({label, isEditing, draft, setDraft, start
                             autoFocus
                         />
                         ) : (
-                        <span {...listeners} className="truncate max-w-[180px] ">
-                            <FontAwesomeIcon             
+                        <span  className="truncate max-w-[180px] ">
+                            
+                            <FontAwesomeIcon  
                                 {...listeners} 
                                 icon={faGrip} 
                                 className={'text-xs text-gray-300 mr-4 cursor-grab'}

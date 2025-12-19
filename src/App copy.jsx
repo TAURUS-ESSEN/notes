@@ -2,7 +2,7 @@ import { DndContext, DragOverlay, PointerSensor, useSensor, useSensors, pointerW
 
 import { useState, useEffect, useMemo, useCallback } from 'react'
 import Sidebar from './components/Sidebar'
-import Header from './components/Header'
+import Header from './components/HeaderCOPY'
 import ModalHost from './components/modal/ModalHost'
 import { AppContext } from './components/AppContext'
 import Toasts from './components/Toasts';
@@ -30,14 +30,8 @@ function App() {
   const [toasts, setToasts] = useState([]);
   const [theme, setTheme] = useState(()=>loadInitialData('theme', DEFAULT_THEME));
   const [activeDrag, setActiveDrag] = useState(null);
-  const [sidebarOpen, setSidebarOpen] = useState(false);
-  const navigate = useNavigate();
 
-  useEffect(() => {
-  const onKey = (e) => e.key === "Escape" && setSidebarOpen(false);
-  document.addEventListener("keydown", onKey);
-  return () => document.removeEventListener("keydown", onKey);
-}, []);
+  const navigate = useNavigate();
 
   const activeNote = useMemo(
     () => notes.find(n => n.id === activeDrag) ?? null,
@@ -157,49 +151,24 @@ function App() {
       onDragEnd={handleDragEnd}
       onDragCancel={() => setActiveDrag(null)}
     >
-      <div className="appLayout">
-  {/* DESKTOP SIDEBAR */}
-  <aside className="hidden md:block w-[250px] shrink-0 h-screen sticky top-0 overflow-auto border-r border-(--border-main)">
-    <Sidebar />
-  </aside>
+      <div className="appLayout ">
+        <aside>
+          <Sidebar />
+        </aside>
 
-  {/* MAIN */}
-  <main className="mainScroll flex-1">
-    <DragOverlay>
-      {activeNote ? (
-        <div style={{ width: 320, pointerEvents: "none" }}>
-          <NoteCardPreview note={activeNote} labels={labels} />
-        </div>
-      ) : null}
-    </DragOverlay>
+        <main className="mainScroll">
+          <DragOverlay>
+            {activeNote ? (
+              <div style={{ width: 320, pointerEvents: "none" }}>
+                <NoteCardPreview note={activeNote} labels={labels} />
+              </div>
+            ) : null}
+          </DragOverlay>
 
-    <Header onBurger={() => setSidebarOpen(true)} />
-    <Outlet />
-  </main>
-
-  {/* MOBILE OVERLAY */}
-  {sidebarOpen && (
-    <div
-      className="fixed inset-0 z-40 bg-black/40 md:hidden"
-      onClick={() => setSidebarOpen(false)}
-    />
-  )}
-
-  {/* MOBILE DRAWER */}
-  <aside
-    className={[
-      "fixed top-0 left-0 z-50 h-screen w-[260px] max-w-[85vw]",
-      "bg-(--bg-modal) border-r border-(--border-main)",
-      "transform transition-transform duration-300 md:hidden",
-      sidebarOpen ? "translate-x-0" : "-translate-x-full",
-    ].join(" ")}
-  >
-    <div className="h-full overflow-auto p-4">
-      <Sidebar onNavigate={() => setSidebarOpen(false)} />
-    </div>
-  </aside>
-</div>
-
+          <Header />
+          <Outlet />
+        </main>
+      </div>
     </DndContext>
 
     <ModalHost />

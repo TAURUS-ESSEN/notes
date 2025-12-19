@@ -1,21 +1,21 @@
 import { DndContext, closestCenter, PointerSensor, useSensor, useSensors } from "@dnd-kit/core";
 import { SortableContext, verticalListSortingStrategy, arrayMove } from "@dnd-kit/sortable";
 import { useAppContext } from "../AppContext";
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import Modal from './Modal';
 
 import SortedLabelRow from './SortedLabelRow.jsx'
 
 export default function ManageLabels() {
     const {closeModal, labels, setLabels, setToasts } = useAppContext(); 
-    const [labelColor, setLabelColor] = useState(null);
+    const [labelColor, setLabelColor] = useState('amber');
     const [editingId, setEditingId] = useState(null); 
     const [deleteId, setDeleteId] = useState(null);
     const [draft, setDraft] = useState("");
 
     function startEdit(label) {
-        setEditingId(label.id);       // запоминаем, какой именно label редактируем
-        setDraft(label.name);         // подставляем текущее имя в input
+        setEditingId(label.id); 
+        setDraft(label.name); 
         setLabelColor(label.color);
     }
 
@@ -29,20 +29,19 @@ export default function ManageLabels() {
         setLabels(prev =>
             prev.map(l => l.id === label.id ? { ...l, color:labelColor, name: draft } : l)
         );
-        setEditingId(null);           // выходим из режима редактирования
+        setEditingId(null);
         setDraft("");
     }
 
     const sensors = useSensors(
         useSensor(PointerSensor, {
             activationConstraint: {
-                distance: 5, // ← пока не двинул — это клик, а не drag
-                //   tolerance: 5,
+                distance: 5,
             },
         })
     );
 
-    function handleDragEnd(event) {
+    const handleDragEnd = useCallback((event) => {
         const { active, over } = event;
         if (!over || active.id === over.id) return;
 
@@ -52,7 +51,7 @@ export default function ManageLabels() {
             if (oldIndex === -1 || newIndex === -1) return prev;
             return arrayMove(prev, oldIndex, newIndex);
         });
-}
+    },[setLabels])
 
     return (
     <>

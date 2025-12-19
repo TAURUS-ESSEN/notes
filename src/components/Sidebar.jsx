@@ -7,7 +7,7 @@ import { faFolderOpen, faTrashCan, faNoteSticky,  faKeyboard } from '@fortawesom
 import { faEllipsisVertical, faBookmark, faPlus} from '@fortawesome/free-solid-svg-icons';
 import LabelsList from "./LabelList";
 
-export default function Sidebar() {
+export default function Sidebar({ onNavigate }) {
     const {labels, setLabels, filter, openModal, toggleLabelFilter} = useAppContext();
     const currentLocation = useLocation()
 
@@ -67,7 +67,8 @@ export default function Sidebar() {
                                     }
                                 >
                                     <FontAwesomeIcon icon={item.icon} />
-                                    <Link to={item.to} title={item.title}>{item.label}</Link>
+                                    <Link to={item.to} title={item.title} onClick={onNavigate}>{item.label}</Link>
+                                    
                                 </li>
                             );
                         })}

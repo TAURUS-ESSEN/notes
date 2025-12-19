@@ -19,7 +19,7 @@ function NotePreview({ note }) {
         </div>
       ) : null}
 
-      <div className="noteTextPreview line-clamp-3">
+      <div className={`noteTextPreview ${imgSrc ? 'line-clamp-3' : 'line-clamp-9'} `}>
         {note.text || "(Empty note)"}
       </div>
     </>

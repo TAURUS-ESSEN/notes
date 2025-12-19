@@ -71,7 +71,7 @@ export default function EditNote() {
         )}])) 
     }
 
-    const acrhive = () => {
+    const archive = () => {
         setNotes(prev=>prev.map(n => n.id === id ?  {...n, status: 'archived', pinned: false} : n))
         setPin(false);
         const toastId = Date.now() + Math.random();
@@ -104,7 +104,7 @@ export default function EditNote() {
     useEffect(()=> {
         const onKey = (e) => {
             if (e.altKey && e.key.toLowerCase() === "s") { onSubmit(e) }
-            if ((e.altKey && e.key.toLowerCase() === "a") && (note.status!=='archived'))  { acrhive() }
+            if ((e.altKey && e.key.toLowerCase() === "a") && (note.status!=='archived'))  { archive() }
             if ((e.altKey && e.key.toLowerCase() === "w") && (note.status!=='active'))  { restore() }
             if ((e.altKey && e.key.toLowerCase() === "d") && (note.status!=='deleted'))  { toTrash()}
             if ((e.altKey && e.shiftKey && e.key.toLowerCase() === "d") && (note.status==='deleted'))  { deleteNote(id)}
@@ -114,6 +114,11 @@ export default function EditNote() {
         return () => {document.removeEventListener("keydown", onKey)}
     },[note.status, navigate])
     
+    useEffect(() => {
+        if (!editor) return;
+        editor.setEditable(note.status !== 'deleted');
+    }, [editor, note.status]);
+
     return (
         <div key={id} className='px-4'> 
             <form onSubmit={onSubmit} className='max-w-3xl m-auto mt-4 p-6 flex flex-col gap-4 border border-(--border-color) rounded-xl bg-(--bg-card) text-(--text-default) shadow-soft '>
@@ -133,16 +138,9 @@ export default function EditNote() {
                     /> 
                         Pinned 
                 </div>}
-                {/* <textarea 
-                    onChange={(e)=>setText(e.target.value)} 
-                    value={text} 
-                    className='leading-relaxed' 
-                    rows={12} 
-                    disabled={note.status === 'deleted'}>
-                </textarea> */}
-                <EditorToolbar editor={editor} />
-                <div className="border rounded-xl p-3  text-left">
-                    <EditorContent editor={editor} />
+                <EditorToolbar editor={note.status === 'deleted' ? null : editor} />
+                <div className={`border rounded-xl p-3  text-left ${note.status === 'deleted' ? 'opacity-60 pointer-events-none' : ''}`}>
+                    <EditorContent editor={editor}  />
                 </div>
 
                 <div className='flex gap-1 text-lg flex-wrap'>
@@ -193,7 +191,7 @@ export default function EditNote() {
                     <button 
                         type='button' 
                         className='btn hover:bg-amber-300' 
-                        onClick={acrhive} 
+                        onClick={archive} 
                         title="Archive note">  
                         Archive <span className="hotkey">(Alt+A)</span>
                     </button>}

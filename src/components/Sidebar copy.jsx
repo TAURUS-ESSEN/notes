@@ -68,6 +68,7 @@ export default function Sidebar() {
                                 >
                                     <FontAwesomeIcon icon={item.icon} />
                                     <Link to={item.to} title={item.title}>{item.label}</Link>
+                                    
                                 </li>
                             );
                         })}

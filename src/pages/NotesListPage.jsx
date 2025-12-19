@@ -5,7 +5,7 @@ import NoteCard from '../components/note/NoteCard';
 import { useCallback } from 'react';
 
 export default function NotesListPage({status}) {
-    const {labels, setNotes, setToasts} = useAppContext();
+    const {labels, setNotes, setToasts, filter, searchQuery} = useAppContext();
     const sortedNotes = useSortedNotes(status)
 
     const undo = useCallback((noteId, prevStatus, prevDeletedAt, toastId) => {
@@ -33,7 +33,7 @@ export default function NotesListPage({status}) {
                             ? 'No archived notes' 
                             : 'Trash is empty'
                     }
-                    {status === 'active' && <span className='text-(--hint)'>&nbsp;Try adjusting the filter.</span> }
+                    {(filter.length > 0 || (searchQuery?.trim())) && <span className='text-(--hint)'>&nbsp;Try adjusting the filter.</span> }
                 </div>
             }
             </div>
