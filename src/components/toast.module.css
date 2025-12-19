@@ -1,38 +1,37 @@
-.stack {
+.stack{
   position: fixed;
-  top: 2rem;
-  right: 1rem;
-  z-index: 988;
+  top: calc(env(safe-area-inset-top) + 12px);
+  left: 50%;
+  transform: translate(-50%, -8px);
+  z-index: 80;          /* достаточно, но ниже модалок если хочешь */
+  width: min(92vw, 420px);
+
   display: flex;
   flex-direction: column;
   gap: .5rem;
 
-  /* плавность для всего стека, когда появляется/пропадает последний тост */
   opacity: 0;
-  transform: translateY(-8px);
   transition: opacity .3s ease, transform .3s ease;
-
-  pointer-events: none; /* фон кликается */
+  pointer-events: none;
 }
-.stack.show {
+
+.stack.show{
   opacity: 1;
-  transform: translateY(0);
+  transform: translate(-50%, 0);
 }
 
-/* карточка одного тоста */
-.toast {
-  /* min-width: 140px; */
-  max-width: 160px;
-  /* padding: .5rem .75rem; */
-  border-radius: 8px;
-  /* background: blue; */
-  color: #fff;
+
+ .toast{
+  width: 100%;
+  max-width: 100%;
+  border-radius: 12px;
   box-shadow: 0 6px 18px rgba(0,0,0,.15);
-  pointer-events: auto;  
+  pointer-events: auto;
   white-space: pre-line;
-    opacity: 0;
+
+  opacity: 0;
   transform: translateY(-6px);
-  animation: toastIn .50s ease forwards;
+  animation: toastIn .5s ease forwards;
 }
 @keyframes toastIn {
   to { opacity: 1; transform: translateY(0); }

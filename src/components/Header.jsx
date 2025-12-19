@@ -59,7 +59,7 @@ export default function Header({onBurger}) {
         <header className="w-full px-2 py-1 flex justify-between items-center gap-4">
             <button
                 onClick={onBurger}
-                className="lg:hidden p-2 rounded-xl border border-(--border-color)"
+                className="lg:hidden p-2 rounded-xl border border-(--border-color) text-(--text-default) text-lg"
                 aria-label="Open menu"
             >
                 ☰
