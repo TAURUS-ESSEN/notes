@@ -23,7 +23,7 @@ export default function NotesListPage({status}) {
         <div className="min-h-screen w-full relative p-4 pb-20">
             {/* <div className="mx-auto max-w-12xl"> */}
             {/* <div className="grid gap-4 justify-items-center sm:justify-items-start sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-5  "> */}
-            <div className="grid gap-4 justify-center [grid-template-columns:repeat(auto-fit,300px)] md:[grid-template-columns:repeat(auto-fit,230px)]">
+            <div className="grid gap-4 justify-center sm:justify-start grid-cols-[repeat(auto-fit,300px)] md:grid-cols-[repeat(auto-fit,230px)] lg:md:grid-cols-[repeat(auto-fit,245px)]  xl:md:grid-cols-[repeat(auto-fit,300px)]">
 
             {sortedNotes.map(note => (
                 <NoteCard key={note.id} note={note} labels={labels} undo={undo} />

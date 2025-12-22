@@ -170,7 +170,7 @@ function App() {
     >
       <div className="appLayout">
   {/* DESKTOP SIDEBAR */}
-  <aside className="hidden lg:block w-[250px] shrink-0 h-screen sticky top-0 overflow-auto border-r border-(--border-main)">
+  <aside className="hidden lg:block w-[200px] lg:w-[220px] shrink-0 h-screen sticky top-0 overflow-auto border-r border-(--border-main)">
     <Sidebar />
   </aside>
 

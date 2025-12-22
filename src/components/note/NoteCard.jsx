@@ -40,7 +40,7 @@ export default function NoteCard({ note, labels, undo }) {
   };
 
   return (
-    <div ref={setNodeRef} style={style} className="notePreviewContainer group w-[300px] md:w-[230px]">
+    <div ref={setNodeRef} style={style} className="notePreviewContainer group w-[300px] md:w-[235px] lg:w-[245px] xl:w-[300px]">
       <div className="flex justify-between items-center group">
         <button
           type="button"
