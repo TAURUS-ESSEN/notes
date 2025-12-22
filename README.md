@@ -1,16 +1,47 @@
-# React + Vite
+# Notes App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A single-page notes application built with React.  
+The project focuses on usability, clean UI, and realistic note-management workflows.
 
-Currently, two official plugins are available:
+Live demo: https://notes-eta-coral.vercel.app/
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
+<img src="src/assets/preview.webp" alt="Notes" width="650" target="_blank"/>
+## Features
 
-## React Compiler
+- Rich text editor based on TipTap
+- Client-side routing (React Router)
+- Note states: active, archived, deleted
+- Drag and Drop
+  - Move notes between sections
+  - Reorder labels
+- Labels
+  - Create, edit, delete
+  - Assign multiple labels to notes
+  - Filter notes by labels
+- Search
+  - Full-text search across titles and content
+- Sorting
+  - Newest / oldest
+  - A–Z / Z–A
+  - Last deleted (trash)
+- Pin notes
+- Light and dark theme
+- Toast notifications with undo actions
+- Keyboard shortcuts for common actions
+- Responsive layout for mobile, tablet, and desktop
+- Data persistence via localStorage (no backend)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## Tech Stack
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- React
+- React Router
+- Context API
+- Tailwind CSS
+- dnd-kit
+- TipTap
+- Vite
+
+---
