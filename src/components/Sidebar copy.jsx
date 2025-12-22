@@ -125,39 +125,10 @@ export default function Sidebar({ onNavigate }) {
                 </button>
             </div>
             <div className="mt-6 md:hidden">
-                <button
-                onClick={toggleTheme}
-                className={`
-                    relative w-14 h-8 rounded-full transition-colors duration-300
-                    ${theme === 'dark' ? 'bg-amber-400' : 'bg-gray-300'}
-                `}
-                aria-label="Toggle theme"
-                >
-                <span className="absolute inset-0 flex items-center justify-between px-2 text-xs">
-                    <FontAwesomeIcon
-                    icon={faSun}
-                    className={theme === 'dark' ? 'text-white/70' : 'text-gray-600'}
-                    />
-                    <FontAwesomeIcon
-                    icon={faMoon}
-                    className={theme === 'dark' ? 'text-gray-700' : 'text-white/70'}
-                    />
-                </span>
-
-                <span
-                    className={`
-                    absolute top-1 left-1 w-6 h-6 bg-white rounded-full shadow
-                    transition-transform duration-300 flex items-center justify-center
-                    ${theme === 'dark' ? 'translate-x-6' : ''}
-                    `}
-                >
-                    <FontAwesomeIcon
-                    icon={theme === 'dark' ? faMoon : faSun}
-                    className="text-amber-500 text-sm"
-                    />
-                </span>
-                </button>
-
+  <button onClick={toggleTheme} className="w-full btn flex justify-between">
+    <span>Theme</span>
+    {theme === 'dark' ? <FontAwesomeIcon icon={faSun}/> : <FontAwesomeIcon icon={faMoon}/>}
+  </button>
 </div>
 
         </div>
