@@ -177,7 +177,7 @@ export default function EditNote() {
                     {(note.status === 'deleted' || note.status === 'archived') &&
                     <button 
                         type='button' 
-                        className='btn group hover:bg-green-600 hover:text-white' 
+                        className='btn group hover:bg-green-600 hover:text-white ' 
                         onClick={restore} 
                         title="Restore note"
                     > 
@@ -212,7 +212,7 @@ export default function EditNote() {
                     { note.status === 'deleted' &&
                     <button 
                         type='button' 
-                        className='btn group bg-red-600 text-white' 
+                        className='btn group bg-red-600 text-white w-35' 
                         onClick={()=>deleteNote(id)} 
                         title="Delete forever"
                     > 

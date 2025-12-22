@@ -46,7 +46,7 @@
     top: auto;
     right: auto;
     left: 50%;
-    bottom: calc(env(safe-area-inset-bottom) + 16px);
+    bottom: calc(env(safe-area-inset-bottom) + 96px);
 
     /* width: min(92vw, 360px); */
     transform: translate(-50%, 12px);

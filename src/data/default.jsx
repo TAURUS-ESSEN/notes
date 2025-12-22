@@ -1,21 +1,45 @@
 export const DEFAULT_NOTES = [
-  {
-    id: Date.now(),
-    title: 'Call to Gloria',
-    content: null,
-    previewHtml:
-      `<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam, molestias! Also need to ask her about the documents she promised last week, because the deadline is getting close and I can’t wait much longer.</p>`,
-    text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam, molestias! Also need to ask her about the documents she promised last week, because the deadline is getting close and I can’t wait much longer.',
-    status: 'active',
-    createdAt: Date.now(),
-    updatedAt: null,
-    deletedAt: null,
-    pinned: false,
-    labels: [1]
+  
+{
+  id: Date.now() +1 ,
+  title: 'Buy house plants',
+  content: {
+    type: "doc",
+    content: [
+      {
+        type: "paragraph",
+        content: [
+          {
+            type: "text",
+            text: "Maybe add a couple of easy plants. Something low-maintenance. Check if they survive low light."
+          }
+        ]
+      },
+      {
+        type: "image",
+        attrs: {
+          src: "/demo/plants.webp",
+          alt: "House plants"
+        }
+      }
+    ]
   },
+  previewHtml: `
+    <p>Maybe add a couple of easy plants. Something low-maintenance. Check if they survive low light.</p>
+    <img src="/demo/plants.webp" alt="House plants">
+  `,
+  text: 'Maybe add a couple of easy plants. Something low-maintenance. Check if they survive low light.',
+  status: 'active',
+  createdAt: Date.now(),
+  updatedAt: null,
+  deletedAt: null,
+  pinned: false,
+  labels: [2, 5, 6] 
+},
+  
 
 {
-  id: Date.now() + 1,
+  id: Date.now() + 2,
   title: 'Picnic at Frank’s on November 20.',
   content: {
     type: "doc",
@@ -53,7 +77,7 @@ export const DEFAULT_NOTES = [
 
 
   {
-    id: Date.now() + 2,
+    id: Date.now() + 3,
     title: 'I think I’m allergic to garlic and sunlight.',
     content: null,
     previewHtml:
@@ -83,7 +107,7 @@ I hope it’s nothing too dramatic.`,
     labels: []
   },
 {
-  id: Date.now() + 3,
+  id: Date.now() + 4,
   title: 'Buy new headphones',
   content: {
     type: "doc",
@@ -120,7 +144,7 @@ I hope it’s nothing too dramatic.`,
 },
 
   {
-    id: Date.now() + 4,
+    id: Date.now() + 5,
     title: 'Doctor appointment next week',
     content: null,
     previewHtml:
@@ -145,7 +169,7 @@ And maybe take a list of questions — otherwise I’ll forget everything the mo
   },
 
 {
-  id: Date.now() + 5,
+  id: Date.now() + 6,
   title: 'Plan weekend trip',
   content: {
     type: "doc",
@@ -254,43 +278,20 @@ If possible, run the whole thing through a grammar checker before submitting.`,
   pinned: false,
   labels: [3]
 },
-
 {
-  id: Date.now() + 7,
-  title: 'Buy house plants',
-  content: {
-    type: "doc",
-    content: [
-      {
-        type: "paragraph",
-        content: [
-          {
-            type: "text",
-            text: "Maybe add a couple of easy plants. Something low-maintenance. Check if they survive low light."
-          }
-        ]
-      },
-      {
-        type: "image",
-        attrs: {
-          src: "/demo/plants.webp",
-          alt: "House plants"
-        }
-      }
-    ]
+    id: Date.now() + 7,
+    title: 'Call to Gloria',
+    content: null,
+    previewHtml:
+      `<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam, molestias! Also need to ask her about the documents she promised last week, because the deadline is getting close and I can’t wait much longer.</p>`,
+    text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam, molestias! Also need to ask her about the documents she promised last week, because the deadline is getting close and I can’t wait much longer.',
+    status: 'active',
+    createdAt: Date.now(),
+    updatedAt: null,
+    deletedAt: null,
+    pinned: false,
+    labels: [1]
   },
-  previewHtml: `
-    <p>Maybe add a couple of easy plants. Something low-maintenance. Check if they survive low light.</p>
-    <img src="/demo/plants.webp" alt="House plants">
-  `,
-  text: 'Maybe add a couple of easy plants. Something low-maintenance. Check if they survive low light.',
-  status: 'active',
-  createdAt: Date.now(),
-  updatedAt: null,
-  deletedAt: null,
-  pinned: false,
-  labels: [2, 5, 6] // ideas + home
-},
 
   
 

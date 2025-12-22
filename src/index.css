@@ -129,7 +129,7 @@ body {
 
 @layer components {
   .btn {
-    @apply min-h-11 md:p-2 border border-gray-200 rounded-xl shadow
+    @apply min-h-11 md:py-2 border border-gray-200 rounded-xl shadow
           hover:scale-105 duration-300 w-28
           flex justify-center items-center;
   }
