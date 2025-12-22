@@ -1,10 +1,12 @@
 .stack{
   position: fixed;
   top: calc(env(safe-area-inset-top) + 12px);
-  left: 50%;
+  /* left: 50%; */
+  right: 0;
   transform: translate(-50%, -8px);
   z-index: 80;          /* достаточно, но ниже модалок если хочешь */
-  width: min(92vw, 420px);
+  /* width: min(92vw, 320px); */
+  width: min(92vw, 200px);
 
   display: flex;
   flex-direction: column;
@@ -35,4 +37,18 @@
 }
 @keyframes toastIn {
   to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 480px) {
+  .stack{
+    top: auto;
+    bottom: calc(env(safe-area-inset-bottom) + 12px);
+    left: 50%;
+    right: auto;
+    transform: translate(-50%, 8px);
+  }
+
+  .stack.show{
+    transform: translate(-50%, 0);
+  }
 }
