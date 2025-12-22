@@ -3,13 +3,13 @@
 A single-page notes application built with React.  
 The project focuses on usability, clean UI, and realistic note-management workflows.
 
-Live demo: https://notes-eta-coral.vercel.app/
+[Live demo](https://notes-eta-coral.vercel.app/)
 
 ---
-<img src="src/assets/preview.webp" alt="Notes" width="650" target="_blank"/>
+<img src="src/assets/preview.webp" alt="Notes" width="650"/>
 ## Features
 
-- Rich text editor based on TipTap
+- Text editor based on TipTap
 - Client-side routing (React Router)
 - Note states: active, archived, deleted
 - Drag and Drop
