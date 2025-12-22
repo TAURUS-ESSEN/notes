@@ -25,7 +25,7 @@ export default function NoteCardButtons({note, undo}) {
             <div className={`  ${nextStatus === 'archived' 
                 ? 'archiveToast' 
                 : nextStatus === 'active' 
-                    ? 'activeToast text-white' 
+                    ? 'activeToast' 
                     : 'trashToast'} break-all`}>
                 <strong>
                     {nextStatus === 'archived' 

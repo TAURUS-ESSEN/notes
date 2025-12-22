@@ -1,12 +1,12 @@
 .stack{
   position: fixed;
   top: calc(env(safe-area-inset-top) + 12px);
-  /* left: 50%; */
-  right: 0;
-  transform: translate(-50%, -8px);
-  z-index: 80;          /* достаточно, но ниже модалок если хочешь */
-  /* width: min(92vw, 320px); */
-  width: min(92vw, 200px);
+  right: 16px;
+
+  transform: translateY(-8px);
+  z-index: 80;
+
+  width: min(92vw, 220px);
 
   display: flex;
   flex-direction: column;
@@ -19,13 +19,13 @@
 
 .stack.show{
   opacity: 1;
-  transform: translate(-50%, 0);
+  transform: translateY(0);
 }
 
 
- .toast{
+/* ===== TOAST CARD ===== */
+.toast{
   width: 100%;
-  max-width: 100%;
   border-radius: 12px;
   box-shadow: 0 6px 18px rgba(0,0,0,.15);
   pointer-events: auto;
@@ -35,21 +35,28 @@
   transform: translateY(-6px);
   animation: toastIn .5s ease forwards;
 }
+
 @keyframes toastIn {
   to { opacity: 1; transform: translateY(0); }
 }
 
+
 @media (max-width: 480px) {
   .stack{
-      top: calc(env(safe-area-inset-top) + 12px);
-    /* top: auto; */
-    /* bottom: calc(env(safe-area-inset-bottom) + 12px); */
-    /* left: 50%; */
-    /* right: auto; */
-    /* transform: translate(-50%, 8px); */
+    top: auto;
+    right: auto;
+    left: 50%;
+    bottom: calc(env(safe-area-inset-bottom) + 16px);
+
+    /* width: min(92vw, 360px); */
+    transform: translate(-50%, 12px);
   }
 
   .stack.show{
-    /* transform: translate(-50%, 0); */
+    transform: translate(-50%, 0);
+  }
+
+  .toast{
+    transform: translateY(8px);
   }
 }
