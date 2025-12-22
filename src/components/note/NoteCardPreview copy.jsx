@@ -30,8 +30,8 @@ export default function NoteCardPreview({ note, labels }) {
           {note.title}
         </div>
         <div className="text-sm line-clamp-3 break-all text-(--text-card)">
-          {/* {note.text} */}
-          <NotePreview note={note} />
+          {note.text}
+          {/* <NotePreview note={note} /> */}
         </div>
       </div>
 

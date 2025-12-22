@@ -187,33 +187,22 @@ function App() {
     <Header onBurger={() => setSidebarOpen(true)} />
     <Outlet />
   </main>
-
-  {/* MOBILE OVERLAY */}
   {sidebarOpen && (
-<div
-  className={[
-    "fixed inset-0 z-40 lg:hidden",
-    "bg-black/40 backdrop-blur-xs",
-    "transition-opacity duration-300",
-    sidebarOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none",
-  ].join(" ")}
-  onClick={() => setSidebarOpen(false)}
-/>
-  )}
+    <>
+      {/* MOBILE OVERLAY */}
+      <div
+        className="fixed inset-0 z-40 lg:hidden bg-black/40 backdrop-blur-sm"
+        onClick={() => setSidebarOpen(false)}
+      />
 
-  {/* MOBILE DRAWER */}
-  <aside
-    className={[
-      "fixed top-0 left-0 z-50 h-screen w-[260px] max-w-[85vw]",
-      "bg-(--bg-modal) border-r border-(--border-main)",
-      "transform transition-transform duration-300 lg:hidden",
-      sidebarOpen ? "translate-x-0" : "-translate-x-full",
-    ].join(" ")}
-  >
-    <div className="h-full overflow-auto p-4">
-      <Sidebar onNavigate={() => setSidebarOpen(false)} />
-    </div>
-  </aside>
+      {/* MOBILE DRAWER */}
+      <aside className="fixed top-0 left-0 z-50 h-screen w-[260px] max-w-[85vw] bg-(--bg-modal) border-r border-(--border-main) lg:hidden">
+        <div className="h-full overflow-auto p-4">
+          <Sidebar onNavigate={() => setSidebarOpen(false)} />
+        </div>
+      </aside>
+    </>
+  )}
 </div>
 
     </DndContext>

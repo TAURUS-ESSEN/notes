@@ -21,8 +21,9 @@ export default function NotesListPage({status}) {
 
     return (
         <div className="min-h-screen w-full relative p-4 pb-20">
-            {/* <div className='flex flex-wrap gap-4 justify-center '> */}
-            <div className="grid gap-4 justify-items-center sm:justify-items-start sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4">
+            {/* <div className="mx-auto max-w-12xl"> */}
+            {/* <div className="grid gap-4 justify-items-center sm:justify-items-start sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-5  "> */}
+            <div className="grid gap-4 justify-items-center [grid-template-columns:repeat(auto-fit,minmax(235px,1fr))] ">
 
             {sortedNotes.map(note => (
                 <NoteCard key={note.id} note={note} labels={labels} undo={undo} />
@@ -39,6 +40,7 @@ export default function NotesListPage({status}) {
                     {(filter.length > 0 || (searchQuery?.trim())) && <span className='text-(--hint)'>&nbsp;Try adjusting the filter.</span> }
                 </div>
             }
+            {/* </div> */}
         {status === 'active' && <AddNewNote />} 
         </div>
     )

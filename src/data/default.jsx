@@ -40,7 +40,7 @@ export const DEFAULT_NOTES = [
   },
   previewHtml: `
     <p>Buy something for the picnic, like meat and beer. Maybe also bring a blanket because last time it was freezing. Frank said he will grill, but trust issues tell me to take some snacks just in case.</p>
-    <img src="/demo/picnic.jpg" alt="Picnic">
+    <img src="/demo/grill.webp" alt="Picnic">
   `,
   text: 'Buy something for the picnic, like meat and beer. Maybe also bring a blanket because last time it was freezing. Frank said he will grill, but trust issues tell me to take some snacks just in case.',
   status: 'active',
@@ -108,7 +108,7 @@ I hope it’s nothing too dramatic.`,
   },
   previewHtml: `
     <p>My old ones finally died. Need something noise-cancelling. Maybe Sony or Bose? Also should check for Black Friday discounts — last year prices dropped a lot, and I don’t want to overpay again. Comfort matters too.</p>
-    <img src="/demo/headphones.jpg" alt="Headphones">
+    <img src="/demo/headphone.webp" alt="Headphones">
   `,
   text: 'My old ones finally died. Need something noise-cancelling. Maybe Sony or Bose? Also should check for Black Friday discounts — last year prices dropped a lot, and I don’t want to overpay again. Comfort matters too.',
   status: 'active',
@@ -255,21 +255,44 @@ If possible, run the whole thing through a grammar checker before submitting.`,
   labels: [3]
 },
 
-
-  {
-    id: Date.now() + 7,
-    title: 'Try intermittent fasting',
-    content: null,
-    previewHtml:
-      `<p>Just a thought. Maybe from Monday. Or the next Monday. Or after the holidays. Also need to read if it’s actually healthy or just another internet trend with strong opinions and weak science.</p>`,
-    text: 'Just a thought. Maybe from Monday. Or the next Monday. Or after the holidays. Also need to read if it’s actually healthy or just another internet trend with strong opinions and weak science.',
-    status: 'active',
-    createdAt: Date.now(),
-    updatedAt: null,
-    deletedAt: null,
-    pinned: false,
-    labels: [4, 5]
+{
+  id: Date.now() + 7,
+  title: 'Buy house plants',
+  content: {
+    type: "doc",
+    content: [
+      {
+        type: "paragraph",
+        content: [
+          {
+            type: "text",
+            text: "Maybe add a couple of easy plants. Something low-maintenance. Check if they survive low light."
+          }
+        ]
+      },
+      {
+        type: "image",
+        attrs: {
+          src: "/demo/plants.webp",
+          alt: "House plants"
+        }
+      }
+    ]
   },
+  previewHtml: `
+    <p>Maybe add a couple of easy plants. Something low-maintenance. Check if they survive low light.</p>
+    <img src="/demo/plants.webp" alt="House plants">
+  `,
+  text: 'Maybe add a couple of easy plants. Something low-maintenance. Check if they survive low light.',
+  status: 'active',
+  createdAt: Date.now(),
+  updatedAt: null,
+  deletedAt: null,
+  pinned: false,
+  labels: [2, 5, 6] // ideas + home
+},
+
+  
 
 {
   id: Date.now() + 8,
@@ -386,10 +409,120 @@ Would be nice to plan something small but meaningful.`,
   updatedAt: null,
   deletedAt: Date.now(),
   pinned: false,
-  labels: []
+  labels: [2]
 }, 
+
 {
   id: Date.now() + 11,
+  title: 'Evening walk routine',
+  content: {
+    type: "doc",
+    content: [
+      {
+        type: "paragraph",
+        content: [
+          {
+            type: "text",
+            text: "Short walk every evening. No phone. Just clear the head and reset after the day."
+          }
+        ]
+      },
+      {
+        type: "image",
+        attrs: {
+          src: "/demo/walk.webp",
+          alt: "Evening walk"
+        }
+      }
+    ]
+  },
+  previewHtml: `
+    <p>Short walk every evening. No phone. Just clear the head and reset after the day.</p>
+    <img src="/demo/walk.webp" alt="Evening walk">
+  `,
+  text: 'Short walk every evening. No phone. Just clear the head and reset after the day.',
+  status: 'active',
+  createdAt: Date.now(),
+  updatedAt: null,
+  deletedAt: null,
+  pinned: false,
+  labels: [4]
+},
+{
+  id: Date.now() + 12,
+  title: 'Notes app features',
+  content: {
+    type: "doc",
+    content: [
+      { type: "paragraph", content: [{ type: "text", text: "Ideas for the app: better search, keyboard shortcuts, export to PDF, markdown mode." }] },
+      { type: "image", attrs: { src: "/demo/app.webp", alt: "App ideas" } }
+    ]
+  },
+  previewHtml: `
+    <p>Ideas for the app: better search, keyboard shortcuts, export to PDF, markdown mode.</p>
+    <img src="/demo/app.webp" alt="App ideas">
+  `,
+  text: 'Ideas for the app: better search, keyboard shortcuts, export to PDF, markdown mode.',
+  status: 'archived',
+  createdAt: Date.now(),
+  updatedAt: null,
+  deletedAt: null,
+  pinned: false,
+  labels: [5]
+},
+{
+  id: Date.now() + 13,
+  title: 'Prepare documents',
+  content: {
+    type: "doc",
+    content: [
+      {
+        type: "paragraph",
+        content: [
+          {
+            type: "text",
+            text: "Collect all documents in one folder. Scan what’s missing. Make digital backups."
+          }
+        ]
+      },
+      {
+        type: "image",
+        attrs: {
+          src: "/demo/papers.webp",
+          alt: "Coffee"
+        }
+      }
+    ]
+  },
+  previewHtml: `
+    <p>Collect all documents in one folder. Scan what’s missing. Make digital backups.</p>
+  `,
+  text: 'Collect all documents in one folder. Scan what’s missing. Make digital backups.',
+  status: 'active',
+  createdAt: Date.now(),
+  updatedAt: null,
+  deletedAt: null,
+  pinned: false,
+  labels: [3]
+},
+{
+    id: Date.now() + 14,
+    title: 'Try intermittent fasting',
+    content: null,
+    previewHtml:
+      `<p>Just a thought. Maybe from Monday. Or the next Monday. Or after the holidays. Also need to read if it’s actually healthy or just another internet trend with strong opinions and weak science.</p>`,
+    text: 'Just a thought. Maybe from Monday. Or the next Monday. Or after the holidays. Also need to read if it’s actually healthy or just another internet trend with strong opinions and weak science.',
+    status: 'active',
+    createdAt: Date.now(),
+    updatedAt: null,
+    deletedAt: null,
+    pinned: false,
+    labels: [4, 5]
+  },
+  
+
+{
+  id: Date.now() + 21,
   title: 'Minimal workspace',
   content: {
     type: "doc",
@@ -411,33 +544,101 @@ Would be nice to plan something small but meaningful.`,
   labels: [3,5]
 },
 {
-  id: Date.now() + 12,
-  title: 'Notes app features',
+  id: Date.now() + 19,
+  title: 'Update CV',
   content: {
     type: "doc",
     content: [
-      { type: "paragraph", content: [{ type: "text", text: "Ideas for the app: better search, keyboard shortcuts, export to PDF, markdown mode." }] },
-      { type: "image", attrs: { src: "/demo/app.webp", alt: "App ideas" } }
+      {
+        type: "paragraph",
+        content: [
+          {
+            type: "text",
+            text: "Update CV with recent projects and skills. Focus on clarity and structure."
+          }
+        ]
+      },
+      {
+        type: "paragraph",
+        content: [
+          {
+            type: "text",
+            text: "Remove outdated experience that no longer reflects current goals. Keep descriptions short and concrete."
+          }
+        ]
+      },
+      {
+        type: "paragraph",
+        content: [
+          {
+            type: "text",
+            text: "Make sure formatting is clean and consistent. One page only. Export to PDF and double-check spelling."
+          }
+        ]
+      }
     ]
   },
   previewHtml: `
-    <p>Ideas for the app: better search, keyboard shortcuts, export to PDF, markdown mode.</p>
-    <img src="/demo/webp.jpg" alt="App ideas">
+    <p>Update CV with recent projects and skills. Focus on clarity and structure.</p>
+    <p>Remove outdated experience that no longer reflects current goals. Keep descriptions short and concrete.</p>
+    <p>Make sure formatting is clean and consistent. One page only. Export to PDF and double-check spelling.</p>
   `,
-  text: 'Ideas for the app: better search, keyboard shortcuts, export to PDF, markdown mode.',
-  status: 'archived',
+  text: `Update CV with recent projects and skills. Focus on clarity and structure.
+Remove outdated experience that no longer reflects current goals. Keep descriptions short and concrete.
+Make sure formatting is clean and consistent. One page only. Export to PDF and double-check spelling.`,
+  status: 'active',
   createdAt: Date.now(),
   updatedAt: null,
   deletedAt: null,
   pinned: false,
-  labels: [5]
+  labels: [3]
 },
+{
+  id: Date.now() + 22,
+  title: 'Walk the neighbor’s dog',
+  content: {
+    type: "doc",
+    content: [
+      {
+        type: "paragraph",
+        content: [
+          {
+            type: "text",
+            text: "Walk the neighbor’s dog in the evening. Take a longer route if the weather is good."
+          }
+        ]
+      },
+      {
+        type: "paragraph",
+        content: [
+          {
+            type: "text",
+            text: "Remember to bring water and treats. Ask in advance what time works best."
+          }
+        ]
+      }
+    ]
+  },
+  previewHtml: `
+    <p>Walk the neighbor’s dog in the evening. Take a longer route if the weather is good.</p>
+    <p>Remember to bring water and treats. Ask in advance what time works best.</p>
+  `,
+  text: `Walk the neighbor’s dog in the evening. Take a longer route if the weather is good.
+Remember to bring water and treats. Ask in advance what time works best.`,
+  status: 'deleted',
+  createdAt: Date.now(),
+  updatedAt: null,
+  deletedAt: Date.now(),
+  pinned: false,
+  labels: []
+}
+
 ];
 
 
 export const DEFAULT_LABELS = [
     {id: 1, name: 'calls', color: 'indigo'},
-    {id: 2, name: 'date', color: 'amber'},
+    {id: 2, name: 'buy', color: 'amber'},
     {id: 3, name: 'work', color: 'blue'},
     {id: 4, name: 'health', color: 'green'},
     {id: 5, name: 'ideas', color: 'rose'},
