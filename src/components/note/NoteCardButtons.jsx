@@ -22,10 +22,10 @@ export default function NoteCardButtons({note, undo}) {
 
         const toastId = Date.now() + Math.random();
         setToasts(prev=>([...prev, {toastId, message: (
-            <div className={`${nextStatus === 'archived' 
+            <div className={`  ${nextStatus === 'archived' 
                 ? 'archiveToast' 
                 : nextStatus === 'active' 
-                    ? 'activeToast' 
+                    ? 'activeToast text-white' 
                     : 'trashToast'} break-all`}>
                 <strong>
                     {nextStatus === 'archived' 

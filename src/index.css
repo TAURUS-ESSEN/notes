@@ -129,11 +129,13 @@ body {
 
 @layer components {
   .btn,
-  .undoBtn {
+  /* .undoBtn {
     @apply min-h-11 md:p-2 border border-gray-200 rounded-xl shadow
           hover:scale-105 duration-300 w-28
           flex justify-center items-center;
-  }
+  } */
+
+  
 
    .editorBtn {
     @apply border-(--border-main) w-10 rounded;
@@ -167,14 +169,14 @@ body {
   .deletedToast,
   .archiveToast,
   .trashToast {
-    @apply flex flex-col justify-center items-center p-2 rounded-xl text-sm text-center opacity-85;
+    @apply flex flex-col justify-start items-start p-4 rounded-xl text-sm opacity-85 md:opacity-75;
   }
 
   .activeToast {
-    @apply bg-green-600;
+    @apply bg-green-500;
   }
   .archiveToast {
-    @apply bg-yellow-600;
+    @apply bg-yellow-400;
   }
   .trashToast {
     @apply bg-red-300;
@@ -193,7 +195,7 @@ body {
     @apply bg-(--bg-card) rounded-xl p-5 w-full max-w-[360px] relative
           hover:scale-105 duration-300 shadow-(--shadow)
           flex flex-col justify-around hover:shadow-(--shadow-hover)
-          min-h-[260px];
+          md:min-h-[260px];
   }
 
   .notePreview {
@@ -322,4 +324,33 @@ body {
   .mainScroll {
     @apply flex-1 h-screen overflow-auto border-l border-(--border-main);
   }
+}
+
+
+/* внутри toast message */
+.undoBtn{
+  margin-top: 14px;
+  width: 100%;
+  height: 34px;
+
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.12);
+
+  background: rgba(255,255,255,.10);
+  color: rgba(255,255,255,.92);
+
+  font-weight: 700;
+  letter-spacing: .02em;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  cursor: pointer;
+  transition: transform .12s ease, background .12s ease;
+}
+
+.undoBtn:active{
+  transform: scale(.98);
 }

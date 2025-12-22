@@ -41,14 +41,15 @@
 
 @media (max-width: 480px) {
   .stack{
-    top: auto;
-    bottom: calc(env(safe-area-inset-bottom) + 12px);
-    left: 50%;
-    right: auto;
-    transform: translate(-50%, 8px);
+      top: calc(env(safe-area-inset-top) + 12px);
+    /* top: auto; */
+    /* bottom: calc(env(safe-area-inset-bottom) + 12px); */
+    /* left: 50%; */
+    /* right: auto; */
+    /* transform: translate(-50%, 8px); */
   }
 
   .stack.show{
-    transform: translate(-50%, 0);
+    /* transform: translate(-50%, 0); */
   }
 }
