@@ -1,7 +1,7 @@
 import { useAppContext } from "./AppContext"
 
 export default function Filter({mode}) {
-    const {sortBy, setSortBy} = useAppContext();
+    const {setSortBy} = useAppContext();
 
     return (
         <div className="p-2 flex">
@@ -12,8 +12,6 @@ export default function Filter({mode}) {
                 <option value={'az'}>A-z</option>
                 <option value={'za'}>z-A</option>
             </select>  
-            {/* {mode}:{sortBy[mode]}  */}
-            
         </div>
     )
 }

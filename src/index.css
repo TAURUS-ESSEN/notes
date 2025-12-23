@@ -99,18 +99,10 @@ body {
   background: var(--bg-app);
 }
 
-/* aside {
-  width: auto;
-  flex: 0 0 250px;
-  position: sticky;
-  top: 0;
-  height: 100vh;
-  overflow: auto;
-} */
-  header {
-   @apply sticky top-0 z-40 md:static md:z-auto  ;
-    background: var(--bg-app);
-  }
+header {
+  @apply sticky top-0 z-40 md:static md:z-auto  ;
+  background: var(--bg-app);
+}
 
 @layer base {
   button {
@@ -136,7 +128,7 @@ body {
 
   .undoBtn{
   @apply mt-1 w-full h-[34px] rounded-full border border-white/10
-     bg-white/30 text-(--text-default) font-semibold tracking-wide
+    bg-white/30 text-(--text-default) font-semibold tracking-wide
     flex items-center justify-center gap-2
     cursor-pointer transition active:scale-[0.98];
   }
@@ -264,16 +256,15 @@ body {
   .ProseMirror {
     @apply w-full min-h-[200px] outline-none;
   }
-
-  .ProseMirror img {
-    @apply max-w-full h-auto rounded-lg;
-  }
+.ProseMirror img {
+  @apply block max-w-full rounded-lg max-h-[280px];
+  object-fit: contain;
+  margin: 0.5rem auto;
+}
 
   .notePreviewHtml img {
     @apply max-w-full h-auto rounded-md;
   }
-
-
 }
 
 @layer utilities {
@@ -329,5 +320,3 @@ body {
     @apply flex-1 h-screen overflow-auto border-l border-(--border-main);
   }
 }
-
- 

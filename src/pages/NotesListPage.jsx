@@ -38,7 +38,6 @@ export default function NotesListPage({status}) {
                     {(filter.length > 0 || (searchQuery?.trim())) && <span className='text-(--hint)'>&nbsp;Try adjusting the filter.</span> }
                 </div>
             }
-            {/* </div> */}
         {status === 'active' && <AddNewNote />} 
         </div>
     )

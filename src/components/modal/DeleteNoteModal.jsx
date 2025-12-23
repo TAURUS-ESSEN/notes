@@ -42,7 +42,7 @@ export default function DeleteNoteModal() {
             <Modal title={`Delete this note: ${findNoteName(modal.noteId)}...`} closeModal={closeModal}>
                 <form onSubmit={onSubmit} className='bg-white flex flex-col text-lg rounded-xl' >
                     <div className='flex justify-center items-center text-xl m-auto max-w-80 text-center'> 
-                        Do you really want to delete this note?
+                        Do you really want to delete this note? 
                     </div>
                     <div className='flex justify-around gap-4 p-4 mt-1'>
                         <button 

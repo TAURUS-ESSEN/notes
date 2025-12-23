@@ -11,11 +11,8 @@ export default function SearchOverlay({
   useEffect(() => {
     if (!open) return;
 
-    // disable body scroll
     const prev = document.body.style.overflow;
     document.body.style.overflow = "hidden";
-
-    // focus
     requestAnimationFrame(() => inputRef.current?.focus());
 
     const onKey = (e) => {

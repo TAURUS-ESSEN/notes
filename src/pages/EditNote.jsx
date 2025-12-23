@@ -7,13 +7,27 @@ import { useAppContext } from "../components/AppContext";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faThumbTack } from '@fortawesome/free-solid-svg-icons';
 import EditorToolbar from "../components/EditorToolbar";
+import EditNoteActions from "../components/note/EditNoteActions";
 
 export default function EditNote() {
     const { noteId} = useParams();
     const id = Number(noteId);
     const navigate = useNavigate();
     const {labels, notes, setNotes, setToasts, openModal} = useAppContext();
-    const note = notes.find(n=>n.id === id) ?? null;;
+    const realNote = notes.find(n => n.id === id) ?? null;
+
+    const note = realNote ?? {
+        id,
+        title: "",
+        text: "",
+        content: null,
+        pinned: false,
+        labels: [],
+        status: "deleted", 
+        deletedAt: null,
+    };
+
+    
     const [title, setTitle] = useState(note.title);
     const [text, setText] = useState(note.text);
     const initialContent =
@@ -59,6 +73,10 @@ export default function EditNote() {
             </div>
         )}])) 
         navigate(-1);
+    }
+
+    const onCancel = () => {
+        navigate(-1)
     }
 
     const restore = () => {
@@ -151,11 +169,11 @@ export default function EditNote() {
                             className="inline-flex items-center gap-1 px-1 py-0.5 cursor-pointer text-base "
                         >
                             <input
-                            type="checkbox"
-                            checked={editLabels.includes(label.id)}
-                            onChange={() => toggleLabels(label.id)}
-                            className="form-checkbox h-4 w-4 align-middle"
-                            disabled={note.status === 'deleted'}
+                                type="checkbox"
+                                checked={editLabels.includes(label.id)}
+                                onChange={() => toggleLabels(label.id)}
+                                className="form-checkbox h-4 w-4 align-middle"
+                                disabled={note.status === 'deleted'}
                             />
                             <span className="leading-none">
                             {label.name.length > 15 ? label.name.slice(0, 15) + '...' : label.name}
@@ -163,74 +181,7 @@ export default function EditNote() {
                         </label>
                         ))}
                 </div>
-                
-                <div className='flex justify-around gap-4 lg:gap-10 mt-6 mb-4 flex-wrap '>
-                    <button 
-                        type='button' 
-                        className='btn relative group hover:bg-gray-200 ' 
-                        onClick={()=>navigate(-1)} 
-                        title="Cancel editing"
-                    > 
-                        Cancel <span className="hotkey ">(Esc)</span>
-                    </button>
-
-                    {(note.status === 'deleted' || note.status === 'archived') &&
-                    <button 
-                        type='button' 
-                        className='btn group hover:bg-green-600 hover:text-white ' 
-                        onClick={restore} 
-                        title="Restore note"
-                    > 
-                        Restore
-                        <span className="text-xs text-gray-500 ml-1 group-hover:text-white ">
-                            (Alt+W)
-                        </span>
-                    </button>}
-
-                    { note.status !== 'archived' && note.status !== 'deleted' &&
-                    <button 
-                        type='button' 
-                        className='btn hover:bg-amber-300' 
-                        onClick={archive} 
-                        title="Archive note">  
-                        Archive <span className="hotkey">(Alt+A)</span>
-                    </button>}
-
-                    { note.status !== 'deleted' &&
-                    <button 
-                        type='button' 
-                        onClick={toTrash}
-                        className='btn group hover:bg-red-500 hover:text-white' 
-                        title="Delete note"
-                    >
-                        Delete 
-                        <span className="text-xs text-gray-500 ml-1 group-hover:text-white ">
-                            (Alt+D)
-                        </span>
-                    </button>}
-                    
-                    { note.status === 'deleted' &&
-                    <button 
-                        type='button' 
-                        className='btn group bg-red-600 text-white w-35' 
-                        onClick={()=>deleteNote(id)} 
-                        title="Delete forever"
-                    > 
-                        <div className="flex flex-col items-center leading-tight">
-                            <span className="text-base font-medium">Delete forever</span>
-                            <span className="text-xs opacity-70">(Alt+Shift+D)</span>
-                        </div>
-                    </button>}
-                    
-                    { note.status !== 'deleted' &&
-                        <button 
-                            type='submit' 
-                            className='btn apply order-first md:order-4' 
-                            title="Save changes (Alt+S)"
-                        >
-                            Update <span className=" text-xs ml-1 text-white">(Alt+S)</span>
-                        </button>}
-                </div>
+                <EditNoteActions note={note} restore={restore} onCancel={onCancel} archive={archive} toTrash={toTrash} deleteNote={deleteNote} id={id}/>
             </form>
         </div>
     );

@@ -3,7 +3,7 @@ import { useLocation, useParams } from "react-router-dom";
 import Filter from "./Filter";
 import { useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faMagnifyingGlass, faMoon, faSun, faTrashCan } from '@fortawesome/free-solid-svg-icons';
+import { faMagnifyingGlass, faMoon, faSun } from '@fortawesome/free-solid-svg-icons';
 import SearchOverlay from "./SearchOverlay";
 
 export default function Header({onBurger}) {
@@ -103,11 +103,11 @@ export default function Header({onBurger}) {
                 </div>
             </div>
             <SearchOverlay
-        open={searchOpen}
-        value={searchQuery}
-        onChange={(v) => setSearchQuery(v.slice(0, 50))}
-        onClose={() => setSearchOpen(false)}
-      />
+                open={searchOpen}
+                value={searchQuery}
+                onChange={(v) => setSearchQuery(v.slice(0, 50))}
+                onClose={() => setSearchOpen(false)}
+            />
         </header>
     );
 }
