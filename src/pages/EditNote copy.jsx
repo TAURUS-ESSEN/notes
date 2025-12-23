@@ -89,39 +89,52 @@ export default function EditNote() {
         navigate(-1)
     }
 
-    const changeStatus = (status) => {
-        setNotes(prev =>
-            prev.map(n => {
-            if (n.id !== id) return n;
-
-            if (status === 'active') {
-                return { ...n, status: 'active', deletedAt: null };
-            }
-
-            if (status === 'archived') {
-                return { ...n, status: 'archived', pinned: false };
-            }
-
-            return { ...n, status: 'deleted', pinned: false, deletedAt: Date.now() };
-            })
-        );
-
-        if (status !== 'active') setPin(false);
-
+    const restore = () => {
+        setNotes(prev=>prev.map(n => n.id === id ?  {...n, status: 'active', deletedAt: null} : n))
         const toastId = Date.now() + Math.random();
-        setToasts(prev => ([
-            ...prev,
-            {
-            toastId,
-            message: (
-                <div className={toastStatus[status]}>
-                <span>Note <b>"{title}"</b> was {statusText[status]}</span>
-                </div>
-            )
-            }
-        ]));
-        };
+        setToasts(prev=>([...prev, {toastId, message: (
+            <div className='activeToast'>
+                <span> Note {title} was restored</span>
+            </div>
+        )}])) 
+    }
 
+    const changeStatus = (status) => {
+        status === 'active' 
+        ? setNotes(prev=>prev.map(n => n.id === id ?  {...n, status, deletedAt: null} : n))
+        : status === 'archived' 
+            ? setNotes(prev=>prev.map(n => n.id === id ?  {...n, status: 'archived', pinned: false} : n))
+            : setNotes(prev=>prev.map(n => n.id === id ?  {...n, status: 'deleted', pinned: false, deletedAt: Date.now()} : n))
+        setPin(false)
+        const toastId = Date.now() + Math.random();
+        setToasts(prev=>([...prev, {toastId, message: (
+            <div className={toastStatus[status]}>
+                <span> Note <b>"{title}"</b> was {statusText[status]}</span>
+            </div>
+        )}])) 
+    }
+
+    const archive = () => {
+        setNotes(prev=>prev.map(n => n.id === id ?  {...n, status: 'archived', pinned: false} : n))
+        setPin(false);
+        const toastId = Date.now() + Math.random();
+        setToasts(prev=>([...prev, {toastId, message: (
+            <div className='archiveToast'>
+                <span> Note {title} was archived</span>
+            </div>
+        )}])) 
+    }
+
+    const toTrash = () => {
+        setNotes(prev=>prev.map(n => n.id === id ?  {...n, status: 'deleted', pinned: false, deletedAt: Date.now()} : n))
+        setPin(false);
+        const toastId = Date.now() + Math.random();
+        setToasts(prev=>([...prev, {toastId, message: (
+            <div className='deletedToast'>
+                <span> Note {title} was deleted</span>
+            </div>
+        )}])) 
+    }
 
     const deleteNote = (id) => {
         openModal('deleteNote', Number(id))
@@ -134,9 +147,9 @@ export default function EditNote() {
     useEffect(()=> {
         const onKey = (e) => {
             if (e.altKey && e.key.toLowerCase() === "s") { onSubmit(e) }
-            if ((e.altKey && e.key.toLowerCase() === "a") && (note.status!=='archived'))  { changeStatus('archived') }
-            if ((e.altKey && e.key.toLowerCase() === "w") && (note.status!=='active'))  { changeStatus('active') }
-            if ((e.altKey && e.key.toLowerCase() === "d") && (note.status!=='deleted'))  { changeStatus('deleted')}
+            if ((e.altKey && e.key.toLowerCase() === "a") && (note.status!=='archived'))  { archive() }
+            if ((e.altKey && e.key.toLowerCase() === "w") && (note.status!=='active'))  { restore() }
+            if ((e.altKey && e.key.toLowerCase() === "d") && (note.status!=='deleted'))  { toTrash()}
             if ((e.altKey && e.shiftKey && e.key.toLowerCase() === "d") && (note.status==='deleted'))  { deleteNote(id)}
             if (e.key === "Escape")  { navigate(-1) }
         }

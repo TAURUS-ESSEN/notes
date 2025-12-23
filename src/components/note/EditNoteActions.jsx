@@ -1,4 +1,4 @@
-export default function EditNoteActions({note, onCancel, restore, archive, toTrash, deleteNote, id}) {
+export default function EditNoteActions({note, changeStatus, onCancel, deleteNote}) {
     return (
         <>
 <div className='flex justify-around gap-4 lg:gap-10 mt-6 mb-4 flex-wrap '>
@@ -15,7 +15,7 @@ export default function EditNoteActions({note, onCancel, restore, archive, toTra
                     <button 
                         type='button' 
                         className='btn group hover:bg-green-600 hover:text-white ' 
-                        onClick={restore} 
+                        onClick={()=>changeStatus('active')} 
                         title="Restore note"
                     > 
                         Restore
@@ -28,7 +28,7 @@ export default function EditNoteActions({note, onCancel, restore, archive, toTra
                     <button 
                         type='button' 
                         className='btn hover:bg-amber-300' 
-                        onClick={archive} 
+                        onClick={()=>changeStatus('archived')} 
                         title="Archive note">  
                         Archive <span className="hotkey">(Alt+A)</span>
                     </button>}
@@ -36,7 +36,7 @@ export default function EditNoteActions({note, onCancel, restore, archive, toTra
                     { note.status !== 'deleted' &&
                     <button 
                         type='button' 
-                        onClick={toTrash}
+                        onClick={()=>changeStatus('deleted')} 
                         className='btn group hover:bg-red-500 hover:text-white' 
                         title="Delete note"
                     >

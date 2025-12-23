@@ -70,7 +70,7 @@ export default function Header({onBurger}) {
                     <Filter mode={routeToStatus[thisPage]} />
                 )}
             </div> 
-            <div className="w-full  ">
+            <div className="w-full flex justify-center">
                 <h1 className="text-lg md:text-2xl text-(--headerTitle) font-semibold ">
                     {title}
                 </h1>
